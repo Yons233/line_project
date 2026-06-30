@@ -1,0 +1,76 @@
+/* LINE Theme — Estilos globales complementarios */
+/* Los tokens están en snippets/css-variables.liquid */
+
+/* ── Botones globales ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-8);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: transform var(--duration-fast) var(--ease-out-expo),
+              box-shadow var(--duration-fast) var(--ease-out-expo),
+              background var(--duration-fast);
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--champagne-1);
+  outline-offset: 3px;
+}
+
+.btn--primary {
+  background: var(--ink);
+  color: var(--cream-0);
+}
+.btn--primary:hover {
+  background: #1a1612;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn--secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
+}
+.btn--secondary:hover {
+  background: var(--ink);
+  color: var(--cream-0);
+  transform: translateY(-1px);
+}
+
+.btn--champagne {
+  background: var(--gradient-champagne);
+  color: var(--ink);
+}
+.btn--champagne:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(189,151,99,0.35);
+}
+
+/* ── Skip to content ── */
+.skip-to-content {
+  position: fixed;
+  top: var(--space-4);
+  left: var(--space-4);
+  z-index: 10000;
+  background: var(--ink);
+  color: var(--cream-0);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  transform: translateY(-200%);
+  transition: transform var(--duration-fast);
+}
+.skip-to-content:focus {
+  transform: translateY(0);
+}

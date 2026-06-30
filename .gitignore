@@ -1,0 +1,25 @@
+# Shopify CLI
+.shopify/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Editor
+.vscode/settings.json
+.idea/
+*.sublime-workspace
+
+# Build artifacts
+*.log
+
+# Environment
+.env
+.env.local

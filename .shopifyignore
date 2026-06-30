@@ -1,0 +1,11 @@
+# Ignorar del push/pull hacia Shopify
+.git/
+.gitignore
+.shopifyignore
+shopify.theme.toml
+CLAUDE.md
+*.md
+node_modules/
+.env
+.env.*
+*.log

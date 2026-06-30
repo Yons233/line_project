@@ -1,0 +1,314 @@
+{% stylesheet %}
+.line-cat {
+  padding-block: var(--space-24);
+  background: var(--cream-1);
+}
+
+.line-cat__header {
+  text-align: center;
+  margin-bottom: var(--space-16);
+}
+.line-cat__label {
+  display: inline-block;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--champagne-1);
+  margin-bottom: var(--space-4);
+}
+.line-cat__title {
+  font-size: clamp(var(--text-3xl), 4vw, var(--text-5xl));
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  max-width: 480px;
+  margin-inline: auto;
+}
+.line-cat__subtitle {
+  margin-top: var(--space-4);
+  font-size: var(--text-base);
+  color: var(--ink-soft);
+  max-width: 420px;
+  margin-inline: auto;
+}
+
+/* Grid */
+.line-cat__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+@media (max-width: 900px) {
+  .line-cat__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .line-cat__grid { grid-template-columns: 1fr; gap: var(--space-3); }
+}
+
+/* Tarjeta */
+.line-cat__card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--cream-2);
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  /* Estado inicial para GSAP */
+  opacity: 0;
+  transform: translateY(40px);
+}
+.line-cat__card.is-animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.line-cat__card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out-expo);
+}
+.line-cat__card:hover .line-cat__card-img {
+  transform: scale(1.05);
+}
+
+.line-cat__card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(42,36,30,0.70) 0%, transparent 55%);
+  transition: opacity var(--duration-base);
+}
+.line-cat__card:hover .line-cat__card-overlay {
+  opacity: 0.9;
+}
+
+.line-cat__card-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-6);
+  color: var(--cream-0);
+}
+.line-cat__card-name {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-1);
+}
+.line-cat__card-desc {
+  font-size: var(--text-xs);
+  opacity: 0.8;
+  margin-bottom: var(--space-3);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.line-cat__card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--champagne-2);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition:
+    opacity var(--duration-base) var(--ease-out-expo),
+    transform var(--duration-base) var(--ease-out-expo);
+}
+.line-cat__card:hover .line-cat__card-cta,
+.line-cat__card:focus-visible .line-cat__card-cta {
+  opacity: 1;
+  transform: translateX(0);
+}
+.line-cat__card-cta svg {
+  width: 14px;
+  height: 14px;
+}
+
+.line-cat__card:focus-visible {
+  outline: 2px solid var(--champagne-1);
+  outline-offset: 2px;
+}
+{% endstylesheet %}
+
+{%- assign default_categories = "Belleza,Skincare,Recuperación,Sueño,Postura,Relajación" | split: "," -%}
+
+<section
+  class="line-cat"
+  id="line-cat-{{ section.id }}"
+  aria-labelledby="cat-title-{{ section.id }}"
+>
+  <div class="container">
+
+    <header class="line-cat__header">
+      {%- if section.settings.label != blank -%}
+        <p class="line-cat__label">{{ section.settings.label }}</p>
+      {%- endif -%}
+      <h2 class="line-cat__title" id="cat-title-{{ section.id }}">{{ section.settings.title }}</h2>
+      {%- if section.settings.subtitle != blank -%}
+        <p class="line-cat__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+    </header>
+
+    <div class="line-cat__grid" role="list">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'category' -%}
+          <a
+            href="{{ block.settings.url | default: routes.collections_url }}"
+            class="line-cat__card"
+            role="listitem"
+            {{ block.shopify_attributes }}
+            aria-label="{{ block.settings.name }}"
+          >
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 800
+                | image_tag:
+                  class: 'line-cat__card-img',
+                  loading: 'lazy',
+                  alt: block.settings.name,
+                  widths: '400,600,800',
+                  sizes: '(max-width: 560px) 100vw, (max-width: 900px) 50vw, 33vw'
+              }}
+            {%- else -%}
+              <div class="line-cat__card-img" style="background: var(--cream-2);"></div>
+            {%- endif -%}
+
+            <div class="line-cat__card-overlay" aria-hidden="true"></div>
+
+            <div class="line-cat__card-body">
+              <p class="line-cat__card-desc">{{ block.settings.description }}</p>
+              <p class="line-cat__card-name">{{ block.settings.name }}</p>
+              <span class="line-cat__card-cta" aria-hidden="true">
+                {{ 'sections.categories.explore' | t }}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% javascript %}
+(function () {
+  if (!window.LINE) return;
+
+  var grid = document.querySelector('#line-cat-{{ section.id }} .line-cat__grid');
+  if (!grid) return;
+
+  window.LINE.registerAnim(
+    grid,
+    function (el) {
+      if (!window.gsap || !window.ScrollTrigger) return;
+
+      window.gsap.registerPlugin(window.ScrollTrigger);
+
+      var cards = el.querySelectorAll('.line-cat__card');
+
+      window.gsap.to(cards, {
+        opacity: 1,
+        y: 0,
+        duration: 0.75,
+        stagger: 0.10,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 80%',
+          once: true,
+        },
+        onComplete: function () {
+          cards.forEach(function (c) { c.classList.add('is-animated'); });
+        },
+      });
+    },
+    ['gsap', 'ScrollTrigger'],
+    '100px'
+  );
+})();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Categorías",
+  "tag": "section",
+  "class": "section-categorias",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "default": "Nuestra gama",
+      "label": "Etiqueta"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Encuentra tu bienestar",
+      "label": "Título"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "default": "Explora las categorías y encuentra el producto perfecto para ti.",
+      "label": "Subtítulo"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Categoría",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "default": "Belleza",
+          "label": "Nombre"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "default": "Cuidado personal",
+          "label": "Descripción breve"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Enlace a colección"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Categorías",
+      "blocks": [
+        { "type": "category", "settings": { "name": "Belleza",       "description": "Cuidado personal" } },
+        { "type": "category", "settings": { "name": "Skincare",      "description": "Rutina de piel" } },
+        { "type": "category", "settings": { "name": "Recuperación",  "description": "Alivio y recuperación" } },
+        { "type": "category", "settings": { "name": "Sueño",         "description": "Descanso profundo" } },
+        { "type": "category", "settings": { "name": "Postura",       "description": "Corrección postural" } },
+        { "type": "category", "settings": { "name": "Relajación",    "description": "Bienestar mental" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

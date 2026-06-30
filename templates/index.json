@@ -1,0 +1,72 @@
+{
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {
+        "menu": "main-menu",
+        "show_search": true
+      }
+    },
+    "hero": {
+      "type": "hero-line",
+      "blocks": {
+        "trust-1": {
+          "type": "trust_item",
+          "settings": { "text": "Envío a todo el país" }
+        },
+        "trust-2": {
+          "type": "trust_item",
+          "settings": { "text": "Pago seguro" }
+        },
+        "trust-3": {
+          "type": "trust_item",
+          "settings": { "text": "Garantía de satisfacción" }
+        }
+      },
+      "block_order": ["trust-1", "trust-2", "trust-3"],
+      "settings": {
+        "label": "Bienestar para tu día a día",
+        "title_line_1": "Descansa mejor.",
+        "title_line_2": "Muévete sin dolor.",
+        "title_line_3": "Siéntete bien.",
+        "subtitle": "Una selección de productos de bienestar pensados para verse bien, sentirse mejor y vivir con más comodidad.",
+        "btn1_label": "Descubrir la colección",
+        "btn2_label": "Explorar productos",
+        "show_particles": true,
+        "particle_count": 120,
+        "particle_color": "#e7d3b3",
+        "particle_size": 1.2
+      }
+    },
+    "categorias": {
+      "type": "categorias",
+      "blocks": {
+        "cat-1": { "type": "category", "settings": { "name": "Belleza",      "description": "Cuidado personal" } },
+        "cat-2": { "type": "category", "settings": { "name": "Skincare",     "description": "Rutina de piel" } },
+        "cat-3": { "type": "category", "settings": { "name": "Recuperación", "description": "Alivio y recuperación" } },
+        "cat-4": { "type": "category", "settings": { "name": "Sueño",        "description": "Descanso profundo" } },
+        "cat-5": { "type": "category", "settings": { "name": "Postura",      "description": "Corrección postural" } },
+        "cat-6": { "type": "category", "settings": { "name": "Relajación",   "description": "Bienestar mental" } }
+      },
+      "block_order": ["cat-1","cat-2","cat-3","cat-4","cat-5","cat-6"],
+      "settings": {
+        "label": "Nuestra gama",
+        "title": "Encuentra tu bienestar",
+        "subtitle": "Explora las categorías y encuentra el producto perfecto para ti."
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "col-1": { "type": "link_column", "settings": { "title": "Productos" } },
+        "col-2": { "type": "link_column", "settings": { "title": "Ayuda" } },
+        "col-3": { "type": "link_column", "settings": { "title": "Empresa" } }
+      },
+      "block_order": ["col-1","col-2","col-3"],
+      "settings": {
+        "description": "Productos de bienestar pensados para tu día a día. Calidad, comodidad y estilo."
+      }
+    }
+  },
+  "order": ["header", "hero", "categorias", "footer"]
+}

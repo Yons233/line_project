@@ -1,0 +1,405 @@
+{% stylesheet %}
+.line-hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: calc(-1 * var(--header-h));
+  padding-top: calc(var(--header-h) + var(--space-16));
+  padding-bottom: var(--space-16);
+  background-color: var(--cream-0);
+}
+
+/* Imagen de fondo */
+.line-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.line-hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.line-hero__bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(247,242,234,0.82) 0%,
+    rgba(239,231,218,0.55) 50%,
+    rgba(247,242,234,0.30) 100%
+  );
+}
+
+/* Partículas (posicionadas sobre la imagen, detrás del texto) */
+.line-hero__particles-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Contenido */
+.line-hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+  display: grid;
+  gap: var(--space-6);
+}
+
+.line-hero__label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--champagne-1);
+}
+.line-hero__label::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: var(--champagne-1);
+  flex-shrink: 0;
+}
+
+.line-hero__title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  max-width: 700px;
+}
+.line-hero__title-line {
+  display: block;
+}
+.line-hero__title-line--gradient {
+  background: var(--gradient-champagne);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.line-hero__subtitle {
+  font-size: clamp(var(--text-base), 1.5vw, var(--text-lg));
+  color: var(--ink-soft);
+  line-height: 1.7;
+  max-width: 520px;
+}
+
+/* Botones */
+.line-hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+/* Franja de confianza (trust bar) */
+.line-hero__trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  align-items: center;
+  padding-top: var(--space-4);
+  border-top: 1px solid rgba(42,36,30,0.10);
+  margin-top: var(--space-4);
+}
+.line-hero__trust-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.line-hero__trust-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--champagne-1);
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .line-hero__title {
+    letter-spacing: -0.02em;
+  }
+  .line-hero__trust {
+    gap: var(--space-4);
+  }
+}
+{% endstylesheet %}
+
+<section
+  class="line-hero"
+  id="line-hero-{{ section.id }}"
+  aria-labelledby="hero-title-{{ section.id }}"
+>
+
+  <!-- Imagen de fondo -->
+  <div class="line-hero__bg" aria-hidden="true">
+    {%- if section.settings.bg_image != blank -%}
+      {{
+        section.settings.bg_image
+        | image_url: width: 1920
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          alt: '',
+          widths: '768,1024,1440,1920',
+          sizes: '100vw'
+      }}
+    {%- endif -%}
+    <div class="line-hero__bg-overlay"></div>
+  </div>
+
+  <!-- Partículas 3D (lazy, solo desktop) -->
+  {%- if section.settings.show_particles -%}
+    <div class="line-hero__particles-wrap">
+      {%- render 'particles-3d',
+          particle_count: section.settings.particle_count,
+          particle_color: section.settings.particle_color,
+          particle_size: section.settings.particle_size,
+          section_id: section.id
+      -%}
+    </div>
+  {%- endif -%}
+
+  <!-- Contenido -->
+  <div class="line-hero__content">
+
+    {%- if section.settings.label != blank -%}
+      <p class="line-hero__label">{{ section.settings.label }}</p>
+    {%- endif -%}
+
+    <h1
+      class="line-hero__title"
+      id="hero-title-{{ section.id }}"
+    >
+      {%- if section.settings.title_line_1 != blank -%}
+        <span class="line-hero__title-line">{{ section.settings.title_line_1 }}</span>
+      {%- endif -%}
+      {%- if section.settings.title_line_2 != blank -%}
+        <span class="line-hero__title-line">{{ section.settings.title_line_2 }}</span>
+      {%- endif -%}
+      {%- if section.settings.title_line_3 != blank -%}
+        <span class="line-hero__title-line line-hero__title-line--gradient">{{ section.settings.title_line_3 }}</span>
+      {%- endif -%}
+    </h1>
+
+    {%- if section.settings.subtitle != blank -%}
+      <p class="line-hero__subtitle">{{ section.settings.subtitle }}</p>
+    {%- endif -%}
+
+    <!-- Botones -->
+    <div class="line-hero__cta">
+      {%- if section.settings.btn1_label != blank -%}
+        <a href="{{ section.settings.btn1_url }}" class="btn btn--primary">
+          {{ section.settings.btn1_label }}
+        </a>
+      {%- endif -%}
+      {%- if section.settings.btn2_label != blank -%}
+        <a href="{{ section.settings.btn2_url }}" class="btn btn--secondary">
+          {{ section.settings.btn2_label }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <!-- Franja de confianza (blocks) -->
+    {%- if section.blocks.size > 0 -%}
+      <div class="line-hero__trust" aria-label="{{ 'sections.hero.trust_label' | t }}">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'trust_item' -%}
+            <div class="line-hero__trust-item" {{ block.shopify_attributes }}>
+              <svg class="line-hero__trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5"/>
+              </svg>
+              {{ block.settings.text }}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% javascript %}
+(function () {
+  // Registrar animación de entrada del contenido del hero
+  if (!window.LINE) return;
+
+  var section = document.getElementById('line-hero-{{ section.id }}');
+  if (!section) return;
+
+  window.LINE.registerAnim(
+    section,
+    function (el) {
+      if (!window.gsap) return;
+      var content = el.querySelector('.line-hero__content');
+      var children = content ? content.children : [];
+      window.gsap.from(children, {
+        opacity: 0,
+        y: 30,
+        duration: 0.9,
+        stagger: 0.12,
+        ease: 'power3.out',
+        clearProps: 'all',
+      });
+    },
+    ['gsap'],
+    '0px'
+  );
+})();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Hero LINE",
+  "tag": "section",
+  "class": "section-hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Contenido"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "default": "Bienestar para tu día a día",
+      "label": "Etiqueta sobre el título"
+    },
+    {
+      "type": "text",
+      "id": "title_line_1",
+      "default": "Descansa mejor.",
+      "label": "Título — línea 1"
+    },
+    {
+      "type": "text",
+      "id": "title_line_2",
+      "default": "Muévete sin dolor.",
+      "label": "Título — línea 2"
+    },
+    {
+      "type": "text",
+      "id": "title_line_3",
+      "default": "Siéntete bien.",
+      "label": "Título — línea 3 (degradado champán)"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "default": "Una selección de productos de bienestar pensados para verse bien, sentirse mejor y vivir con más comodidad.",
+      "label": "Subtítulo"
+    },
+    {
+      "type": "header",
+      "content": "Botones"
+    },
+    {
+      "type": "text",
+      "id": "btn1_label",
+      "default": "Descubrir la colección",
+      "label": "Botón 1 — texto"
+    },
+    {
+      "type": "url",
+      "id": "btn1_url",
+      "label": "Botón 1 — enlace"
+    },
+    {
+      "type": "text",
+      "id": "btn2_label",
+      "default": "Explorar productos",
+      "label": "Botón 2 — texto"
+    },
+    {
+      "type": "url",
+      "id": "btn2_url",
+      "label": "Botón 2 — enlace"
+    },
+    {
+      "type": "header",
+      "content": "Imagen de fondo"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Imagen de fondo del hero"
+    },
+    {
+      "type": "header",
+      "content": "Partículas 3D"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_particles",
+      "default": true,
+      "label": "Activar partículas 3D (solo desktop)"
+    },
+    {
+      "type": "range",
+      "id": "particle_count",
+      "min": 40,
+      "max": 300,
+      "step": 10,
+      "default": 120,
+      "label": "Cantidad de partículas"
+    },
+    {
+      "type": "color",
+      "id": "particle_color",
+      "default": "#e7d3b3",
+      "label": "Color de partículas"
+    },
+    {
+      "type": "range",
+      "id": "particle_size",
+      "min": 0.5,
+      "max": 3.0,
+      "step": 0.1,
+      "default": 1.2,
+      "label": "Tamaño de partículas"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Punto de confianza",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "default": "Envío a todo el país",
+          "label": "Texto"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero LINE",
+      "blocks": [
+        { "type": "trust_item", "settings": { "text": "Envío a todo el país" } },
+        { "type": "trust_item", "settings": { "text": "Pago seguro" } },
+        { "type": "trust_item", "settings": { "text": "Garantía de satisfacción" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

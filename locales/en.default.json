@@ -1,0 +1,77 @@
+{
+  "general": {
+    "search": {
+      "search": "Search",
+      "placeholder": "Search products...",
+      "no_results": "No results for \"{{ terms }}\""
+    }
+  },
+  "accessibility": {
+    "skip_to_content": "Skip to content",
+    "main_nav": "Main navigation",
+    "mobile_nav": "Mobile menu"
+  },
+  "cart": {
+    "general": {
+      "title": "Cart",
+      "empty": "Your cart is empty.",
+      "subtotal": "Subtotal",
+      "add": "Add to cart",
+      "checkout": "Checkout"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "on_sale": "Sale",
+      "from_price_html": "From {{ price }}"
+    }
+  },
+  "collections": {
+    "general": {
+      "no_matches": "Sorry, there are no products in this collection.",
+      "items_with_count": {
+        "one": "{{ count }} product",
+        "other": "{{ count }} products"
+      }
+    }
+  },
+  "sections": {
+    "header": {
+      "menu": "Menu"
+    },
+    "hero": {
+      "trust_label": "Trust points"
+    },
+    "categories": {
+      "explore": "Explore"
+    },
+    "footer": {
+      "social_media": "Social media",
+      "legal_nav": "Legal links",
+      "all_rights": "All rights reserved."
+    }
+  },
+  "customer": {
+    "login": {
+      "title": "Log in",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Log in",
+      "forgot_password": "Forgot your password?"
+    },
+    "register": {
+      "title": "Create account",
+      "submit": "Create account"
+    }
+  },
+  "errors": {
+    "404": {
+      "title": "Page not found",
+      "subtext": "The page you were looking for does not exist.",
+      "link": "Back to home"
+    }
+  }
+}

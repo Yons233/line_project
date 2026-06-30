@@ -1,0 +1,79 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "LINE Commercial",
+    "theme_version": "1.0.0",
+    "theme_author": "Line Commercial",
+    "theme_documentation_url": "",
+    "theme_support_url": ""
+  },
+  {
+    "name": "Colores",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Color primario (fondo)",
+        "default": "#f7f2ea"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Color acento (champán)",
+        "default": "#bd9763"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Color de texto principal",
+        "default": "#2a241e"
+      }
+    ]
+  },
+  {
+    "name": "Tipografía",
+    "settings": [
+      {
+        "type": "select",
+        "id": "text_direction",
+        "label": "Dirección del texto",
+        "options": [
+          { "value": "ltr", "label": "Izquierda a derecha" },
+          { "value": "rtl", "label": "Derecha a izquierda" }
+        ],
+        "default": "ltr"
+      }
+    ]
+  },
+  {
+    "name": "Redes sociales",
+    "settings": [
+      {
+        "type": "url",
+        "id": "social_instagram_link",
+        "label": "Instagram"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook_link",
+        "label": "Facebook"
+      },
+      {
+        "type": "url",
+        "id": "social_tiktok_link",
+        "label": "TikTok"
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "Tamaño recomendado: 32×32px"
+      }
+    ]
+  }
+]

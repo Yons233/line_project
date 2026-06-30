@@ -1,0 +1,10 @@
+[environments.development]
+store = "TU-TIENDA.myshopify.com"
+theme = "THEME_ID_DEVELOPMENT"
+# Para obtener el theme ID: shopify theme list --store=TU-TIENDA.myshopify.com
+
+[environments.production]
+store = "TU-TIENDA.myshopify.com"
+theme = "THEME_ID_PRODUCTION"
+# ADVERTENCIA: este entorno es el tema live — solo lectura.
+# Nunca hacer push sin autorización explícita del propietario.

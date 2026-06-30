@@ -1,0 +1,145 @@
+<style>
+  :root {
+    /* ── Paleta LINE ── */
+    --cream-0:       #f7f2ea;
+    --cream-1:       #efe7da;
+    --cream-2:       #e7dccb;
+    --pastel-nav:    #f5efe4;
+    --ink:           #2a241e;
+    --ink-soft:      #6a5f53;
+    --champagne-1:   #bd9763;
+    --champagne-2:   #e7d3b3;
+    --rose:          #cda88f;
+    --white:         #ffffff;
+
+    /* ── Tipografía ── */
+    --font-heading:  'Bricolage Grotesque', system-ui, sans-serif;
+    --font-body:     'Hanken Grotesk', system-ui, sans-serif;
+
+    --text-xs:   0.75rem;
+    --text-sm:   0.875rem;
+    --text-base: 1rem;
+    --text-lg:   1.125rem;
+    --text-xl:   1.25rem;
+    --text-2xl:  1.5rem;
+    --text-3xl:  2rem;
+    --text-4xl:  2.75rem;
+    --text-5xl:  3.75rem;
+    --text-6xl:  5rem;
+
+    /* ── Espaciado ── */
+    --space-1:  0.25rem;
+    --space-2:  0.5rem;
+    --space-3:  0.75rem;
+    --space-4:  1rem;
+    --space-6:  1.5rem;
+    --space-8:  2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+    --space-20: 5rem;
+    --space-24: 6rem;
+    --space-32: 8rem;
+
+    /* ── Layout ── */
+    --container-max: 1200px;
+    --container-pad: clamp(1.25rem, 5vw, 3rem);
+
+    /* ── Motion ── */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out:   cubic-bezier(0.4, 0, 0.2, 1);
+    --duration-fast: 200ms;
+    --duration-base: 400ms;
+    --duration-slow: 700ms;
+
+    /* ── Header ── */
+    --header-h: 72px;
+    --header-bg-transparent: transparent;
+    --header-bg-scrolled: var(--pastel-nav);
+
+    /* ── Sombras ── */
+    --shadow-sm:  0 1px 3px rgba(42,36,30,0.08);
+    --shadow-md:  0 4px 16px rgba(42,36,30,0.10);
+    --shadow-lg:  0 8px 32px rgba(42,36,30,0.12);
+
+    /* ── Border radius ── */
+    --radius-sm:  4px;
+    --radius-md:  8px;
+    --radius-lg:  16px;
+    --radius-full: 9999px;
+
+    /* ── Gradiente champán (degradado títulos) ── */
+    --gradient-champagne: linear-gradient(135deg, var(--champagne-1) 0%, var(--champagne-2) 50%, var(--rose) 100%);
+  }
+
+  /* ── Reset mínimo ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--ink);
+    background-color: var(--cream-0);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+
+  img, video { max-width: 100%; height: auto; display: block; }
+
+  a { color: inherit; text-decoration: none; }
+
+  button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+  }
+
+  /* ── Utilidades globales ── */
+  .container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-pad);
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  .text-gradient-champagne {
+    background: var(--gradient-champagne);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+    html { scroll-behavior: auto; }
+  }
+</style>

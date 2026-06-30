@@ -1,0 +1,77 @@
+{
+  "general": {
+    "search": {
+      "search": "Buscar",
+      "placeholder": "Buscar productos...",
+      "no_results": "No se encontraron resultados para \"{{ terms }}\""
+    }
+  },
+  "accessibility": {
+    "skip_to_content": "Saltar al contenido",
+    "main_nav": "Navegación principal",
+    "mobile_nav": "Menú móvil"
+  },
+  "cart": {
+    "general": {
+      "title": "Carrito",
+      "empty": "Tu carrito está vacío.",
+      "subtotal": "Subtotal",
+      "add": "Añadir al carrito",
+      "checkout": "Pagar"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Añadir al carrito",
+      "sold_out": "Agotado",
+      "unavailable": "No disponible",
+      "on_sale": "Oferta",
+      "from_price_html": "Desde {{ price }}"
+    }
+  },
+  "collections": {
+    "general": {
+      "no_matches": "Lo sentimos, no hay productos en esta colección.",
+      "items_with_count": {
+        "one": "{{ count }} producto",
+        "other": "{{ count }} productos"
+      }
+    }
+  },
+  "sections": {
+    "header": {
+      "menu": "Menú"
+    },
+    "hero": {
+      "trust_label": "Puntos de confianza"
+    },
+    "categories": {
+      "explore": "Explorar"
+    },
+    "footer": {
+      "social_media": "Redes sociales",
+      "legal_nav": "Links legales",
+      "all_rights": "Todos los derechos reservados."
+    }
+  },
+  "customer": {
+    "login": {
+      "title": "Iniciar sesión",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "submit": "Iniciar sesión",
+      "forgot_password": "¿Olvidaste tu contraseña?"
+    },
+    "register": {
+      "title": "Crear cuenta",
+      "submit": "Crear cuenta"
+    }
+  },
+  "errors": {
+    "404": {
+      "title": "Página no encontrada",
+      "subtext": "La página que buscas no existe.",
+      "link": "Volver al inicio"
+    }
+  }
+}
