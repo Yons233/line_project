@@ -3,6 +3,35 @@
     "color_primary": "#f7f2ea",
     "color_accent": "#bd9763",
     "color_text": "#2a241e",
-    "text_direction": "ltr"
+    "text_direction": "ltr",
+    "sections": {
+      "header": {
+        "type": "header",
+        "blocks": {
+          "nav-1": { "type": "nav_link", "settings": { "label": "Categorías",         "url": "/collections" } },
+          "nav-2": { "type": "nav_link", "settings": { "label": "¿Por qué LINE?",     "url": "/pages/por-que-line" } },
+          "nav-3": { "type": "nav_link", "settings": { "label": "Acerca de Nosotros", "url": "/pages/acerca-de" } },
+          "nav-4": { "type": "nav_link", "settings": { "label": "FAQ",                "url": "/pages/faq" } },
+          "nav-5": { "type": "nav_link", "settings": { "label": "Contáctanos",        "url": "/pages/contacto" } }
+        },
+        "block_order": ["nav-1", "nav-2", "nav-3", "nav-4", "nav-5"],
+        "settings": {
+          "logo_text": "LINE",
+          "show_search": true
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "col-1": { "type": "link_column", "settings": { "title": "Productos" } },
+          "col-2": { "type": "link_column", "settings": { "title": "Ayuda" } },
+          "col-3": { "type": "link_column", "settings": { "title": "Empresa" } }
+        },
+        "block_order": ["col-1", "col-2", "col-3"],
+        "settings": {
+          "description": "Productos de bienestar pensados para tu día a día. Calidad, comodidad y estilo."
+        }
+      }
+    }
   }
 }

@@ -140,8 +140,6 @@
 }
 {% endstylesheet %}
 
-{%- assign default_categories = "Belleza,Skincare,Recuperación,Sueño,Postura,Relajación" | split: "," -%}
-
 <section
   class="line-cat"
   id="line-cat-{{ section.id }}"
@@ -204,7 +202,7 @@
   </div>
 </section>
 
-{% javascript %}
+<script>
 (function () {
   if (!window.LINE) return;
 
@@ -240,7 +238,7 @@
     '100px'
   );
 })();
-{% endjavascript %}
+</script>
 
 {% schema %}
 {

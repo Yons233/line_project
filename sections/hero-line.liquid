@@ -1,4 +1,5 @@
 {% stylesheet %}
+/* ── Hero container ── */
 .line-hero {
   position: relative;
   min-height: 100svh;
@@ -6,13 +7,12 @@
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
-  margin-top: calc(-1 * var(--header-h));
   padding-top: calc(var(--header-h) + var(--space-16));
   padding-bottom: var(--space-16);
   background-color: var(--cream-0);
 }
 
-/* Imagen de fondo */
+/* ── Fondo ── */
 .line-hero__bg {
   position: absolute;
   inset: 0;
@@ -29,13 +29,13 @@
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(247,242,234,0.82) 0%,
-    rgba(239,231,218,0.55) 50%,
-    rgba(247,242,234,0.30) 100%
+    rgba(247,242,234,0.88) 0%,
+    rgba(239,231,218,0.60) 45%,
+    rgba(247,242,234,0.15) 100%
   );
 }
 
-/* Partículas (posicionadas sobre la imagen, detrás del texto) */
+/* ── Partículas ── */
 .line-hero__particles-wrap {
   position: absolute;
   inset: 0;
@@ -43,13 +43,22 @@
   pointer-events: none;
 }
 
-/* Contenido */
-.line-hero__content {
+/* ── Inner grid (texto izquierda / productos derecha) ── */
+.line-hero__inner {
   position: relative;
   z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: var(--space-12);
+  align-items: center;
   max-width: var(--container-max);
   margin-inline: auto;
   padding-inline: var(--container-pad);
+  width: 100%;
+}
+
+/* ── Columna de texto ── */
+.line-hero__content {
   display: grid;
   gap: var(--space-6);
 }
@@ -76,15 +85,12 @@
 .line-hero__title {
   font-family: var(--font-heading);
   font-weight: 800;
-  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-size: clamp(2.5rem, 5.5vw, 5.5rem);
   line-height: 1.0;
   letter-spacing: -0.03em;
   color: var(--ink);
-  max-width: 700px;
 }
-.line-hero__title-line {
-  display: block;
-}
+.line-hero__title-line { display: block; }
 .line-hero__title-line--gradient {
   background: var(--gradient-champagne);
   -webkit-background-clip: text;
@@ -93,13 +99,12 @@
 }
 
 .line-hero__subtitle {
-  font-size: clamp(var(--text-base), 1.5vw, var(--text-lg));
+  font-size: clamp(var(--text-base), 1.4vw, var(--text-lg));
   color: var(--ink-soft);
   line-height: 1.7;
-  max-width: 520px;
+  max-width: 480px;
 }
 
-/* Botones */
 .line-hero__cta {
   display: flex;
   flex-wrap: wrap;
@@ -107,7 +112,7 @@
   align-items: center;
 }
 
-/* Franja de confianza (trust bar) */
+/* ── Trust bar ── */
 .line-hero__trust {
   display: flex;
   flex-wrap: wrap;
@@ -115,7 +120,6 @@
   align-items: center;
   padding-top: var(--space-4);
   border-top: 1px solid rgba(42,36,30,0.10);
-  margin-top: var(--space-4);
 }
 .line-hero__trust-item {
   display: flex;
@@ -134,13 +138,67 @@
   flex-shrink: 0;
 }
 
+/* ── Columna de producto (derecha) ── */
+.line-hero__products {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+/* Animación flotante */
+@keyframes line-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+.line-hero__product-card {
+  background: rgba(247,242,234,0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(189,151,99,0.22);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 200px;
+  box-shadow: var(--shadow-md);
+  animation: line-float 3.2s ease-in-out infinite;
+  animation-delay: var(--card-delay, 0s);
+}
+
+.line-hero__product-emoji {
+  font-size: 1.5rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.line-hero__product-info { display: flex; flex-direction: column; gap: 2px; }
+.line-hero__product-name {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--ink);
+  line-height: 1.2;
+}
+.line-hero__product-price {
+  font-size: var(--text-xs);
+  color: var(--champagne-1);
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line-hero__product-card { animation: none; }
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .line-hero__inner { grid-template-columns: 1fr; }
+  .line-hero__products { display: none; }
+}
 @media (max-width: 600px) {
-  .line-hero__title {
-    letter-spacing: -0.02em;
-  }
-  .line-hero__trust {
-    gap: var(--space-4);
-  }
+  .line-hero__title { letter-spacing: -0.02em; }
+  .line-hero__trust { gap: var(--space-4); }
 }
 {% endstylesheet %}
 
@@ -163,6 +221,15 @@
           widths: '768,1024,1440,1920',
           sizes: '100vw'
       }}
+    {%- else -%}
+      <img
+        src="{{ 'hero.png' | asset_url }}"
+        alt=""
+        loading="eager"
+        fetchpriority="high"
+        width="1920"
+        height="1080"
+      >
     {%- endif -%}
     <div class="line-hero__bg-overlay"></div>
   </div>
@@ -179,93 +246,123 @@
     </div>
   {%- endif -%}
 
-  <!-- Contenido -->
-  <div class="line-hero__content">
+  <!-- Grid principal -->
+  <div class="line-hero__inner">
 
-    {%- if section.settings.label != blank -%}
-      <p class="line-hero__label">{{ section.settings.label }}</p>
-    {%- endif -%}
+    <!-- Columna izquierda: texto -->
+    <div class="line-hero__content">
 
-    <h1
-      class="line-hero__title"
-      id="hero-title-{{ section.id }}"
-    >
-      {%- if section.settings.title_line_1 != blank -%}
-        <span class="line-hero__title-line">{{ section.settings.title_line_1 }}</span>
+      {%- if section.settings.label != blank -%}
+        <p class="line-hero__label">{{ section.settings.label }}</p>
       {%- endif -%}
-      {%- if section.settings.title_line_2 != blank -%}
-        <span class="line-hero__title-line">{{ section.settings.title_line_2 }}</span>
-      {%- endif -%}
-      {%- if section.settings.title_line_3 != blank -%}
-        <span class="line-hero__title-line line-hero__title-line--gradient">{{ section.settings.title_line_3 }}</span>
-      {%- endif -%}
-    </h1>
 
-    {%- if section.settings.subtitle != blank -%}
-      <p class="line-hero__subtitle">{{ section.settings.subtitle }}</p>
-    {%- endif -%}
+      <h1 class="line-hero__title" id="hero-title-{{ section.id }}">
+        {%- if section.settings.title_line_1 != blank -%}
+          <span class="line-hero__title-line">{{ section.settings.title_line_1 }}</span>
+        {%- endif -%}
+        {%- if section.settings.title_line_2 != blank -%}
+          <span class="line-hero__title-line">{{ section.settings.title_line_2 }}</span>
+        {%- endif -%}
+        {%- if section.settings.title_line_3 != blank -%}
+          <span class="line-hero__title-line line-hero__title-line--gradient">{{ section.settings.title_line_3 }}</span>
+        {%- endif -%}
+      </h1>
 
-    <!-- Botones -->
-    <div class="line-hero__cta">
-      {%- if section.settings.btn1_label != blank -%}
-        <a href="{{ section.settings.btn1_url }}" class="btn btn--primary">
-          {{ section.settings.btn1_label }}
-        </a>
+      {%- if section.settings.subtitle != blank -%}
+        <p class="line-hero__subtitle">{{ section.settings.subtitle }}</p>
       {%- endif -%}
-      {%- if section.settings.btn2_label != blank -%}
-        <a href="{{ section.settings.btn2_url }}" class="btn btn--secondary">
-          {{ section.settings.btn2_label }}
-        </a>
-      {%- endif -%}
-    </div>
 
-    <!-- Franja de confianza (blocks) -->
-    {%- if section.blocks.size > 0 -%}
-      <div class="line-hero__trust" aria-label="{{ 'sections.hero.trust_label' | t }}">
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'trust_item' -%}
+      <div class="line-hero__cta">
+        {%- if section.settings.btn1_label != blank -%}
+          <a href="{{ section.settings.btn1_url | default: '/collections/all' }}" class="btn btn--primary">
+            {{ section.settings.btn1_label }}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.btn2_label != blank -%}
+          <a href="{{ section.settings.btn2_url | default: '/collections' }}" class="btn btn--secondary">
+            {{ section.settings.btn2_label }}
+          </a>
+        {%- endif -%}
+      </div>
+
+      <!-- Trust bar (blocks tipo trust_item) -->
+      {%- assign trust_blocks = section.blocks | where: 'type', 'trust_item' -%}
+      {%- if trust_blocks.size > 0 -%}
+        <div class="line-hero__trust" aria-label="{{ 'sections.hero.trust_label' | t }}">
+          {%- for block in trust_blocks -%}
             <div class="line-hero__trust-item" {{ block.shopify_attributes }}>
-              <svg class="line-hero__trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                <path d="M20 6 9 17l-5-5"/>
-              </svg>
+              {%- case block.settings.icon -%}
+                {%- when 'truck' -%}
+                  <svg class="line-hero__trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <rect x="1" y="3" width="15" height="13" rx="1"/>
+                    <path d="M16 8h4l3 3v5h-7V8z"/>
+                    <circle cx="5.5" cy="18.5" r="2.5"/>
+                    <circle cx="18.5" cy="18.5" r="2.5"/>
+                  </svg>
+                {%- when 'lock' -%}
+                  <svg class="line-hero__trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <rect x="3" y="11" width="18" height="11" rx="2"/>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                  </svg>
+                {%- when 'shield' -%}
+                  <svg class="line-hero__trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <path d="m9 12 2 2 4-4"/>
+                  </svg>
+                {%- else -%}
+                  <svg class="line-hero__trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path d="M20 6 9 17l-5-5"/>
+                  </svg>
+              {%- endcase -%}
               {{ block.settings.text }}
             </div>
-          {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+    </div><!-- /content -->
+
+    <!-- Columna derecha: slots de producto flotantes -->
+    {%- assign product_blocks = section.blocks | where: 'type', 'product_card' -%}
+    {%- if product_blocks.size > 0 -%}
+      <div class="line-hero__products" aria-hidden="true">
+        {%- for block in product_blocks -%}
+          {%- assign delay_s = forloop.index0 | times: 0.9 -%}
+          <div
+            class="line-hero__product-card"
+            style="--card-delay: {{ delay_s }}s;"
+            {{ block.shopify_attributes }}
+          >
+            <span class="line-hero__product-emoji">{{ block.settings.emoji | default: '✨' }}</span>
+            <div class="line-hero__product-info">
+              <span class="line-hero__product-name">{{ block.settings.name }}</span>
+              <span class="line-hero__product-price">{{ block.settings.price }}</span>
+            </div>
+          </div>
         {%- endfor -%}
       </div>
     {%- endif -%}
 
-  </div>
+  </div><!-- /inner -->
+
 </section>
 
-{% javascript %}
+<script>
 (function () {
-  // Registrar animación de entrada del contenido del hero
-  if (!window.LINE) return;
-
   var section = document.getElementById('line-hero-{{ section.id }}');
-  if (!section) return;
-
+  if (!section || !window.LINE) return;
   window.LINE.registerAnim(
     section,
     function (el) {
       if (!window.gsap) return;
-      var content = el.querySelector('.line-hero__content');
-      var children = content ? content.children : [];
-      window.gsap.from(children, {
-        opacity: 0,
-        y: 30,
-        duration: 0.9,
-        stagger: 0.12,
-        ease: 'power3.out',
-        clearProps: 'all',
-      });
+      var children = el.querySelector('.line-hero__content') ? el.querySelector('.line-hero__content').children : [];
+      window.gsap.from(children, { opacity: 0, y: 28, duration: 0.85, stagger: 0.11, ease: 'power3.out', clearProps: 'all' });
     },
     ['gsap'],
     '0px'
   );
 })();
-{% endjavascript %}
+</script>
 
 {% schema %}
 {
@@ -340,7 +437,7 @@
     {
       "type": "image_picker",
       "id": "bg_image",
-      "label": "Imagen de fondo del hero"
+      "label": "Imagen de fondo (deja vacío para usar hero.png del tema)"
     },
     {
       "type": "header",
@@ -383,10 +480,46 @@
       "name": "Punto de confianza",
       "settings": [
         {
+          "type": "select",
+          "id": "icon",
+          "label": "Icono",
+          "default": "truck",
+          "options": [
+            { "value": "truck",  "label": "Camión (envío)" },
+            { "value": "lock",   "label": "Candado (pago seguro)" },
+            { "value": "shield", "label": "Escudo (garantía)" },
+            { "value": "check",  "label": "Check genérico" }
+          ]
+        },
+        {
           "type": "text",
           "id": "text",
           "default": "Envío a todo el país",
           "label": "Texto"
+        }
+      ]
+    },
+    {
+      "type": "product_card",
+      "name": "Slot de producto",
+      "settings": [
+        {
+          "type": "text",
+          "id": "emoji",
+          "default": "✨",
+          "label": "Emoji / icono"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "default": "Masajeador",
+          "label": "Nombre del producto"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "default": "$29.99",
+          "label": "Precio"
         }
       ]
     }
@@ -395,9 +528,12 @@
     {
       "name": "Hero LINE",
       "blocks": [
-        { "type": "trust_item", "settings": { "text": "Envío a todo el país" } },
-        { "type": "trust_item", "settings": { "text": "Pago seguro" } },
-        { "type": "trust_item", "settings": { "text": "Garantía de satisfacción" } }
+        { "type": "trust_item",   "settings": { "icon": "truck",  "text": "Envío a todo el país" } },
+        { "type": "trust_item",   "settings": { "icon": "lock",   "text": "Pago seguro" } },
+        { "type": "trust_item",   "settings": { "icon": "shield", "text": "Garantía de satisfacción" } },
+        { "type": "product_card", "settings": { "emoji": "🛁", "name": "Masajeador",    "price": "$29.99" } },
+        { "type": "product_card", "settings": { "emoji": "✨", "name": "Roller facial", "price": "$19.99" } },
+        { "type": "product_card", "settings": { "emoji": "💧", "name": "Sérum facial",  "price": "$34.99" } }
       ]
     }
   ]

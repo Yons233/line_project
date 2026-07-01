@@ -12,22 +12,18 @@
     backdrop-filter var(--duration-base) var(--ease-in-out),
     box-shadow var(--duration-base) var(--ease-in-out);
 }
-
 .line-header.is-scrolled {
   background: var(--pastel-nav);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 1px 0 rgba(42,36,30,0.08), var(--shadow-sm);
+  box-shadow: 0 1px 0 rgba(42,36,30,0.08), 0 2px 8px rgba(42,36,30,0.06);
 }
-
-/* Sin hero: header arranca en pastel */
 .line-header--solid {
   background: var(--pastel-nav);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 1px 0 rgba(42,36,30,0.08);
 }
-
 .line-header__inner {
   display: flex;
   align-items: center;
@@ -39,11 +35,12 @@
   gap: var(--space-8);
 }
 
-/* Logo */
+/* ── Logo ── */
 .line-header__logo {
   flex-shrink: 0;
   display: flex;
   align-items: center;
+  text-decoration: none;
 }
 .line-header__logo-img {
   height: 36px;
@@ -54,15 +51,18 @@
   font-weight: 800;
   font-size: var(--text-xl);
   color: var(--ink);
-  letter-spacing: -0.02em;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
-/* Nav */
+/* ── Nav ── */
 .line-header__nav {
   display: flex;
   align-items: center;
   gap: var(--space-8);
   list-style: none;
+  flex: 1;
+  justify-content: center;
 }
 .line-header__nav-link {
   font-size: var(--text-sm);
@@ -70,6 +70,7 @@
   color: var(--ink);
   position: relative;
   padding-block: var(--space-1);
+  white-space: nowrap;
   transition: color var(--duration-fast);
 }
 .line-header__nav-link::after {
@@ -83,38 +84,36 @@
   transition: width var(--duration-base) var(--ease-out-expo);
 }
 .line-header__nav-link:hover::after,
-.line-header__nav-link[aria-current="page"]::after {
-  width: 100%;
-}
+.line-header__nav-link[aria-current="page"]::after { width: 100%; }
 
-/* Acciones (carrito) */
+/* ── Acciones ── */
 .line-header__actions {
   display: flex;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-3);
   flex-shrink: 0;
 }
-.line-header__cart {
-  position: relative;
+.line-header__icon-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 40px;
   height: 40px;
   border-radius: var(--radius-full);
-  transition: background var(--duration-fast);
   color: var(--ink);
+  position: relative;
+  transition: background var(--duration-fast);
 }
-.line-header__cart:hover { background: var(--cream-2); }
+.line-header__icon-btn:hover { background: var(--cream-2); }
 .line-header__cart-count {
   position: absolute;
   top: 4px;
   right: 4px;
   min-width: 16px;
   height: 16px;
-  padding-inline: 4px;
+  padding-inline: 3px;
   background: var(--champagne-1);
-  color: var(--white);
+  color: #fff;
   font-size: 10px;
   font-weight: 700;
   border-radius: var(--radius-full);
@@ -125,17 +124,21 @@
 }
 .line-header__cart-count[hidden] { display: none; }
 
-/* Menú móvil toggle */
+/* ── Mobile toggle ── */
 .line-header__menu-toggle {
   display: none;
   flex-direction: column;
   gap: 5px;
-  width: 24px;
-  padding: var(--space-2);
+  width: 40px;
+  height: 40px;
+  padding: 10px;
   cursor: pointer;
   background: none;
   border: none;
+  border-radius: var(--radius-full);
+  transition: background var(--duration-fast);
 }
+.line-header__menu-toggle:hover { background: var(--cream-2); }
 .line-header__menu-toggle span {
   display: block;
   height: 1.5px;
@@ -147,14 +150,12 @@
 .line-header__menu-toggle[aria-expanded="true"] span:nth-child(1) {
   transform: translateY(6.5px) rotate(45deg);
 }
-.line-header__menu-toggle[aria-expanded="true"] span:nth-child(2) {
-  opacity: 0;
-}
+.line-header__menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
 .line-header__menu-toggle[aria-expanded="true"] span:nth-child(3) {
   transform: translateY(-6.5px) rotate(-45deg);
 }
 
-/* Menú móvil drawer */
+/* ── Mobile drawer ── */
 .line-header__mobile-nav {
   display: none;
   position: fixed;
@@ -162,7 +163,7 @@
   background: var(--cream-0);
   padding: var(--space-8) var(--container-pad);
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-2);
   overflow-y: auto;
   z-index: 999;
 }
@@ -171,21 +172,22 @@
   font-size: var(--text-lg);
   font-weight: 600;
   color: var(--ink);
-  padding-block: var(--space-3);
+  padding-block: var(--space-4);
   border-bottom: 1px solid var(--cream-2);
+  text-decoration: none;
+  display: block;
 }
+.line-header__mobile-nav-link:last-child { border-bottom: none; }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .line-header__nav { display: none; }
   .line-header__menu-toggle { display: flex; }
 }
 {% endstylesheet %}
 
 {%- assign has_hero = false -%}
-{%- for section in template.sections -%}
-  {%- if section.type == 'hero-line' -%}
-    {%- assign has_hero = true -%}
-  {%- endif -%}
+{%- for sec in template.sections -%}
+  {%- if sec.type == 'hero-line' -%}{%- assign has_hero = true -%}{%- endif -%}
 {%- endfor -%}
 
 <header
@@ -208,101 +210,87 @@
             widths: '120,160,240'
         }}
       {%- else -%}
-        <span class="line-header__logo-text">{{ shop.name }}</span>
+        <span class="line-header__logo-text">{{ section.settings.logo_text | default: 'LINE' }}</span>
       {%- endif -%}
     </a>
 
-    <!-- Navegación principal -->
+    <!-- Navegación principal (desde blocks) -->
     <nav aria-label="{{ 'accessibility.main_nav' | t }}">
       <ul class="line-header__nav" role="list">
-        {%- for link in section.settings.menu.links -%}
-          <li>
-            <a
-              href="{{ link.url }}"
-              class="line-header__nav-link"
-              {% if link.active %}aria-current="page"{% endif %}
-            >
-              {{ link.title }}
-            </a>
-          </li>
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'nav_link' -%}
+            <li {{ block.shopify_attributes }}>
+              <a
+                href="{{ block.settings.url | default: '#' }}"
+                class="line-header__nav-link"
+                {% if block.settings.url == request.path %}aria-current="page"{% endif %}
+              >{{ block.settings.label }}</a>
+            </li>
+          {%- endif -%}
         {%- endfor -%}
       </ul>
     </nav>
 
     <!-- Acciones -->
     <div class="line-header__actions">
-      <!-- Búsqueda (placeholder, expandir en sprint 2) -->
       {%- if section.settings.show_search -%}
-        <a href="{{ routes.search_url }}" aria-label="{{ 'general.search.search' | t }}" class="line-header__cart">
+        <a href="{{ routes.search_url }}" class="line-header__icon-btn" aria-label="{{ 'general.search.search' | t }}">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
           </svg>
         </a>
       {%- endif -%}
 
-      <!-- Carrito -->
-      <a
-        href="{{ routes.cart_url }}"
-        class="line-header__cart"
-        aria-label="{{ 'cart.general.title' | t }} ({{ cart.item_count }})"
-      >
+      <a href="{{ routes.cart_url }}" class="line-header__icon-btn" aria-label="{{ 'cart.general.title' | t }}">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
           <line x1="3" y1="6" x2="21" y2="6"/>
           <path d="M16 10a4 4 0 0 1-8 0"/>
         </svg>
-        <span
-          class="line-header__cart-count"
-          {% if cart.item_count == 0 %}hidden{% endif %}
-        >{{ cart.item_count }}</span>
+        <span class="line-header__cart-count" {% if cart.item_count == 0 %}hidden{% endif %}>
+          {{ cart.item_count }}
+        </span>
       </a>
 
-      <!-- Toggle móvil -->
       <button
         class="line-header__menu-toggle"
         aria-label="{{ 'sections.header.menu' | t }}"
         aria-expanded="false"
         aria-controls="line-mobile-nav"
-      >
-        <span></span><span></span><span></span>
-      </button>
+      ><span></span><span></span><span></span></button>
     </div>
+
   </div>
 </header>
 
 <!-- Menú móvil -->
-<nav
-  id="line-mobile-nav"
-  class="line-header__mobile-nav"
-  aria-label="{{ 'accessibility.mobile_nav' | t }}"
-  hidden
->
-  {%- for link in section.settings.menu.links -%}
-    <a
-      href="{{ link.url }}"
-      class="line-header__mobile-nav-link"
-      {% if link.active %}aria-current="page"{% endif %}
-    >{{ link.title }}</a>
+<nav id="line-mobile-nav" class="line-header__mobile-nav" aria-label="{{ 'accessibility.mobile_nav' | t }}" hidden>
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'nav_link' -%}
+      <a
+        href="{{ block.settings.url | default: '#' }}"
+        class="line-header__mobile-nav-link"
+        {% if block.settings.url == request.path %}aria-current="page"{% endif %}
+      >{{ block.settings.label }}</a>
+    {%- endif -%}
   {%- endfor -%}
 </nav>
 
-<!-- Spacer para que el contenido no quede bajo el header fijo -->
-<div style="height: var(--header-h);" aria-hidden="true" class="line-header-spacer{% if has_hero %} visually-hidden{% endif %}"></div>
+<div style="height:var(--header-h);" aria-hidden="true"
+  class="line-header-spacer{% if has_hero %} visually-hidden{% endif %}"></div>
 
 {% javascript %}
 (function () {
-  var header = document.getElementById('line-header');
-  var toggle = header ? header.querySelector('.line-header__menu-toggle') : null;
+  var header  = document.getElementById('line-header');
+  var toggle  = document.querySelector('.line-header__menu-toggle');
   var mobileNav = document.getElementById('line-mobile-nav');
-
   if (!header) return;
 
-  // Efecto scroll transparente → pastel
   if (!header.classList.contains('line-header--solid')) {
     var ticking = false;
     window.addEventListener('scroll', function () {
       if (!ticking) {
-        window.requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
           header.classList.toggle('is-scrolled', window.scrollY > 40);
           ticking = false;
         });
@@ -311,12 +299,11 @@
     }, { passive: true });
   }
 
-  // Toggle menú móvil
   if (toggle && mobileNav) {
     toggle.addEventListener('click', function () {
-      var expanded = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!expanded));
-      if (expanded) {
+      var open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!open));
+      if (open) {
         mobileNav.setAttribute('hidden', '');
         mobileNav.classList.remove('is-open');
         document.body.style.overflow = '';
@@ -326,10 +313,8 @@
         document.body.style.overflow = 'hidden';
       }
     });
-
-    // Cerrar al hacer clic en un link
-    mobileNav.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
+    mobileNav.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
         toggle.setAttribute('aria-expanded', 'false');
         mobileNav.setAttribute('hidden', '');
         mobileNav.classList.remove('is-open');
@@ -348,19 +333,50 @@
     {
       "type": "image_picker",
       "id": "logo",
-      "label": "Logo"
+      "label": "Logo (imagen)"
     },
     {
-      "type": "link_list",
-      "id": "menu",
-      "default": "main-menu",
-      "label": "Menú de navegación"
+      "type": "text",
+      "id": "logo_text",
+      "default": "LINE",
+      "label": "Logo (texto, si no hay imagen)"
     },
     {
       "type": "checkbox",
       "id": "show_search",
       "default": true,
       "label": "Mostrar icono de búsqueda"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "nav_link",
+      "name": "Enlace de navegación",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "default": "Categorías",
+          "label": "Texto del enlace"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header LINE",
+      "blocks": [
+        { "type": "nav_link", "settings": { "label": "Categorías",        "url": "/collections" } },
+        { "type": "nav_link", "settings": { "label": "¿Por qué LINE?",    "url": "/pages/por-que-line" } },
+        { "type": "nav_link", "settings": { "label": "Acerca de Nosotros","url": "/pages/acerca-de" } },
+        { "type": "nav_link", "settings": { "label": "FAQ",               "url": "/pages/faq" } },
+        { "type": "nav_link", "settings": { "label": "Contáctanos",       "url": "/pages/contacto" } }
+      ]
     }
   ]
 }

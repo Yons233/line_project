@@ -1,10 +1,11 @@
 [environments.development]
-store = "TU-TIENDA.myshopify.com"
-theme = "THEME_ID_DEVELOPMENT"
-# Para obtener el theme ID: shopify theme list --store=TU-TIENDA.myshopify.com
+store = "6khmbi-xg.myshopify.com"
+theme = "163358343416"
+# Development (3444f3-Antonio) — confirmado con el propietario 2026-06-30.
+# Para obtener el theme ID: shopify theme list --store=6khmbi-xg.myshopify.com
 
 [environments.production]
-store = "TU-TIENDA.myshopify.com"
+store = "6khmbi-xg.myshopify.com"
 theme = "THEME_ID_PRODUCTION"
 # ADVERTENCIA: este entorno es el tema live — solo lectura.
 # Nunca hacer push sin autorización explícita del propietario.
