@@ -3,9 +3,9 @@
     "hero": {
       "type": "hero-line",
       "blocks": {
-        "trust-1": { "type": "trust_item",   "settings": { "icon": "truck",  "text": "Envío a todo el país" } },
-        "trust-2": { "type": "trust_item",   "settings": { "icon": "lock",   "text": "Pago seguro" } },
-        "trust-3": { "type": "trust_item",   "settings": { "icon": "shield", "text": "Garantía de satisfacción" } },
+        "trust-1": { "type": "trust_item",   "settings": { "icon": "truck",  "text": "Envío a todo el país",    "subtitle": "Recíbelo donde estés" } },
+        "trust-2": { "type": "trust_item",   "settings": { "icon": "lock",   "text": "Pago seguro",             "subtitle": "Tus datos protegidos" } },
+        "trust-3": { "type": "trust_item",   "settings": { "icon": "shield", "text": "Garantía de satisfacción","subtitle": "Compra con confianza" } },
         "prod-1":  { "type": "product_card", "settings": { "emoji": "🛁", "name": "Masajeador",    "price": "$29.99" } },
         "prod-2":  { "type": "product_card", "settings": { "emoji": "✨", "name": "Roller facial", "price": "$19.99" } },
         "prod-3":  { "type": "product_card", "settings": { "emoji": "💧", "name": "Sérum facial",  "price": "$34.99" } }

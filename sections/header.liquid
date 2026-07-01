@@ -6,23 +6,28 @@
   right: 0;
   z-index: 1000;
   height: var(--header-h);
-  background: transparent;
+  background: rgba(var(--pastel-nav-rgb), 0);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  box-shadow: 0 1px 0 rgba(42,36,30,0), 0 2px 8px rgba(42,36,30,0);
   transition:
-    background var(--duration-base) var(--ease-in-out),
-    backdrop-filter var(--duration-base) var(--ease-in-out),
-    box-shadow var(--duration-base) var(--ease-in-out);
+    background 0.6s var(--ease-out-expo),
+    backdrop-filter 0.6s var(--ease-out-expo),
+    -webkit-backdrop-filter 0.6s var(--ease-out-expo),
+    box-shadow 0.6s var(--ease-out-expo);
 }
 .line-header.is-scrolled {
-  background: var(--pastel-nav);
+  background: rgba(var(--pastel-nav-rgb), 1);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 1px 0 rgba(42,36,30,0.08), 0 2px 8px rgba(42,36,30,0.06);
 }
 .line-header--solid {
-  background: var(--pastel-nav);
+  background: rgba(var(--pastel-nav-rgb), 1);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 1px 0 rgba(42,36,30,0.08);
+  transition: none;
 }
 .line-header__inner {
   display: flex;
@@ -286,10 +291,18 @@
 
   if (!header.classList.contains('line-header--solid')) {
     var ticking = false;
+    var scrolled = false;
+    /* Histéresis: umbrales distintos para activar/desactivar evita parpadeo cerca del borde */
     window.addEventListener('scroll', function () {
       if (!ticking) {
         requestAnimationFrame(function () {
-          header.classList.toggle('is-scrolled', window.scrollY > 40);
+          if (!scrolled && window.scrollY > 48) {
+            scrolled = true;
+            header.classList.add('is-scrolled');
+          } else if (scrolled && window.scrollY < 24) {
+            scrolled = false;
+            header.classList.remove('is-scrolled');
+          }
           ticking = false;
         });
         ticking = true;
