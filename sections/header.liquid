@@ -186,9 +186,7 @@
 {% endstylesheet %}
 
 {%- assign has_hero = false -%}
-{%- for sec in template.sections -%}
-  {%- if sec.type == 'hero-line' -%}{%- assign has_hero = true -%}{%- endif -%}
-{%- endfor -%}
+{%- if template.name == 'index' -%}{%- assign has_hero = true -%}{%- endif -%}
 
 <header
   class="line-header{% unless has_hero %} line-header--solid{% endunless %}"
