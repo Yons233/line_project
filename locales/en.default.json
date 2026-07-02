@@ -55,6 +55,9 @@
     }
   },
   "customer": {
+    "account": {
+      "title": "My account"
+    },
     "login": {
       "title": "Log in",
       "email": "Email",

@@ -22,16 +22,16 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: 66% center;
 }
 .line-hero__bg-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(247,242,234,0.88) 0%,
-    rgba(239,231,218,0.60) 45%,
-    rgba(247,242,234,0.15) 100%
+    rgba(247,242,234,0.32) 0%,
+    rgba(239,231,218,0.16) 45%,
+    rgba(247,242,234,0.04) 100%
   );
 }
 
@@ -48,7 +48,7 @@
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: 1fr 280px;
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-12);
   align-items: center;
   max-width: 1560px;
@@ -61,6 +61,7 @@
 .line-hero__content {
   display: grid;
   gap: var(--space-6);
+  margin-top: -5.5rem;
 }
 
 .line-hero__label {
@@ -163,12 +164,11 @@
   line-height: 1.3;
 }
 
-/* ── Columna de producto (derecha) ── */
+/* ── Columna de producto (derecha): tarjetas de vidrio flotantes ── */
 .line-hero__products {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  align-items: flex-start;
+  position: relative;
+  min-height: 380px;
+  width: 100%;
 }
 
 /* Animación flotante */
@@ -178,42 +178,71 @@
 }
 
 .line-hero__product-card {
-  background: rgba(247,242,234,0.82);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(189,151,99,0.22);
-  border-radius: var(--radius-lg);
-  padding: var(--space-3) var(--space-4);
+  position: absolute;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: var(--space-3);
-  min-width: 200px;
-  box-shadow: var(--shadow-md);
-  animation: line-float 3.2s ease-in-out infinite;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 148px;
+  padding: var(--space-6) var(--space-4);
+  text-align: center;
+  background: rgba(247,242,234,0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.55);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  animation: line-float 3.6s ease-in-out infinite;
   animation-delay: var(--card-delay, 0s);
 }
+.line-hero__product-card:nth-of-type(1) { top: 10%;  left: 2%; }
+.line-hero__product-card:nth-of-type(2) {
+  top: 0;
+  left: 32%;
+  width: 174px;
+  padding: var(--space-8) var(--space-5);
+  z-index: 1;
+}
+.line-hero__product-card:nth-of-type(3) { top: 16%; left: 68%; }
 
 .line-hero__product-emoji {
-  font-size: 1.5rem;
+  font-size: 2rem;
   line-height: 1;
   flex-shrink: 0;
 }
-.line-hero__product-info { display: flex; flex-direction: column; gap: 2px; }
+.line-hero__product-brand {
+  font-family: var(--font-heading);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--champagne-1);
+}
 .line-hero__product-name {
   font-family: var(--font-body);
   font-weight: 600;
   font-size: var(--text-sm);
   color: var(--ink);
-  line-height: 1.2;
-}
-.line-hero__product-price {
-  font-size: var(--text-xs);
-  color: var(--champagne-1);
-  font-weight: 600;
+  line-height: 1.25;
 }
 
+/* Burbujas de vidrio decorativas */
+.line-hero__bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(255,255,255,0.18) 60%, rgba(255,255,255,0.05) 100%);
+  box-shadow: 0 8px 20px rgba(42,36,30,0.08), inset 0 0 14px rgba(255,255,255,0.5);
+  animation: line-float 4.6s ease-in-out infinite;
+}
+.line-hero__bubble--1 { width: 58px; height: 58px; top: 2%;  left: 26%; animation-delay: .2s; }
+.line-hero__bubble--2 { width: 26px; height: 26px; top: 46%; left: 58%; animation-delay: 1.1s; }
+.line-hero__bubble--3 { width: 20px; height: 20px; top: 34%; left: 92%; animation-delay: .6s; }
+.line-hero__bubble--4 { width: 14px; height: 14px; top: 62%; left: 12%; animation-delay: 1.6s; }
+
 @media (prefers-reduced-motion: reduce) {
-  .line-hero__product-card { animation: none; }
+  .line-hero__product-card,
+  .line-hero__bubble { animation: none; }
 }
 
 /* ── Responsive ── */
@@ -248,12 +277,12 @@
       }}
     {%- else -%}
       <img
-        src="{{ 'hero.png' | asset_url }}"
+        src="{{ 'HeroFondo.png' | asset_url }}"
         alt=""
         loading="eager"
         fetchpriority="high"
-        width="1920"
-        height="1080"
+        width="2400"
+        height="1162"
       >
     {%- endif -%}
     <div class="line-hero__bg-overlay"></div>
@@ -365,6 +394,10 @@
     {%- assign product_blocks = section.blocks | where: 'type', 'product_card' -%}
     {%- if product_blocks.size > 0 -%}
       <div class="line-hero__products" aria-hidden="true">
+        <span class="line-hero__bubble line-hero__bubble--1"></span>
+        <span class="line-hero__bubble line-hero__bubble--2"></span>
+        <span class="line-hero__bubble line-hero__bubble--3"></span>
+        <span class="line-hero__bubble line-hero__bubble--4"></span>
         {%- for block in product_blocks -%}
           {%- assign delay_s = forloop.index0 | times: 0.9 -%}
           <div
@@ -373,10 +406,8 @@
             {{ block.shopify_attributes }}
           >
             <span class="line-hero__product-emoji">{{ block.settings.emoji | default: '✨' }}</span>
-            <div class="line-hero__product-info">
-              <span class="line-hero__product-name">{{ block.settings.name }}</span>
-              <span class="line-hero__product-price">{{ block.settings.price }}</span>
-            </div>
+            <span class="line-hero__product-brand">LINE</span>
+            <span class="line-hero__product-name">{{ block.settings.name }}</span>
           </div>
         {%- endfor -%}
       </div>
@@ -476,7 +507,7 @@
     {
       "type": "image_picker",
       "id": "bg_image",
-      "label": "Imagen de fondo (deja vacío para usar hero.png del tema)"
+      "label": "Imagen de fondo (deja vacío para usar HeroFondo.png del tema)"
     },
     {
       "type": "header",
