@@ -12,17 +12,31 @@
   background-color: var(--cream-0);
 }
 
-/* ── Fondo ── */
+/* ── Fondo: video único (sin imagen ni animación de partículas) ── */
 .line-hero__bg {
   position: absolute;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
+  background-color: var(--cream-0);
 }
-.line-hero__bg img {
+.line-hero__bg-video {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 66% center;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 1s ease;
+  pointer-events: none;
+}
+.line-hero__bg-video.is-ready { opacity: 1; }
+@media (max-width: 768px) {
+  .line-hero__bg-video { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .line-hero__bg-video { display: none; }
 }
 .line-hero__bg-overlay {
   position: absolute;
@@ -35,22 +49,12 @@
   );
 }
 
-/* ── Partículas ── */
-.line-hero__particles-wrap {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* ── Inner grid (texto izquierda / productos derecha) ── */
+/* ── Inner grid ── */
 .line-hero__inner {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-12);
-  align-items: center;
+  grid-template-columns: 1fr;
   max-width: 1560px;
   margin-inline: auto;
   padding-inline: var(--container-pad);
@@ -61,7 +65,7 @@
 .line-hero__content {
   display: grid;
   gap: var(--space-6);
-  margin-top: -5.5rem;
+  max-width: 640px;
 }
 
 .line-hero__label {
@@ -116,6 +120,7 @@
   gap: var(--space-3);
   align-items: center;
 }
+.line-hero__cta .btn { justify-content: space-between; }
 
 /* ── Trust bar ── */
 .line-hero__trust {
@@ -164,95 +169,18 @@
   line-height: 1.3;
 }
 
-/* ── Columna de producto (derecha): tarjetas de vidrio flotantes ── */
-.line-hero__products {
-  position: relative;
-  min-height: 380px;
-  width: 100%;
-}
-
-/* Animación flotante */
-@keyframes line-float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-10px); }
-}
-
-.line-hero__product-card {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  width: 148px;
-  padding: var(--space-6) var(--space-4);
-  text-align: center;
-  background: rgba(247,242,234,0.5);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.55);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  animation: line-float 3.6s ease-in-out infinite;
-  animation-delay: var(--card-delay, 0s);
-}
-.line-hero__product-card:nth-of-type(1) { top: 10%;  left: 2%; }
-.line-hero__product-card:nth-of-type(2) {
-  top: 0;
-  left: 32%;
-  width: 174px;
-  padding: var(--space-8) var(--space-5);
-  z-index: 1;
-}
-.line-hero__product-card:nth-of-type(3) { top: 16%; left: 68%; }
-
-.line-hero__product-emoji {
-  font-size: 2rem;
-  line-height: 1;
-  flex-shrink: 0;
-}
-.line-hero__product-brand {
-  font-family: var(--font-heading);
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--champagne-1);
-}
-.line-hero__product-name {
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: var(--text-sm);
-  color: var(--ink);
-  line-height: 1.25;
-}
-
-/* Burbujas de vidrio decorativas */
-.line-hero__bubble {
-  position: absolute;
-  border-radius: 50%;
-  background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(255,255,255,0.18) 60%, rgba(255,255,255,0.05) 100%);
-  box-shadow: 0 8px 20px rgba(42,36,30,0.08), inset 0 0 14px rgba(255,255,255,0.5);
-  animation: line-float 4.6s ease-in-out infinite;
-}
-.line-hero__bubble--1 { width: 58px; height: 58px; top: 2%;  left: 26%; animation-delay: .2s; }
-.line-hero__bubble--2 { width: 26px; height: 26px; top: 46%; left: 58%; animation-delay: 1.1s; }
-.line-hero__bubble--3 { width: 20px; height: 20px; top: 34%; left: 92%; animation-delay: .6s; }
-.line-hero__bubble--4 { width: 14px; height: 14px; top: 62%; left: 12%; animation-delay: 1.6s; }
-
-@media (prefers-reduced-motion: reduce) {
-  .line-hero__product-card,
-  .line-hero__bubble { animation: none; }
-}
-
 /* ── Responsive ── */
-@media (max-width: 900px) {
-  .line-hero__inner { grid-template-columns: 1fr; }
-  .line-hero__products { display: none; }
+@media (max-width: 767px) {
+  .line-hero {
+    min-height: auto;
+    padding-bottom: var(--space-20);
+  }
 }
 @media (max-width: 600px) {
   .line-hero__title { letter-spacing: -0.02em; }
   .line-hero__trust { gap: var(--space-4); }
+  .line-hero__cta { flex-direction: column; align-items: stretch; }
+  .line-hero__cta .btn { width: 100%; }
 }
 {% endstylesheet %}
 
@@ -262,48 +190,71 @@
   aria-labelledby="hero-title-{{ section.id }}"
 >
 
-  <!-- Imagen de fondo -->
-  <div class="line-hero__bg" aria-hidden="true">
-    {%- if section.settings.bg_image != blank -%}
-      {{
-        section.settings.bg_image
-        | image_url: width: 1920
-        | image_tag:
-          loading: 'eager',
-          fetchpriority: 'high',
-          alt: '',
-          widths: '768,1024,1440,1920',
-          sizes: '100vw'
-      }}
-    {%- else -%}
-      <img
-        src="{{ 'HeroFondo.png' | asset_url }}"
-        alt=""
-        loading="eager"
-        fetchpriority="high"
-        width="2400"
-        height="1162"
-      >
+  <!-- Video de fondo (única capa visual; en móvil/reduced-motion queda solo el color base del hero) -->
+  <div class="line-hero__bg" id="line-hero-bg-{{ section.id }}" aria-hidden="true">
+    {%- if section.settings.show_bg_video -%}
+      <video
+        class="line-hero__bg-video"
+        id="line-hero-bg-video-{{ section.id }}"
+        muted
+        loop
+        playsinline
+        autoplay
+        preload="auto"
+        disablepictureinpicture
+        disableremoteplayback
+        tabindex="-1"
+        aria-hidden="true"
+      ></video>
     {%- endif -%}
+
     <div class="line-hero__bg-overlay"></div>
   </div>
 
-  <!-- Partículas 3D (lazy, solo desktop) -->
-  {%- if section.settings.show_particles -%}
-    <div class="line-hero__particles-wrap">
-      {%- render 'particles-3d',
-          particle_count: section.settings.particle_count,
-          particle_color: section.settings.particle_color,
-          particle_size: section.settings.particle_size,
-          section_id: section.id
-      -%}
-    </div>
+  {%- if section.settings.show_bg_video -%}
+    <script>
+    (function () {
+      var wrap  = document.getElementById('line-hero-bg-{{ section.id }}');
+      var video = document.getElementById('line-hero-bg-video-{{ section.id }}');
+      if (!wrap || !video) return;
+
+      /* Regla dura: desactivar en móvil y con prefers-reduced-motion (queda solo el color base del hero) */
+      var skip = window.matchMedia('(max-width: 768px)').matches ||
+                 window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (skip) return;
+
+      /* Solo se revela (opacity) cuando ya hay un frame real avanzando:
+         así nunca se ve un cuadro negro si el autoplay falla o tarda. */
+      video.addEventListener('timeupdate', function onTick() {
+        video.removeEventListener('timeupdate', onTick);
+        video.classList.add('is-ready');
+      });
+
+      var source = document.createElement('source');
+      source.src  = {{ 'OficialHero.mp4' | asset_url | json }};
+      source.type = 'video/mp4';
+      video.appendChild(source);
+      video.load();
+      video.play().catch(function () {
+        /* Autoplay bloqueado por el navegador: queda solo el color base del hero */
+      });
+
+      /* Pausa fuera de viewport (scroll) para no gastar CPU/batería de más */
+      new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+          video.play().catch(function () {});
+        } else {
+          video.pause();
+        }
+      }).observe(wrap);
+    })();
+    </script>
   {%- endif -%}
 
   <!-- Grid principal -->
   <div class="line-hero__inner">
 
-    <!-- Columna izquierda: texto -->
+    <!-- Columna de texto -->
     <div class="line-hero__content">
 
       {%- if section.settings.label != blank -%}
@@ -337,6 +288,9 @@
         {%- if section.settings.btn1_label != blank -%}
           <a href="{{ section.settings.btn1_url | default: '/collections/all' }}" class="btn btn--primary">
             {{ section.settings.btn1_label }}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
           </a>
         {%- endif -%}
         {%- if section.settings.btn2_label != blank -%}
@@ -390,29 +344,6 @@
 
     </div><!-- /content -->
 
-    <!-- Columna derecha: slots de producto flotantes -->
-    {%- assign product_blocks = section.blocks | where: 'type', 'product_card' -%}
-    {%- if product_blocks.size > 0 -%}
-      <div class="line-hero__products" aria-hidden="true">
-        <span class="line-hero__bubble line-hero__bubble--1"></span>
-        <span class="line-hero__bubble line-hero__bubble--2"></span>
-        <span class="line-hero__bubble line-hero__bubble--3"></span>
-        <span class="line-hero__bubble line-hero__bubble--4"></span>
-        {%- for block in product_blocks -%}
-          {%- assign delay_s = forloop.index0 | times: 0.9 -%}
-          <div
-            class="line-hero__product-card"
-            style="--card-delay: {{ delay_s }}s;"
-            {{ block.shopify_attributes }}
-          >
-            <span class="line-hero__product-emoji">{{ block.settings.emoji | default: '✨' }}</span>
-            <span class="line-hero__product-brand">LINE</span>
-            <span class="line-hero__product-name">{{ block.settings.name }}</span>
-          </div>
-        {%- endfor -%}
-      </div>
-    {%- endif -%}
-
   </div><!-- /inner -->
 
 </section>
@@ -425,8 +356,9 @@
     section,
     function (el) {
       if (!window.gsap) return;
-      var children = el.querySelector('.line-hero__content') ? el.querySelector('.line-hero__content').children : [];
-      window.gsap.from(children, { opacity: 0, y: 28, duration: 0.85, stagger: 0.11, ease: 'power3.out', clearProps: 'all' });
+      var gsap = window.gsap;
+      var contentEls = el.querySelector('.line-hero__content') ? el.querySelector('.line-hero__content').children : [];
+      gsap.from(contentEls, { opacity: 0, y: 28, duration: 0.85, stagger: 0.11, ease: 'power3.out', clearProps: 'opacity,transform' });
     },
     ['gsap'],
     '0px'
@@ -502,46 +434,14 @@
     },
     {
       "type": "header",
-      "content": "Imagen de fondo"
-    },
-    {
-      "type": "image_picker",
-      "id": "bg_image",
-      "label": "Imagen de fondo (deja vacío para usar HeroFondo.png del tema)"
-    },
-    {
-      "type": "header",
-      "content": "Partículas 3D"
+      "content": "Video de fondo"
     },
     {
       "type": "checkbox",
-      "id": "show_particles",
+      "id": "show_bg_video",
       "default": true,
-      "label": "Activar partículas 3D (solo desktop)"
-    },
-    {
-      "type": "range",
-      "id": "particle_count",
-      "min": 40,
-      "max": 300,
-      "step": 10,
-      "default": 120,
-      "label": "Cantidad de partículas"
-    },
-    {
-      "type": "color",
-      "id": "particle_color",
-      "default": "#e7d3b3",
-      "label": "Color de partículas"
-    },
-    {
-      "type": "range",
-      "id": "particle_size",
-      "min": 0.5,
-      "max": 3.0,
-      "step": 0.1,
-      "default": 1.2,
-      "label": "Tamaño de partículas"
+      "label": "Activar video de fondo (OficialHero.mp4, solo desktop)",
+      "info": "En móvil y con 'reducir movimiento' activado queda solo el color base del hero."
     }
   ],
   "blocks": [
@@ -574,42 +474,15 @@
           "label": "Subtítulo"
         }
       ]
-    },
-    {
-      "type": "product_card",
-      "name": "Slot de producto",
-      "settings": [
-        {
-          "type": "text",
-          "id": "emoji",
-          "default": "✨",
-          "label": "Emoji / icono"
-        },
-        {
-          "type": "text",
-          "id": "name",
-          "default": "Masajeador",
-          "label": "Nombre del producto"
-        },
-        {
-          "type": "text",
-          "id": "price",
-          "default": "$29.99",
-          "label": "Precio"
-        }
-      ]
     }
   ],
   "presets": [
     {
       "name": "Hero LINE",
       "blocks": [
-        { "type": "trust_item",   "settings": { "icon": "truck",  "text": "Envío a todo el país",   "subtitle": "Recíbelo donde estés" } },
-        { "type": "trust_item",   "settings": { "icon": "lock",   "text": "Pago seguro",             "subtitle": "Tus datos protegidos" } },
-        { "type": "trust_item",   "settings": { "icon": "shield", "text": "Garantía de satisfacción","subtitle": "Compra con confianza" } },
-        { "type": "product_card", "settings": { "emoji": "🛁", "name": "Masajeador",    "price": "$29.99" } },
-        { "type": "product_card", "settings": { "emoji": "✨", "name": "Roller facial", "price": "$19.99" } },
-        { "type": "product_card", "settings": { "emoji": "💧", "name": "Sérum facial",  "price": "$34.99" } }
+        { "type": "trust_item", "settings": { "icon": "truck",  "text": "Envío a todo el país",    "subtitle": "Recíbelo donde estés" } },
+        { "type": "trust_item", "settings": { "icon": "lock",   "text": "Pago seguro",              "subtitle": "Tus datos protegidos" } },
+        { "type": "trust_item", "settings": { "icon": "shield", "text": "Garantía de satisfacción", "subtitle": "Compra con confianza" } }
       ]
     }
   ]

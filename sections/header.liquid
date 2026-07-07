@@ -46,19 +46,11 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  margin-left: -1.75rem;
+  margin-left: -11.5rem;
 }
 .line-header__logo-img {
   height: 36px;
   width: auto;
-}
-.line-header__logo-text {
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: var(--text-xl);
-  color: var(--ink);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
 }
 
 /* ── Nav ── */
@@ -128,7 +120,6 @@
   justify-content: center;
   line-height: 1;
 }
-.line-header__cart-count[hidden] { display: none; }
 
 /* ── Mobile toggle ── */
 .line-header__menu-toggle {
@@ -188,6 +179,7 @@
 @media (max-width: 900px) {
   .line-header__nav { display: none; }
   .line-header__menu-toggle { display: flex; }
+  .line-header__logo { margin-left: 0; }
 }
 {% endstylesheet %}
 
@@ -214,7 +206,14 @@
             widths: '120,160,240'
         }}
       {%- else -%}
-        <span class="line-header__logo-text">{{ section.settings.logo_text | default: 'LINE' }}</span>
+        <img
+          src="{{ 'Logo.png' | asset_url }}"
+          alt="{{ shop.name }}"
+          class="line-header__logo-img"
+          loading="eager"
+          width="320"
+          height="64"
+        >
       {%- endif -%}
     </a>
 
@@ -259,7 +258,7 @@
           <line x1="3" y1="6" x2="21" y2="6"/>
           <path d="M16 10a4 4 0 0 1-8 0"/>
         </svg>
-        <span class="line-header__cart-count" {% if cart.item_count == 0 %}hidden{% endif %}>
+        <span class="line-header__cart-count">
           {{ cart.item_count }}
         </span>
       </a>
@@ -353,13 +352,7 @@
     {
       "type": "image_picker",
       "id": "logo",
-      "label": "Logo (imagen)"
-    },
-    {
-      "type": "text",
-      "id": "logo_text",
-      "default": "LINE",
-      "label": "Logo (texto, si no hay imagen)"
+      "label": "Logo (imagen, deja vacío para usar Logo.png del tema)"
     },
     {
       "type": "checkbox",

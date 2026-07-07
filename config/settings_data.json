@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "color_primary": "#f7f2ea",
@@ -8,13 +17,49 @@
       "header": {
         "type": "header",
         "blocks": {
-          "nav-1": { "type": "nav_link", "settings": { "label": "Categorías",         "url": "/collections" } },
-          "nav-2": { "type": "nav_link", "settings": { "label": "¿Por qué LINE?",     "url": "/pages/por-que-line" } },
-          "nav-3": { "type": "nav_link", "settings": { "label": "Acerca de Nosotros", "url": "/pages/acerca-de" } },
-          "nav-4": { "type": "nav_link", "settings": { "label": "FAQ",                "url": "/pages/faq" } },
-          "nav-5": { "type": "nav_link", "settings": { "label": "Contáctanos",        "url": "/pages/contacto" } }
+          "nav-1": {
+            "type": "nav_link",
+            "settings": {
+              "label": "Categorías",
+              "url": "/collections"
+            }
+          },
+          "nav-2": {
+            "type": "nav_link",
+            "settings": {
+              "label": "¿Por qué LINE?",
+              "url": "/pages/por-que-line"
+            }
+          },
+          "nav-3": {
+            "type": "nav_link",
+            "settings": {
+              "label": "Acerca de Nosotros",
+              "url": "/pages/acerca-de"
+            }
+          },
+          "nav-4": {
+            "type": "nav_link",
+            "settings": {
+              "label": "FAQ",
+              "url": "/pages/faq"
+            }
+          },
+          "nav-5": {
+            "type": "nav_link",
+            "settings": {
+              "label": "Contáctanos",
+              "url": "/pages/contacto"
+            }
+          }
         },
-        "block_order": ["nav-1", "nav-2", "nav-3", "nav-4", "nav-5"],
+        "block_order": [
+          "nav-1",
+          "nav-2",
+          "nav-3",
+          "nav-4",
+          "nav-5"
+        ],
         "settings": {
           "logo_text": "LINE",
           "show_search": true
@@ -23,11 +68,30 @@
       "footer": {
         "type": "footer",
         "blocks": {
-          "col-1": { "type": "link_column", "settings": { "title": "Productos" } },
-          "col-2": { "type": "link_column", "settings": { "title": "Ayuda" } },
-          "col-3": { "type": "link_column", "settings": { "title": "Empresa" } }
+          "col-1": {
+            "type": "link_column",
+            "settings": {
+              "title": "Productos"
+            }
+          },
+          "col-2": {
+            "type": "link_column",
+            "settings": {
+              "title": "Ayuda"
+            }
+          },
+          "col-3": {
+            "type": "link_column",
+            "settings": {
+              "title": "Empresa"
+            }
+          }
         },
-        "block_order": ["col-1", "col-2", "col-3"],
+        "block_order": [
+          "col-1",
+          "col-2",
+          "col-3"
+        ],
         "settings": {
           "description": "Productos de bienestar pensados para tu día a día. Calidad, comodidad y estilo."
         }
