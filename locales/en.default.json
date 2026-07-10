@@ -45,8 +45,8 @@
     "hero": {
       "trust_label": "Trust points"
     },
-    "categories": {
-      "explore": "Explore"
+    "category_home": {
+      "list_label": "LINE wellness categories"
     },
     "footer": {
       "social_media": "Social media",

@@ -19,26 +19,46 @@
         "show_bg_video": true
       }
     },
-    "categorias": {
-      "type": "categorias",
+    "category-home": {
+      "type": "section-category-home",
       "blocks": {
-        "cat-1": { "type": "category", "settings": { "name": "Belleza",      "description": "Cuidado personal" } },
-        "cat-2": { "type": "category", "settings": { "name": "Skincare",     "description": "Rutina de piel" } },
-        "cat-3": { "type": "category", "settings": { "name": "Recuperación", "description": "Alivio y recuperación" } },
-        "cat-4": { "type": "category", "settings": { "name": "Sueño",        "description": "Descanso profundo" } },
-        "cat-5": { "type": "category", "settings": { "name": "Postura",      "description": "Corrección postural" } },
-        "cat-6": { "type": "category", "settings": { "name": "Relajación",   "description": "Bienestar mental" } }
+        "icon-1": { "type": "category_icon", "settings": { "icon": "facial",         "label": "Facial" } },
+        "icon-2": { "type": "category_icon", "settings": { "icon": "fitness-ligero", "label": "Fitness ligero" } },
+        "icon-3": { "type": "category_icon", "settings": { "icon": "postura",        "label": "Postura" } },
+        "icon-4": { "type": "category_icon", "settings": { "icon": "skincare",       "label": "Skincare" } },
+        "icon-5": { "type": "category_icon", "settings": { "icon": "relajacion",     "label": "Relajación" } },
+        "icon-6": { "type": "category_icon", "settings": { "icon": "sueno",          "label": "Sueño" } },
+        "icon-7": { "type": "category_icon", "settings": { "icon": "anti-estres",    "label": "Anti estrés" } },
+        "icon-8": { "type": "category_icon", "settings": { "icon": "dolor-muscular", "label": "Dolor muscular" } },
+        "icon-9": { "type": "category_icon", "settings": { "icon": "belleza",        "label": "Belleza" } }
       },
-      "block_order": ["cat-1","cat-2","cat-3","cat-4","cat-5","cat-6"],
+      "block_order": ["icon-1","icon-2","icon-3","icon-4","icon-5","icon-6","icon-7","icon-8","icon-9"],
       "settings": {
-        "label": "Nuestra gama",
-        "title": "Encuentra tu bienestar",
-        "subtitle": "Explora las categorías y encuentra el producto perfecto para ti."
+        "title": "Explora nuestras categorías",
+        "subtitle": "Soluciones para cada área de tu bienestar"
+      }
+    },
+    "why-line": {
+      "type": "what-line-home",
+      "blocks": {
+        "card-1": { "type": "why_card", "settings": { "fallback_filename": "SeleccionExperta.png", "title": "Selección experta",    "description": "Elegimos cada producto por su calidad, innovación y resultados comprobados." } },
+        "card-2": { "type": "why_card", "settings": { "fallback_filename": "CompraSeguridad.png",  "title": "Confianza garantizada", "description": "Compra segura, datos protegidos y pagos con los más altos estándares." } },
+        "card-3": { "type": "why_card", "settings": { "fallback_filename": "Devoluciones.png",     "title": "Devoluciones fáciles",  "description": "14 días para cambiar de opinión, sin formularios interminables, sin complicaciones." } }
+      },
+      "block_order": ["card-1","card-2","card-3"],
+      "settings": {
+        "eyebrow": "¿Por qué LINE?",
+        "title_prefix": "Bienestar que nace de la",
+        "title_highlight": "confianza.",
+        "body_1": "En LINE creemos que pequeños cambios pueden transformar tu día a día.",
+        "body_2": "Por eso seleccionamos cuidadosamente productos innovadores que realmente marcan la diferencia en tu descanso, recuperación y bienestar general.",
+        "link_label": "Conocer más sobre nosotros"
       }
     }
   },
   "order": [
     "hero",
-    "categorias"
+    "category-home",
+    "why-line"
   ]
 }

@@ -1,0 +1,379 @@
+{% stylesheet %}
+.line-why {
+  padding-top: var(--space-10);
+  padding-bottom: var(--space-24);
+  background: var(--white);
+  overflow: hidden;
+}
+
+.line-why__inner {
+  display: grid;
+  grid-template-columns: minmax(260px, 360px) 1fr;
+  gap: var(--space-16);
+  align-items: center;
+  max-width: 1560px;
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+/* ── Columna izquierda ── */
+.line-why__eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--champagne-1);
+}
+.line-why__title {
+  margin-top: var(--space-3);
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(var(--text-2xl), 3.2vw, var(--text-4xl));
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.line-why__title-highlight {
+  background: var(--gradient-champagne);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.line-why__body {
+  margin-top: var(--space-5);
+  display: grid;
+  gap: var(--space-4);
+  max-width: 340px;
+}
+.line-why__body p {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: var(--ink-soft);
+  text-align: justify;
+}
+.line-why__link {
+  margin-top: var(--space-6);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--ink);
+}
+.line-why__link svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s var(--ease-out-expo);
+}
+.line-why__link:hover svg { transform: translateX(4px); }
+.line-why__link-text {
+  position: relative;
+}
+.line-why__link-text::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0.3);
+  transform-origin: left;
+  opacity: 0.35;
+  transition: transform 0.35s var(--ease-out-expo), opacity 0.35s ease;
+}
+.line-why__link:hover .line-why__link-text::after {
+  transform: scaleX(1);
+  opacity: 0.9;
+}
+
+/* ── Columna derecha: tarjetas ── */
+.line-why__cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 230px));
+  gap: var(--space-10);
+  align-items: start;
+  justify-content: start;
+  margin-left: var(--space-20);
+}
+
+.line-why__card {
+  display: flex;
+  flex-direction: column;
+  container-type: inline-size;
+}
+
+.line-why__card-media {
+  position: relative;
+  flex-shrink: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  box-shadow: 0 14px 30px rgba(42,36,30,0.10);
+  transition: box-shadow 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+}
+.line-why__card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-out-expo);
+}
+.line-why__card:hover .line-why__card-media {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 40px rgba(42,36,30,0.16);
+}
+.line-why__card:hover .line-why__card-img { transform: scale(1.06); }
+
+.line-why__card-title {
+  margin-top: var(--space-8);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(1.1rem, 6.5cqw, 1.4rem);
+  color: var(--ink);
+}
+.line-why__card-desc {
+  margin-top: var(--space-3);
+  font-family: var(--font-body);
+  font-size: clamp(0.82rem, 4cqw, 0.95rem);
+  line-height: 1.6;
+  color: var(--ink-soft);
+  text-align: justify;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .line-why__inner { grid-template-columns: 1fr; gap: var(--space-10); }
+  .line-why__eyebrow, .line-why__title { text-align: center; }
+  .line-why__body { margin-inline: auto; text-align: center; }
+  .line-why__link { margin-inline: auto; }
+}
+@media (max-width: 700px) {
+  .line-why__cards { grid-template-columns: 1fr; gap: var(--space-8); }
+}
+{% endstylesheet %}
+
+<section
+  class="line-why"
+  id="line-why-{{ section.id }}"
+  aria-labelledby="why-title-{{ section.id }}"
+>
+  <div class="line-why__inner">
+
+    <div class="line-why__intro">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="line-why__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      <h2 class="line-why__title" id="why-title-{{ section.id }}">
+        {{ section.settings.title_prefix }}
+        {%- if section.settings.title_highlight != blank -%}
+          <span class="line-why__title-highlight">{{ section.settings.title_highlight }}</span>
+        {%- endif -%}
+      </h2>
+
+      {%- if section.settings.body_1 != blank or section.settings.body_2 != blank -%}
+        <div class="line-why__body">
+          {%- if section.settings.body_1 != blank -%}<p>{{ section.settings.body_1 }}</p>{%- endif -%}
+          {%- if section.settings.body_2 != blank -%}<p>{{ section.settings.body_2 }}</p>{%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.link_label != blank -%}
+        <a href="{{ section.settings.link_url | default: '/pages/acerca-de' }}" class="line-why__link">
+          <span class="line-why__link-text">{{ section.settings.link_label }}</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- assign card_blocks = section.blocks | where: 'type', 'why_card' -%}
+    {%- if card_blocks.size > 0 -%}
+      <div class="line-why__cards">
+        {%- for block in card_blocks -%}
+          <div class="line-why__card" {{ block.shopify_attributes }}>
+            <div class="line-why__card-media">
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 800
+                  | image_tag:
+                    class: 'line-why__card-img',
+                    loading: 'lazy',
+                    alt: block.settings.title,
+                    widths: '400,600,800',
+                    sizes: '(max-width: 700px) 90vw, (max-width: 1024px) 45vw, 22vw'
+                }}
+              {%- else -%}
+                <img
+                  src="{{ block.settings.fallback_filename | default: 'SeleccionExperta.png' | asset_url }}"
+                  alt="{{ block.settings.title }}"
+                  loading="lazy"
+                  width="800"
+                  height="680"
+                  class="line-why__card-img"
+                >
+              {%- endif -%}
+            </div>
+            {%- if block.settings.title != blank -%}
+              <h3 class="line-why__card-title">{{ block.settings.title }}</h3>
+            {%- endif -%}
+            {%- if block.settings.description != blank -%}
+              <p class="line-why__card-desc">{{ block.settings.description }}</p>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<script>
+(function () {
+  var section = document.getElementById('line-why-{{ section.id }}');
+  if (!section || !window.LINE) return;
+  window.LINE.registerAnim(
+    section,
+    function (el) {
+      if (!window.gsap) return;
+      var gsap = window.gsap;
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced) return;
+
+      var introEls = el.querySelector('.line-why__intro') ? el.querySelector('.line-why__intro').children : [];
+      var cards = el.querySelectorAll('.line-why__card');
+
+      var tweenIntro = { opacity: 0, y: 22, duration: 0.7, stagger: 0.1, ease: 'power3.out', clearProps: 'opacity,transform' };
+      var tweenCards = { opacity: 0, y: 28, duration: 0.65, stagger: 0.1, ease: 'power3.out', clearProps: 'opacity,transform' };
+
+      if (window.ScrollTrigger) {
+        gsap.registerPlugin(window.ScrollTrigger);
+        tweenIntro.scrollTrigger = { trigger: el, start: 'top 78%', once: true };
+        tweenCards.scrollTrigger = { trigger: el, start: 'top 78%', once: true };
+      }
+
+      if (introEls.length) gsap.from(introEls, tweenIntro);
+      if (cards.length) gsap.from(cards, tweenCards);
+    },
+    ['gsap', 'ScrollTrigger'],
+    '100px'
+  );
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Por qué LINE",
+  "tag": "section",
+  "class": "section-what-line-home",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "default": "¿Por qué LINE?",
+      "label": "Etiqueta"
+    },
+    {
+      "type": "text",
+      "id": "title_prefix",
+      "default": "Bienestar que nace de la",
+      "label": "Título — texto"
+    },
+    {
+      "type": "text",
+      "id": "title_highlight",
+      "default": "confianza.",
+      "label": "Título — palabra destacada (color pastel)"
+    },
+    {
+      "type": "textarea",
+      "id": "body_1",
+      "default": "En LINE creemos que pequeños cambios pueden transformar tu día a día.",
+      "label": "Párrafo 1"
+    },
+    {
+      "type": "textarea",
+      "id": "body_2",
+      "default": "Por eso seleccionamos cuidadosamente productos innovadores que realmente marcan la diferencia en tu descanso, recuperación y bienestar general.",
+      "label": "Párrafo 2"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "default": "Conocer más sobre nosotros",
+      "label": "Enlace — texto"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Enlace — URL (deja vacío para ir a Acerca de Nosotros)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "why_card",
+      "name": "Tarjeta",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen"
+        },
+        {
+          "type": "text",
+          "id": "fallback_filename",
+          "label": "Imagen de respaldo (archivo en assets/)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Selección experta",
+          "label": "Título"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "default": "Elegimos cada producto por su calidad, innovación y resultados comprobados.",
+          "label": "Descripción"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Por qué LINE",
+      "blocks": [
+        {
+          "type": "why_card",
+          "settings": {
+            "fallback_filename": "SeleccionExperta.png",
+            "title": "Selección experta",
+            "description": "Elegimos cada producto por su calidad, innovación y resultados comprobados."
+          }
+        },
+        {
+          "type": "why_card",
+          "settings": {
+            "fallback_filename": "CompraSeguridad.png",
+            "title": "Confianza garantizada",
+            "description": "Compra segura, datos protegidos y pagos con los más altos estándares."
+          }
+        },
+        {
+          "type": "why_card",
+          "settings": {
+            "fallback_filename": "Devoluciones.png",
+            "title": "Devoluciones fáciles",
+            "description": "14 días para cambiar de opinión, sin formularios interminables, sin complicaciones."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

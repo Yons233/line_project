@@ -45,8 +45,8 @@
     "hero": {
       "trust_label": "Puntos de confianza"
     },
-    "categories": {
-      "explore": "Explorar"
+    "category_home": {
+      "list_label": "Categorías de bienestar LINE"
     },
     "footer": {
       "social_media": "Redes sociales",
