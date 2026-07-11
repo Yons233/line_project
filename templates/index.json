@@ -54,11 +54,43 @@
         "body_2": "Por eso seleccionamos cuidadosamente productos innovadores que realmente marcan la diferencia en tu descanso, recuperación y bienestar general.",
         "link_label": "Conocer más sobre nosotros"
       }
+    },
+    "how-it-works": {
+      "type": "how-it-works-home",
+      "blocks": {
+        "step-1": { "type": "how_step", "settings": { "title": "Explora", "description": "Descubre nuestra selección de productos diseñados para mejorar tu bienestar diario." } },
+        "step-2": { "type": "how_step", "settings": { "title": "Elige",   "description": "Encuentra la solución ideal para ti. Compara opciones y decide con confianza." } },
+        "step-3": { "type": "how_step", "settings": { "title": "Recibe",  "description": "Nos encargamos de todo para que recibas tu pedido de forma rápida, segura y sin complicaciones." } }
+      },
+      "block_order": ["step-1","step-2","step-3"],
+      "settings": {
+        "eyebrow": "Cómo funciona",
+        "title": "Hacemos tu experiencia simple y segura.",
+        "button_label": "Ver cómo funciona"
+      }
+    },
+    "more-advantage": {
+      "type": "more-advantage-create-account-home",
+      "blocks": {
+        "perk-1": { "type": "perk_item", "settings": { "icon": "star",  "title": "Ofertas exclusivas",   "description": "Accede antes que nadie a promociones y lanzamientos." } },
+        "perk-2": { "type": "perk_item", "settings": { "icon": "heart", "title": "Lista de favoritos",   "description": "Guarda tus productos favoritos para después." } },
+        "perk-3": { "type": "perk_item", "settings": { "icon": "lock",  "title": "Recompensas LINE",     "description": "Acumula beneficios con cada compra que realices." } },
+        "perk-4": { "type": "perk_item", "settings": { "icon": "zap",   "title": "Checkout rápido",      "description": "Compra en segundos con tu información guardada." } }
+      },
+      "block_order": ["perk-1","perk-2","perk-3","perk-4"],
+      "settings": {
+        "eyebrow": "Más ventajas al crear tu cuenta",
+        "title": "Una experiencia diseñada para ti.",
+        "button_label": "Comenzar ya",
+        "login_label": "Iniciar sesión"
+      }
     }
   },
   "order": [
     "hero",
     "category-home",
-    "why-line"
+    "why-line",
+    "how-it-works",
+    "more-advantage"
   ]
 }

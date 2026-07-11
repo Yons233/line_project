@@ -1,0 +1,410 @@
+{% stylesheet %}
+.line-perks {
+  padding-top: var(--space-10);
+  padding-bottom: var(--space-16);
+  background: var(--white);
+}
+
+.line-perks__card {
+  position: relative;
+  max-width: 1400px;
+  margin-inline: auto;
+  padding: var(--space-16);
+  border-radius: 32px;
+  background: linear-gradient(160deg, #26201a 0%, #1c1712 55%, #14100c 100%);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Resplandor ambiental champán, como el aro de luz del video del Hero */
+.line-perks__card::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 55%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(189,151,99,0.24) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.line-perks__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-10);
+}
+
+/* ── Columna izquierda ── */
+.line-perks__intro {
+  flex: 0 1 300px;
+  min-width: 230px;
+}
+.line-perks__eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--champagne-2);
+}
+.line-perks__title {
+  margin-top: var(--space-4);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.25rem, 1.6vw, 1.375rem);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--white);
+}
+.line-perks__actions {
+  margin-top: var(--space-8);
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+.line-perks__login {
+  position: relative;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: rgba(255,255,255,0.82);
+  transition: color 0.3s ease;
+}
+.line-perks__login::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0.3);
+  transform-origin: left;
+  opacity: 0.4;
+  transition: transform 0.35s var(--ease-out-expo), opacity 0.35s ease;
+}
+.line-perks__login:hover {
+  color: var(--champagne-2);
+}
+.line-perks__login:hover::after {
+  transform: scaleX(1);
+  opacity: 0.9;
+}
+
+/* ── Grilla de ventajas ──
+   Sin líneas divisorias internas entre ítems (solo un borde a la izquierda
+   que separa la columna de texto de la grilla, como en la referencia):
+   la organización se logra con espaciado e íconos, no con cuadrantes. */
+.line-perks__grid {
+  flex: 1 1 auto;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: var(--space-12);
+  row-gap: var(--space-8);
+  padding-left: var(--space-10);
+  border-left: 1px solid rgba(255,255,255,0.12);
+}
+
+.line-perks__item-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.line-perks__icon-wrap {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: var(--champagne-2);
+  transition: color 0.3s ease, transform 0.4s var(--ease-out-expo);
+}
+.line-perks__icon-wrap svg {
+  width: 100%;
+  height: 100%;
+}
+.line-perks__item:hover .line-perks__icon-wrap {
+  transform: translateY(-2px);
+  color: var(--champagne-1);
+}
+
+.line-perks__item-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-base);
+  color: var(--white);
+  transition: color 0.3s ease;
+}
+.line-perks__item:hover .line-perks__item-title { color: var(--champagne-2); }
+.line-perks__item-desc {
+  margin-top: var(--space-2);
+  margin-left: calc(20px + var(--space-2));
+  max-width: 320px;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  line-height: 1.6;
+  color: rgba(255,255,255,0.55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line-perks__item, .line-perks__icon-wrap, .line-perks__login { transition: none; }
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .line-perks__card { padding: var(--space-10) var(--space-6); border-radius: 24px; }
+  .line-perks__inner { flex-direction: column; align-items: stretch; gap: var(--space-10); }
+  .line-perks__intro { flex-basis: auto; max-width: none; }
+  .line-perks__eyebrow, .line-perks__title { text-align: center; }
+  .line-perks__actions { justify-content: center; }
+  .line-perks__grid {
+    grid-template-columns: 1fr;
+    row-gap: var(--space-6);
+    padding-left: 0;
+    border-left: none;
+  }
+  .line-perks__item-desc { max-width: none; }
+  .line-perks__item:not(:last-child) {
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+}
+{% endstylesheet %}
+
+<section
+  class="line-perks"
+  id="line-perks-{{ section.id }}"
+  aria-labelledby="perks-title-{{ section.id }}"
+>
+  <div class="line-perks__card">
+    <div class="line-perks__inner">
+
+      <div class="line-perks__intro">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="line-perks__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="line-perks__title" id="perks-title-{{ section.id }}">{{ section.settings.title }}</h2>
+        {%- endif -%}
+        <div class="line-perks__actions">
+          {%- if section.settings.button_label != blank -%}
+            <a href="{{ section.settings.button_url | default: '/account/register' }}" class="btn btn--champagne">
+              {{ section.settings.button_label }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.login_label != blank -%}
+            <a href="{{ section.settings.login_url | default: '/account/login' }}" class="line-perks__login">
+              {{ section.settings.login_label }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- assign perk_blocks = section.blocks | where: 'type', 'perk_item' -%}
+      {%- if perk_blocks.size > 0 -%}
+        <ul class="line-perks__grid">
+          {%- for block in perk_blocks -%}
+            <li class="line-perks__item" {{ block.shopify_attributes }}>
+              <div class="line-perks__item-head">
+                <span class="line-perks__icon-wrap">
+                  {%- case block.settings.icon -%}
+                    {%- when 'star' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 2.5l2.9 5.88 6.5.94-4.7 4.58 1.11 6.47L12 17.27l-5.81 3.1 1.11-6.47-4.7-4.58 6.5-.94L12 2.5z"/>
+                      </svg>
+                    {%- when 'heart' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                      </svg>
+                    {%- when 'lock' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="3" y="11" width="18" height="11" rx="2"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                      </svg>
+                    {%- when 'zap' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>
+                      </svg>
+                    {%- else -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="9"/>
+                      </svg>
+                  {%- endcase -%}
+                </span>
+                {%- if block.settings.title != blank -%}
+                  <span class="line-perks__item-title">{{ block.settings.title }}</span>
+                {%- endif -%}
+              </div>
+              {%- if block.settings.description != blank -%}
+                <p class="line-perks__item-desc">{{ block.settings.description }}</p>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var section = document.getElementById('line-perks-{{ section.id }}');
+  if (!section || !window.LINE) return;
+  window.LINE.registerAnim(
+    section,
+    function (el) {
+      if (!window.gsap) return;
+      var gsap = window.gsap;
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced) return;
+
+      var intro = el.querySelector('.line-perks__intro');
+      var items = el.querySelectorAll('.line-perks__item');
+
+      var tweenIntro = { opacity: 0, y: 22, duration: 0.7, ease: 'power3.out', clearProps: 'opacity,transform' };
+      var tweenItems = { opacity: 0, y: 24, duration: 0.6, stagger: 0.1, ease: 'power3.out', clearProps: 'opacity,transform' };
+
+      if (window.ScrollTrigger) {
+        gsap.registerPlugin(window.ScrollTrigger);
+        var st = { trigger: el, start: 'top 78%', once: true };
+        tweenIntro.scrollTrigger = st;
+        tweenItems.scrollTrigger = st;
+      }
+
+      if (intro) gsap.from(intro, tweenIntro);
+      if (items.length) gsap.from(items, tweenItems);
+    },
+    ['gsap', 'ScrollTrigger'],
+    '100px'
+  );
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Ventajas de crear cuenta",
+  "tag": "section",
+  "class": "section-more-advantage-create-account-home",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "default": "Más ventajas al crear tu cuenta",
+      "label": "Etiqueta"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Una experiencia diseñada para ti.",
+      "label": "Título"
+    },
+    {
+      "type": "header",
+      "content": "Botones"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "Comenzar ya",
+      "label": "Texto del botón principal"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Enlace del botón (deja vacío para ir a crear cuenta)"
+    },
+    {
+      "type": "text",
+      "id": "login_label",
+      "default": "Iniciar sesión",
+      "label": "Texto del enlace de acceso"
+    },
+    {
+      "type": "url",
+      "id": "login_url",
+      "label": "Enlace de acceso (deja vacío para ir a iniciar sesión)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "perk_item",
+      "name": "Ventaja",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icono",
+          "default": "star",
+          "options": [
+            { "value": "star",  "label": "Estrella (ofertas)" },
+            { "value": "heart", "label": "Corazón (favoritos)" },
+            { "value": "lock",  "label": "Candado (recompensas)" },
+            { "value": "zap",   "label": "Rayo (checkout rápido)" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Ofertas exclusivas",
+          "label": "Título"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "default": "Accede antes que nadie a promociones y lanzamientos.",
+          "label": "Descripción"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ventajas de crear cuenta",
+      "blocks": [
+        {
+          "type": "perk_item",
+          "settings": {
+            "icon": "star",
+            "title": "Ofertas exclusivas",
+            "description": "Accede antes que nadie a promociones y lanzamientos."
+          }
+        },
+        {
+          "type": "perk_item",
+          "settings": {
+            "icon": "heart",
+            "title": "Lista de favoritos",
+            "description": "Guarda tus productos favoritos para después."
+          }
+        },
+        {
+          "type": "perk_item",
+          "settings": {
+            "icon": "lock",
+            "title": "Recompensas LINE",
+            "description": "Acumula beneficios con cada compra que realices."
+          }
+        },
+        {
+          "type": "perk_item",
+          "settings": {
+            "icon": "zap",
+            "title": "Checkout rápido",
+            "description": "Compra en segundos con tu información guardada."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
