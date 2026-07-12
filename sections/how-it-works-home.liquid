@@ -42,9 +42,9 @@
 /* ── Pasos ── */
 .line-how__steps {
   --badge: 56px;
-  --gap: 2.5rem;
+  --gap: 2rem;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: var(--gap);
   margin-top: var(--space-12);
 }
@@ -85,6 +85,8 @@
 }
 .line-how__step:nth-child(2) .line-how__badge-wrap::before { animation-delay: .6s; }
 .line-how__step:nth-child(3) .line-how__badge-wrap::before { animation-delay: 1.2s; }
+.line-how__step:nth-child(4) .line-how__badge-wrap::before { animation-delay: 1.8s; }
+.line-how__step:nth-child(5) .line-how__badge-wrap::before { animation-delay: 2.4s; }
 @keyframes line-how-pulse {
   0%, 100% { opacity: 0.45; transform: scale(1); }
   50%      { opacity: 0.85; transform: scale(1.12); }
@@ -140,10 +142,13 @@
 }
 
 /* ── Responsive ── */
+@media (max-width: 1100px) {
+  .line-how__steps { grid-template-columns: repeat(3, 1fr); }
+  .line-how__connector { display: none; }
+}
 @media (max-width: 900px) {
   .line-how__card { padding: var(--space-10) var(--space-6); border-radius: 24px; }
   .line-how__steps { grid-template-columns: 1fr; gap: var(--space-10); }
-  .line-how__connector { display: none; }
   .line-how__step-desc { max-width: 320px; }
 }
 {% endstylesheet %}
@@ -247,7 +252,7 @@
     {
       "type": "text",
       "id": "eyebrow",
-      "default": "Cómo funciona",
+      "default": "Tu experiencia con LINE",
       "label": "Etiqueta"
     },
     {
@@ -313,8 +318,22 @@
         {
           "type": "how_step",
           "settings": {
+            "title": "Compra",
+            "description": "Realiza tu pedido de forma rápida, segura y protegida."
+          }
+        },
+        {
+          "type": "how_step",
+          "settings": {
             "title": "Recibe",
-            "description": "Nos encargamos de todo para que recibas tu pedido de forma rápida, segura y sin complicaciones."
+            "description": "Nos encargamos de todo para que recibas tu pedido de forma rápida hasta tu puerta, con seguimiento en tiempo real."
+          }
+        },
+        {
+          "type": "how_step",
+          "settings": {
+            "title": "Seguimos contigo",
+            "description": "Nuestro equipo está siempre disponible para ayudarte."
           }
         }
       ]

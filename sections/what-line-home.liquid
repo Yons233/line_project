@@ -90,54 +90,70 @@
   opacity: 0.9;
 }
 
-/* ── Columna derecha: tarjetas ── */
+/* ── Columna derecha: los 3 bloques de mármol, sin animación ──
+   Dimensión fija idéntica + object-fit:cover para forzar simetría visual;
+   la tercera imagen trae mucho margen transparente propio, así que se le
+   aplica una escala extra específica (.line-why__card-img--boost). */
 .line-why__cards {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 230px));
-  gap: var(--space-10);
-  align-items: start;
-  justify-content: start;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-6);
+  max-width: 780px;
   margin-left: var(--space-20);
+  background: transparent;
 }
 
 .line-why__card {
   display: flex;
   flex-direction: column;
-  container-type: inline-size;
+  align-items: center;
+  text-align: center;
+  min-width: 0;
+  flex: 1 1 0;
 }
 
 .line-why__card-media {
+  /* aspect-ratio (no una altura fija en px) para que el recuadro siempre
+     sea un cuadrado perfecto sin importar cuánto se angoste el ancho
+     disponible dentro del flex — una altura fija con ancho flexible
+     deformaba la relación de aspecto y el object-fit:cover recortaba mal. */
   position: relative;
   flex-shrink: 0;
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 1 / 1;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  aspect-ratio: 1 / 1;
-  box-shadow: 0 14px 30px rgba(42,36,30,0.10);
-  transition: box-shadow 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .line-why__card-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.7s var(--ease-out-expo);
 }
-.line-why__card:hover .line-why__card-media {
-  transform: translateY(-4px);
-  box-shadow: 0 22px 40px rgba(42,36,30,0.16);
+/* Escala específica para compensar el margen transparente propio del
+   archivo de la tercera tarjeta (Devoluciones): sin esto su placa de
+   mármol se ve más chica que las otras dos aunque el recuadro sea igual. */
+.line-why__card-img--boost {
+  transform: scale(1.15);
 }
-.line-why__card:hover .line-why__card-img { transform: scale(1.06); }
 
 .line-why__card-title {
-  margin-top: var(--space-8);
+  margin-top: var(--space-4);
+  max-width: 100%;
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: clamp(1.1rem, 6.5cqw, 1.4rem);
+  font-size: var(--text-lg);
   color: var(--ink);
 }
 .line-why__card-desc {
-  margin-top: var(--space-3);
+  margin-top: var(--space-2);
+  max-width: 100%;
   font-family: var(--font-body);
-  font-size: clamp(0.82rem, 4cqw, 0.95rem);
+  font-size: var(--text-sm);
   line-height: 1.6;
   color: var(--ink-soft);
   text-align: justify;
@@ -149,9 +165,11 @@
   .line-why__eyebrow, .line-why__title { text-align: center; }
   .line-why__body { margin-inline: auto; text-align: center; }
   .line-why__link { margin-inline: auto; }
+  .line-why__cards { margin-inline: auto; }
 }
 @media (max-width: 700px) {
-  .line-why__cards { grid-template-columns: 1fr; gap: var(--space-8); }
+  .line-why__cards { flex-direction: column; align-items: center; gap: var(--space-8); }
+  .line-why__card-media { max-width: 240px; }
 }
 {% endstylesheet %}
 
@@ -195,6 +213,10 @@
     {%- if card_blocks.size > 0 -%}
       <div class="line-why__cards">
         {%- for block in card_blocks -%}
+          {%- assign img_class = 'line-why__card-img' -%}
+          {%- if forloop.last -%}
+            {%- assign img_class = 'line-why__card-img line-why__card-img--boost' -%}
+          {%- endif -%}
           <div class="line-why__card" {{ block.shopify_attributes }}>
             <div class="line-why__card-media">
               {%- if block.settings.image != blank -%}
@@ -202,7 +224,7 @@
                   block.settings.image
                   | image_url: width: 800
                   | image_tag:
-                    class: 'line-why__card-img',
+                    class: img_class,
                     loading: 'lazy',
                     alt: block.settings.title,
                     widths: '400,600,800',
@@ -210,12 +232,12 @@
                 }}
               {%- else -%}
                 <img
-                  src="{{ block.settings.fallback_filename | default: 'SeleccionExperta.png' | asset_url }}"
+                  src="{{ block.settings.fallback_filename | default: 'SeleccionExpertaDelux.png' | asset_url }}"
                   alt="{{ block.settings.title }}"
                   loading="lazy"
                   width="800"
                   height="680"
-                  class="line-why__card-img"
+                  class="{{ img_class }}"
                 >
               {%- endif -%}
             </div>
@@ -351,7 +373,7 @@
         {
           "type": "why_card",
           "settings": {
-            "fallback_filename": "SeleccionExperta.png",
+            "fallback_filename": "SeleccionExpertaDelux.png",
             "title": "Selección experta",
             "description": "Elegimos cada producto por su calidad, innovación y resultados comprobados."
           }
@@ -359,7 +381,7 @@
         {
           "type": "why_card",
           "settings": {
-            "fallback_filename": "CompraSeguridad.png",
+            "fallback_filename": "CompraSeguraDelux.png",
             "title": "Confianza garantizada",
             "description": "Compra segura, datos protegidos y pagos con los más altos estándares."
           }
@@ -367,7 +389,7 @@
         {
           "type": "why_card",
           "settings": {
-            "fallback_filename": "Devoluciones.png",
+            "fallback_filename": "DevolucionesDelux.png",
             "title": "Devoluciones fáciles",
             "description": "14 días para cambiar de opinión, sin formularios interminables, sin complicaciones."
           }

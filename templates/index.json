@@ -41,9 +41,9 @@
     "why-line": {
       "type": "what-line-home",
       "blocks": {
-        "card-1": { "type": "why_card", "settings": { "fallback_filename": "SeleccionExperta.png", "title": "Selección experta",    "description": "Elegimos cada producto por su calidad, innovación y resultados comprobados." } },
-        "card-2": { "type": "why_card", "settings": { "fallback_filename": "CompraSeguridad.png",  "title": "Confianza garantizada", "description": "Compra segura, datos protegidos y pagos con los más altos estándares." } },
-        "card-3": { "type": "why_card", "settings": { "fallback_filename": "Devoluciones.png",     "title": "Devoluciones fáciles",  "description": "14 días para cambiar de opinión, sin formularios interminables, sin complicaciones." } }
+        "card-1": { "type": "why_card", "settings": { "fallback_filename": "SeleccionExpertaDelux.png", "title": "Selección experta",    "description": "Elegimos cada producto por su calidad, innovación y resultados comprobados." } },
+        "card-2": { "type": "why_card", "settings": { "fallback_filename": "CompraSeguraDelux.png",     "title": "Confianza garantizada", "description": "Compra segura, datos protegidos y pagos con los más altos estándares." } },
+        "card-3": { "type": "why_card", "settings": { "fallback_filename": "DevolucionesDelux.png",     "title": "Devoluciones fáciles",  "description": "14 días para cambiar de opinión, sin formularios interminables, sin complicaciones." } }
       },
       "block_order": ["card-1","card-2","card-3"],
       "settings": {
@@ -58,13 +58,15 @@
     "how-it-works": {
       "type": "how-it-works-home",
       "blocks": {
-        "step-1": { "type": "how_step", "settings": { "title": "Explora", "description": "Descubre nuestra selección de productos diseñados para mejorar tu bienestar diario." } },
-        "step-2": { "type": "how_step", "settings": { "title": "Elige",   "description": "Encuentra la solución ideal para ti. Compara opciones y decide con confianza." } },
-        "step-3": { "type": "how_step", "settings": { "title": "Recibe",  "description": "Nos encargamos de todo para que recibas tu pedido de forma rápida, segura y sin complicaciones." } }
+        "step-1": { "type": "how_step", "settings": { "title": "Explora",         "description": "Descubre nuestra selección de productos diseñados para mejorar tu bienestar diario." } },
+        "step-2": { "type": "how_step", "settings": { "title": "Elige",           "description": "Encuentra la solución ideal para ti. Compara opciones y decide con confianza." } },
+        "step-3": { "type": "how_step", "settings": { "title": "Compra",          "description": "Realiza tu pedido de forma rápida, segura y protegida." } },
+        "step-4": { "type": "how_step", "settings": { "title": "Recibe",          "description": "Nos encargamos de todo para que recibas tu pedido de forma rápida hasta tu puerta, con seguimiento en tiempo real." } },
+        "step-5": { "type": "how_step", "settings": { "title": "Seguimos contigo","description": "Nuestro equipo está siempre disponible para ayudarte." } }
       },
-      "block_order": ["step-1","step-2","step-3"],
+      "block_order": ["step-1","step-2","step-3","step-4","step-5"],
       "settings": {
-        "eyebrow": "Cómo funciona",
+        "eyebrow": "Tu experiencia con LINE",
         "title": "Hacemos tu experiencia simple y segura.",
         "button_label": "Ver cómo funciona"
       }
