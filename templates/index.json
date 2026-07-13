@@ -86,6 +86,30 @@
         "button_label": "Comenzar ya",
         "login_label": "Iniciar sesión"
       }
+    },
+    "faq-cta": {
+      "type": "faq-cta-home",
+      "blocks": {
+        "faq-1": { "type": "faq_item", "settings": { "question": "¿Qué es LINE?", "answer": "LINE es una marca especializada en seleccionar soluciones innovadoras para el bienestar diario. Nuestro objetivo es ayudarte a descansar mejor, aliviar tensiones y sentirte bien mediante productos cuidadosamente elegidos por su calidad, funcionalidad y diseño." } },
+        "faq-2": { "type": "faq_item", "settings": { "question": "¿Qué tipo de productos venden?", "answer": "En LINE encontrarás una selección de productos relacionados con bienestar, recuperación, cuidado personal, descanso, postura, relajación, fitness ligero y alivio muscular. Cada producto es evaluado antes de formar parte de nuestra colección." } },
+        "faq-3": { "type": "faq_item", "settings": { "question": "¿Los productos tienen garantía?", "answer": "Sí. Trabajamos únicamente con productos que cumplen nuestros estándares de calidad. Si un artículo presenta un defecto de fabricación o llega dañado, nuestro equipo te ayudará a resolver la situación de forma rápida y sencilla." } },
+        "faq-4": { "type": "faq_item", "settings": { "question": "¿Cuánto tarda el envío?", "answer": "El tiempo de entrega depende del destino y del producto adquirido. En la mayoría de los casos, los pedidos se entregan en un plazo estimado de 3 a 7 días hábiles. Una vez que su pedido haya sido enviado, recibirá un correo electrónico con la información de seguimiento para que pueda consultar su estado." } },
+        "faq-5": { "type": "faq_item", "settings": { "question": "¿Cómo puedo rastrear mi pedido?", "answer": "Una vez que su pedido sea procesado y enviado, recibirá un correo electrónico con su número de seguimiento e instrucciones para rastrear el envío. Si no ha recibido esta información después del tiempo de procesamiento indicado, comuníquese con nuestro equipo de atención al cliente a través de supports@linecommercial.com." } },
+        "faq-6": { "type": "faq_item", "settings": { "question": "¿Puedo devolver un producto?", "answer": "Sí. Si no está completamente satisfecho con su compra, puede solicitar una devolución de acuerdo con nuestra Política de Reembolsos y Devoluciones. Le recomendamos revisar dicha política para comprender los requisitos, plazos y condiciones aplicables." } },
+        "faq-7": { "type": "faq_item", "settings": { "question": "¿Necesito crear una cuenta para comprar?", "answer": "No. Puedes realizar tu compra como invitado si lo prefieres. Sin embargo, crear una cuenta gratuita te permitirá realizar una gestión más sencilla de tus pedidos, guardar tus productos favoritos y acceder a beneficios exclusivos cuando estén disponibles." } },
+        "faq-8": { "type": "faq_item", "settings": { "question": "¿Qué métodos de pago aceptan?", "answer": "Aceptamos los principales métodos de pago para ofrecer una experiencia de compra segura y cómoda, entre los que se incluyen:\n\nVisa\nTarjeta MasterCard\nTarjeta American Express\nPayPal\nOtros métodos de pago disponibles al finalizar la compra.\n\nTodos los pagos se procesan a través de plataformas seguras con tecnología de cifrado para proteger su información." } },
+        "faq-9": { "type": "faq_item", "settings": { "question": "¿Cómo contacto con soporte?", "answer": "Nuestro equipo de atención al cliente está disponible para ayudarle.\n\nCorreo electrónico: supports@linecommercial.com\nDe lunes a viernes: de 9:00 a 17:00 (hora del este).\nSábado: 9:00 a.m. – 2:00 p.m. ET\n\nNos esforzamos por responder a todas las consultas en un plazo de 24 a 48 horas hábiles." } }
+      },
+      "block_order": ["faq-1","faq-2","faq-3","faq-4","faq-5","faq-6","faq-7","faq-8","faq-9"],
+      "settings": {
+        "eyebrow": "Preguntas frecuentes",
+        "title": "",
+        "footer_text": "¿No encontraste lo que buscabas?",
+        "footer_button_label": "Amplía la información aquí",
+        "cta_title": "Empieza a vivir mejor.",
+        "cta_subtitle": "Únete a LINE y descubre una nueva forma de comprar soluciones para tu bienestar.",
+        "cta_button_label": "Descubrir ya"
+      }
     }
   },
   "order": [
@@ -93,6 +117,7 @@
     "category-home",
     "why-line",
     "how-it-works",
-    "more-advantage"
+    "more-advantage",
+    "faq-cta"
   ]
 }
