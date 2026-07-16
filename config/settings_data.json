@@ -21,7 +21,8 @@
             "type": "nav_link",
             "settings": {
               "label": "Categorías",
-              "url": "/collections"
+              "url": "/collections",
+              "has_dropdown": true
             }
           },
           "nav-2": {
@@ -51,12 +52,28 @@
               "label": "Contáctanos",
               "url": "/pages/contacto"
             }
+          },
+          "nav-6": {
+            "type": "nav_link",
+            "settings": {
+              "label": "Tu experiencia en LINE",
+              "url": "/pages/tu-experiencia"
+            }
+          },
+          "nav-7": {
+            "type": "nav_link",
+            "settings": {
+              "label": "Beneficios",
+              "url": "/pages/beneficios"
+            }
           }
         },
         "block_order": [
           "nav-1",
           "nav-2",
+          "nav-6",
           "nav-3",
+          "nav-7",
           "nav-4",
           "nav-5"
         ],

@@ -84,6 +84,80 @@
 .line-header__nav-link:hover::after,
 .line-header__nav-link[aria-current="page"]::after { width: 100%; }
 
+/* ── Dropdown de categorías ── */
+.line-header__nav-item { position: relative; }
+.line-header__nav-caret {
+  width: 9px;
+  height: 9px;
+  margin-left: 4px;
+  vertical-align: middle;
+  transition: transform var(--duration-base) var(--ease-out-expo);
+}
+.line-header__nav-item.has-dropdown:hover .line-header__nav-caret,
+.line-header__nav-item.has-dropdown:focus-within .line-header__nav-caret {
+  transform: rotate(180deg);
+}
+.line-header__dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding-top: 18px; /* zona puente invisible: mantiene el hover activo entre el link y el panel */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--duration-base) var(--ease-out-expo),
+              visibility var(--duration-base);
+  z-index: 50;
+}
+.line-header__nav-item.has-dropdown:hover .line-header__dropdown,
+.line-header__nav-item.has-dropdown:focus-within .line-header__dropdown {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.line-header__dropdown-inner {
+  min-width: 420px;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 12px rgba(42,36,30,0.06), 0 16px 40px rgba(42,36,30,0.14);
+  padding: var(--space-5);
+  transform: translateY(8px);
+  transition: transform var(--duration-base) var(--ease-out-expo);
+}
+.line-header__nav-item.has-dropdown:hover .line-header__dropdown-inner,
+.line-header__nav-item.has-dropdown:focus-within .line-header__dropdown-inner {
+  transform: translateY(0);
+}
+.line-header__dropdown-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-1) var(--space-4);
+}
+.line-header__dropdown-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--ink);
+  white-space: nowrap;
+  transition: background var(--duration-fast), color var(--duration-fast);
+}
+.line-header__dropdown-link:hover {
+  background: var(--cream-1);
+  color: var(--champagne-1);
+}
+.line-header__dropdown-icon {
+  flex-shrink: 0;
+  display: flex;
+  color: var(--champagne-1);
+}
+.line-header__dropdown-icon svg { width: 16px; height: 16px; }
+
 /* ── Acciones ── */
 .line-header__actions {
   display: flex;
@@ -175,6 +249,52 @@
   display: block;
 }
 .line-header__mobile-nav-link:last-child { border-bottom: none; }
+.line-header__mobile-nav-item { border-bottom: 1px solid var(--cream-2); }
+.line-header__mobile-nav-item:last-child { border-bottom: none; }
+.line-header__mobile-nav-row { display: flex; align-items: center; justify-content: space-between; }
+.line-header__mobile-nav-row .line-header__mobile-nav-link { border-bottom: none; flex: 1; }
+.line-header__mobile-nav-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: var(--ink);
+}
+.line-header__mobile-nav-toggle svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--duration-base) var(--ease-out-expo);
+}
+.line-header__mobile-nav-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+.line-header__mobile-submenu {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-base) var(--ease-out-expo);
+}
+.line-header__mobile-nav-item.is-open .line-header__mobile-submenu { grid-template-rows: 1fr; }
+.line-header__mobile-submenu-inner { overflow: hidden; }
+.line-header__mobile-submenu-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: var(--space-3);
+}
+.line-header__mobile-submenu-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-block: var(--space-2);
+  padding-left: var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: rgba(42,36,30,0.7);
+}
+.line-header__mobile-submenu-icon { display: flex; color: var(--champagne-1); }
+.line-header__mobile-submenu-icon svg { width: 15px; height: 15px; }
 
 @media (max-width: 900px) {
   .line-header__nav { display: none; }
@@ -185,6 +305,10 @@
 
 {%- assign has_hero = false -%}
 {%- if template.name == 'index' -%}{%- assign has_hero = true -%}{%- endif -%}
+
+{%- comment -%} Categorías del menú desplegable: icono|etiqueta|handle-de-colección {%- endcomment -%}
+{%- assign line_categories = 'facial|Facial|facial,fitness-ligero|Fitness ligero|fitness-ligero,postura|Postura|postura,skincare|Skincare|skincare,relajacion|Relajación|relajacion,sueno|Sueño|sueno,anti-estres|Anti estrés|anti-estres,dolor-muscular|Dolor muscular|dolor-muscular,belleza|Belleza|belleza' -%}
+{%- assign line_categories_list = line_categories | split: ',' -%}
 
 <header
   class="line-header{% unless has_hero %} line-header--solid{% endunless %}"
@@ -222,12 +346,32 @@
       <ul class="line-header__nav" role="list">
         {%- for block in section.blocks -%}
           {%- if block.type == 'nav_link' -%}
-            <li {{ block.shopify_attributes }}>
+            <li class="line-header__nav-item{% if block.settings.has_dropdown %} has-dropdown{% endif %}" {{ block.shopify_attributes }}>
               <a
                 href="{{ block.settings.url | default: '#' }}"
                 class="line-header__nav-link"
                 {% if block.settings.url == request.path %}aria-current="page"{% endif %}
-              >{{ block.settings.label }}</a>
+                {% if block.settings.has_dropdown %}aria-haspopup="true" aria-expanded="false"{% endif %}
+              >{{ block.settings.label }}{% if block.settings.has_dropdown %}
+                <svg class="line-header__nav-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              {% endif %}</a>
+              {%- if block.settings.has_dropdown -%}
+                <div class="line-header__dropdown">
+                  <div class="line-header__dropdown-inner">
+                    <ul class="line-header__dropdown-list" role="list">
+                      {%- for cat in line_categories_list -%}
+                        {%- assign cat_parts = cat | split: '|' -%}
+                        <li>
+                          <a href="{{ routes.collections_url }}/{{ cat_parts[2] }}" class="line-header__dropdown-link">
+                            <span class="line-header__dropdown-icon">{%- render 'icon-category', icon: cat_parts[0] -%}</span>
+                            {{ cat_parts[1] }}
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                </div>
+              {%- endif -%}
             </li>
           {%- endif -%}
         {%- endfor -%}
@@ -278,11 +422,41 @@
 <nav id="line-mobile-nav" class="line-header__mobile-nav" aria-label="{{ 'accessibility.mobile_nav' | t }}" hidden>
   {%- for block in section.blocks -%}
     {%- if block.type == 'nav_link' -%}
-      <a
-        href="{{ block.settings.url | default: '#' }}"
-        class="line-header__mobile-nav-link"
-        {% if block.settings.url == request.path %}aria-current="page"{% endif %}
-      >{{ block.settings.label }}</a>
+      {%- if block.settings.has_dropdown -%}
+        <div class="line-header__mobile-nav-item">
+          <div class="line-header__mobile-nav-row">
+            <a
+              href="{{ block.settings.url | default: '#' }}"
+              class="line-header__mobile-nav-link"
+              {% if block.settings.url == request.path %}aria-current="page"{% endif %}
+            >{{ block.settings.label }}</a>
+            <button type="button" class="line-header__mobile-nav-toggle" aria-expanded="false" aria-label="{{ block.settings.label }}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+          </div>
+          <div class="line-header__mobile-submenu">
+            <div class="line-header__mobile-submenu-inner">
+              <ul class="line-header__mobile-submenu-list" role="list">
+                {%- for cat in line_categories_list -%}
+                  {%- assign cat_parts = cat | split: '|' -%}
+                  <li>
+                    <a href="{{ routes.collections_url }}/{{ cat_parts[2] }}" class="line-header__mobile-submenu-link">
+                      <span class="line-header__mobile-submenu-icon">{%- render 'icon-category', icon: cat_parts[0] -%}</span>
+                      {{ cat_parts[1] }}
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          </div>
+        </div>
+      {%- else -%}
+        <a
+          href="{{ block.settings.url | default: '#' }}"
+          class="line-header__mobile-nav-link"
+          {% if block.settings.url == request.path %}aria-current="page"{% endif %}
+        >{{ block.settings.label }}</a>
+      {%- endif -%}
     {%- endif -%}
   {%- endfor -%}
 </nav>
@@ -340,6 +514,14 @@
         document.body.style.overflow = '';
       });
     });
+    mobileNav.querySelectorAll('.line-header__mobile-nav-toggle').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var item = btn.closest('.line-header__mobile-nav-item');
+        var open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        item.classList.toggle('is-open', !open);
+      });
+    });
   }
 })();
 {% endjavascript %}
@@ -376,6 +558,12 @@
           "type": "url",
           "id": "url",
           "label": "URL"
+        },
+        {
+          "type": "checkbox",
+          "id": "has_dropdown",
+          "default": false,
+          "label": "Mostrar submenú de categorías al pasar el cursor / tocar"
         }
       ]
     }
@@ -384,11 +572,13 @@
     {
       "name": "Header LINE",
       "blocks": [
-        { "type": "nav_link", "settings": { "label": "Categorías",        "url": "/collections" } },
-        { "type": "nav_link", "settings": { "label": "¿Por qué LINE?",    "url": "/pages/por-que-line" } },
-        { "type": "nav_link", "settings": { "label": "Acerca de Nosotros","url": "/pages/acerca-de" } },
-        { "type": "nav_link", "settings": { "label": "FAQ",               "url": "/pages/faq" } },
-        { "type": "nav_link", "settings": { "label": "Contáctanos",       "url": "/pages/contacto" } }
+        { "type": "nav_link", "settings": { "label": "Categorías",           "url": "/collections", "has_dropdown": true } },
+        { "type": "nav_link", "settings": { "label": "¿Por qué LINE?",       "url": "/pages/por-que-line" } },
+        { "type": "nav_link", "settings": { "label": "Tu experiencia en LINE","url": "/pages/tu-experiencia" } },
+        { "type": "nav_link", "settings": { "label": "Acerca de Nosotros",   "url": "/pages/acerca-de" } },
+        { "type": "nav_link", "settings": { "label": "Beneficios",           "url": "/pages/beneficios" } },
+        { "type": "nav_link", "settings": { "label": "FAQ",                  "url": "/pages/faq" } },
+        { "type": "nav_link", "settings": { "label": "Contáctanos",          "url": "/pages/contacto" } }
       ]
     }
   ]
