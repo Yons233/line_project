@@ -28,7 +28,14 @@
   min-width: 0;
 }
 
-/* ── Columna izquierda: FAQ ── */
+/* ── Columna izquierda: FAQ ──
+   Profundidad real en vez de un borde+sombra plano: sombras en varias
+   capas (contacto cercano + ambiental lejana) más un borde de luz sutil
+   arriba, y una ligera inclinación 3D con perspectiva al pasar el cursor —
+   la tarjeta se percibe como si "flotara" sobre la página. */
+.line-faqcta__col:first-child {
+  perspective: 1400px;
+}
 .line-faq__card {
   position: relative;
   height: 100%;
@@ -36,8 +43,32 @@
   padding: var(--space-6) var(--space-8);
   border-radius: 32px;
   background: var(--white);
-  box-shadow: 0 8px 32px rgba(42,36,30,0.06);
+  border: 1px solid rgba(255,255,255,0.9);
+  box-shadow:
+    0 1px 2px rgba(42,36,30,0.05),
+    0 2px 6px rgba(42,36,30,0.05),
+    0 16px 32px rgba(42,36,30,0.08),
+    0 32px 64px rgba(42,36,30,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+  transform-style: preserve-3d;
+  transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo);
   overflow: hidden;
+}
+.line-faq__card:hover {
+  transform: rotateX(1.5deg) rotateY(-1.5deg) translateY(-4px);
+  box-shadow:
+    0 1px 2px rgba(42,36,30,0.05),
+    0 4px 10px rgba(42,36,30,0.06),
+    0 24px 48px rgba(42,36,30,0.11),
+    0 48px 90px rgba(42,36,30,0.09),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+}
+@media (prefers-reduced-motion: reduce) {
+  .line-faq__card { transition: none; }
+  .line-faq__card:hover { transform: none; }
+}
+@media (max-width: 900px) {
+  .line-faq__card:hover { transform: none; }
 }
 
 .line-faq__header {

@@ -71,29 +71,37 @@
           "col-1": {
             "type": "link_column",
             "settings": {
-              "title": "Productos"
+              "title": "Ver y comprar"
             }
           },
           "col-2": {
             "type": "link_column",
             "settings": {
-              "title": "Ayuda"
+              "title": "Empresa"
             }
           },
           "col-3": {
             "type": "link_column",
             "settings": {
-              "title": "Empresa"
+              "title": "Legal"
+            }
+          },
+          "col-4": {
+            "type": "link_column",
+            "settings": {
+              "title": "Ayuda"
             }
           }
         },
         "block_order": [
           "col-1",
           "col-2",
-          "col-3"
+          "col-3",
+          "col-4"
         ],
         "settings": {
-          "description": "Productos de bienestar pensados para tu día a día. Calidad, comodidad y estilo."
+          "logo_fallback": "Logo.png",
+          "description": "Soluciones de bienestar innovadoras, diseñadas para mejorar tu día a día."
         }
       }
     }

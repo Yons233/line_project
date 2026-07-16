@@ -51,7 +51,9 @@
     "footer": {
       "social_media": "Social media",
       "legal_nav": "Legal links",
-      "all_rights": "All rights reserved."
+      "all_rights": "All rights reserved.",
+      "secure_checkout": "Secure Checkout",
+      "secure_checkout_desc": "Your data is protected"
     }
   },
   "customer": {
