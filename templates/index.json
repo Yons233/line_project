@@ -88,6 +88,19 @@
         "login_label": "Iniciar sesión"
       }
     },
+    "our-philosophy": {
+      "type": "our-philosophy-home",
+      "blocks": {
+        "philo-1": { "type": "philosophy_item", "settings": { "fallback_filename": "Seleccionamos.png", "title": "Seleccionamos", "description": "Cada producto pasa por un proceso riguroso de evaluación para asegurar calidad, innovación y utilidad real." } },
+        "philo-2": { "type": "philosophy_item", "settings": { "fallback_filename": "Probamos.png",      "title": "Probamos",      "description": "Analizamos, comparamos y probamos para garantizar que realmente aporten bienestar a tu vida." } },
+        "philo-3": { "type": "philosophy_item", "settings": { "fallback_filename": "Respaldamos.png",   "title": "Respaldamos",   "description": "Estamos contigo antes, durante y después de tu compra. Tu confianza es nuestra prioridad." } }
+      },
+      "block_order": ["philo-1","philo-2","philo-3"],
+      "settings": {
+        "title": "Nuestra filosofía",
+        "subtitle": "No seguimos tendencias. Las seleccionamos."
+      }
+    },
     "faq-cta": {
       "type": "faq-cta-home",
       "blocks": {
@@ -119,6 +132,7 @@
     "why-line",
     "how-it-works",
     "more-advantage",
+    "our-philosophy",
     "faq-cta"
   ]
 }
