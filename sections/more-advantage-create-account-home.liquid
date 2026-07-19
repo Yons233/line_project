@@ -39,6 +39,20 @@
   gap: var(--space-10);
 }
 
+/* Imagen decorativa: esfera de cristal, esquina inferior derecha */
+.line-perks__complement {
+  position: absolute;
+  right: 0;
+  bottom: calc(-1 * var(--space-8));
+  width: clamp(160px, 16vw, 240px);
+  height: auto;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.9;
+  -webkit-mask-image: linear-gradient(to top left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(to top left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
+}
+
 /* ── Columna izquierda ── */
 .line-perks__intro {
   flex: 0 1 300px;
@@ -186,6 +200,14 @@
   aria-labelledby="perks-title-{{ section.id }}"
 >
   <div class="line-perks__card">
+    <img
+      src="{{ 'Complemento_MoreAdvange.png' | asset_url }}"
+      alt=""
+      loading="lazy"
+      width="2160"
+      height="2680"
+      class="line-perks__complement"
+    >
     <div class="line-perks__inner">
 
       <div class="line-perks__intro">

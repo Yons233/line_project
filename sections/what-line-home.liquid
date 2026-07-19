@@ -8,15 +8,21 @@
 
 .line-why__inner {
   display: grid;
-  grid-template-columns: minmax(260px, 360px) 1fr;
-  gap: var(--space-16);
+  grid-template-columns: minmax(240px, 320px) minmax(280px, 440px) minmax(280px, 360px);
+  gap: var(--space-12);
   align-items: center;
+  justify-content: center;
   max-width: 1560px;
   margin-inline: auto;
   padding-inline: var(--container-pad);
 }
 
 /* ── Columna izquierda ── */
+.line-why__intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .line-why__eyebrow {
   font-family: var(--font-body);
   font-size: var(--text-xs);
@@ -90,68 +96,56 @@
   opacity: 0.9;
 }
 
-/* ── Columna derecha: los 3 bloques de mármol, sin animación ──
-   Dimensión fija idéntica + object-fit:cover para forzar simetría visual;
-   la tercera imagen trae mucho margen transparente propio, así que se le
-   aplica una escala extra específica (.line-why__card-img--boost). */
-.line-why__cards {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-6);
-  max-width: 780px;
-  margin-left: var(--space-20);
-  background: transparent;
-}
-
-.line-why__card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  min-width: 0;
-  flex: 1 1 0;
-}
-
-.line-why__card-media {
-  /* aspect-ratio (no una altura fija en px) para que el recuadro siempre
-     sea un cuadrado perfecto sin importar cuánto se angoste el ancho
-     disponible dentro del flex — una altura fija con ancho flexible
-     deformaba la relación de aspecto y el object-fit:cover recortaba mal. */
+/* ── Columna central: imagen única ── */
+.line-why__media {
   position: relative;
-  flex-shrink: 0;
   width: 100%;
-  max-width: 280px;
+  max-width: 400px;
   aspect-ratio: 1 / 1;
+  margin-inline: auto;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
-
-.line-why__card-img {
+.line-why__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-/* Escala específica para compensar el margen transparente propio del
-   archivo de la tercera tarjeta (Devoluciones): sin esto su placa de
-   mármol se ve más chica que las otras dos aunque el recuadro sea igual. */
-.line-why__card-img--boost {
-  transform: scale(1.15);
-}
 
-.line-why__card-title {
-  margin-top: var(--space-4);
-  max-width: 100%;
+/* ── Columna derecha: lista vertical de razones ── */
+.line-why__list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-6);
+}
+.line-why__row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+.line-why__row-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 26%, #ffffff 0%, rgba(255,255,255,0.9) 45%, rgba(231,211,179,0.4) 85%);
+  border: 1px solid rgba(255,255,255,0.85);
+  box-shadow: 0 3px 8px rgba(42,36,30,0.10), inset -1px -2px 3px rgba(189,151,99,0.16);
+  color: var(--champagne-1);
+}
+.line-why__row-icon svg { width: 20px; height: 20px; }
+.line-why__row-title {
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
   color: var(--ink);
 }
-.line-why__card-desc {
-  margin-top: var(--space-2);
-  max-width: 100%;
+.line-why__row-desc {
+  margin-top: var(--space-1);
   font-family: var(--font-body);
   font-size: var(--text-sm);
   line-height: 1.6;
@@ -165,11 +159,10 @@
   .line-why__eyebrow, .line-why__title { text-align: center; }
   .line-why__body { margin-inline: auto; text-align: center; }
   .line-why__link { margin-inline: auto; }
-  .line-why__cards { margin-inline: auto; }
+  .line-why__list { max-width: 480px; margin-inline: auto; }
 }
 @media (max-width: 700px) {
-  .line-why__cards { flex-direction: column; align-items: center; gap: var(--space-8); }
-  .line-why__card-media { max-width: 240px; }
+  .line-why__row { text-align: left; }
 }
 {% endstylesheet %}
 
@@ -209,44 +202,68 @@
       {%- endif -%}
     </div>
 
+    <div class="line-why__media">
+      {%- if section.settings.center_image != blank -%}
+        {{
+          section.settings.center_image
+          | image_url: width: 900
+          | image_tag:
+            loading: 'lazy',
+            alt: section.settings.title_prefix,
+            widths: '480,700,900'
+        }}
+      {%- else -%}
+        <img
+          src="{{ section.settings.center_image_fallback | default: 'SeleccionExpertaDelux.png' | asset_url }}"
+          alt="{{ section.settings.title_prefix }}"
+          loading="lazy"
+          width="900"
+          height="1000"
+        >
+      {%- endif -%}
+    </div>
+
     {%- assign card_blocks = section.blocks | where: 'type', 'why_card' -%}
     {%- if card_blocks.size > 0 -%}
-      <div class="line-why__cards">
+      <div class="line-why__list">
         {%- for block in card_blocks -%}
-          {%- assign img_class = 'line-why__card-img' -%}
-          {%- if forloop.last -%}
-            {%- assign img_class = 'line-why__card-img line-why__card-img--boost' -%}
-          {%- endif -%}
-          <div class="line-why__card" {{ block.shopify_attributes }}>
-            <div class="line-why__card-media">
-              {%- if block.settings.image != blank -%}
-                {{
-                  block.settings.image
-                  | image_url: width: 800
-                  | image_tag:
-                    class: img_class,
-                    loading: 'lazy',
-                    alt: block.settings.title,
-                    widths: '400,600,800',
-                    sizes: '(max-width: 700px) 90vw, (max-width: 1024px) 45vw, 22vw'
-                }}
-              {%- else -%}
-                <img
-                  src="{{ block.settings.fallback_filename | default: 'SeleccionExpertaDelux.png' | asset_url }}"
-                  alt="{{ block.settings.title }}"
-                  loading="lazy"
-                  width="800"
-                  height="680"
-                  class="{{ img_class }}"
-                >
+          <div class="line-why__row" {{ block.shopify_attributes }}>
+            <span class="line-why__row-icon" aria-hidden="true">
+              {%- case block.settings.icon -%}
+                {%- when 'star' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 2.5l2.9 5.88 6.5.94-4.7 4.58 1.11 6.47L12 17.27l-5.81 3.1 1.11-6.47-4.7-4.58 6.5-.94L12 2.5z"/>
+                  </svg>
+                {%- when 'shield' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <path d="m9 12 2 2 4-4"/>
+                  </svg>
+                {%- when 'refresh' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                    <path d="M21 3v5h-5"/>
+                    <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                    <path d="M3 21v-5h5"/>
+                  </svg>
+                {%- when 'heart' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                  </svg>
+                {%- else -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9"/>
+                  </svg>
+              {%- endcase -%}
+            </span>
+            <div>
+              {%- if block.settings.title != blank -%}
+                <h3 class="line-why__row-title">{{ block.settings.title }}</h3>
+              {%- endif -%}
+              {%- if block.settings.description != blank -%}
+                <p class="line-why__row-desc">{{ block.settings.description }}</p>
               {%- endif -%}
             </div>
-            {%- if block.settings.title != blank -%}
-              <h3 class="line-why__card-title">{{ block.settings.title }}</h3>
-            {%- endif -%}
-            {%- if block.settings.description != blank -%}
-              <p class="line-why__card-desc">{{ block.settings.description }}</p>
-            {%- endif -%}
           </div>
         {%- endfor -%}
       </div>
@@ -268,19 +285,19 @@
       if (reduced) return;
 
       var introEls = el.querySelector('.line-why__intro') ? el.querySelector('.line-why__intro').children : [];
-      var cards = el.querySelectorAll('.line-why__card');
+      var rows = el.querySelectorAll('.line-why__row');
 
       var tweenIntro = { opacity: 0, y: 22, duration: 0.7, stagger: 0.1, ease: 'power3.out', clearProps: 'opacity,transform' };
-      var tweenCards = { opacity: 0, y: 28, duration: 0.65, stagger: 0.1, ease: 'power3.out', clearProps: 'opacity,transform' };
+      var tweenRows = { opacity: 0, y: 18, duration: 0.6, stagger: 0.1, ease: 'power3.out', clearProps: 'opacity,transform' };
 
       if (window.ScrollTrigger) {
         gsap.registerPlugin(window.ScrollTrigger);
         tweenIntro.scrollTrigger = { trigger: el, start: 'top 78%', once: true };
-        tweenCards.scrollTrigger = { trigger: el, start: 'top 78%', once: true };
+        tweenRows.scrollTrigger = { trigger: el, start: 'top 78%', once: true };
       }
 
       if (introEls.length) gsap.from(introEls, tweenIntro);
-      if (cards.length) gsap.from(cards, tweenCards);
+      if (rows.length) gsap.from(rows, tweenRows);
     },
     ['gsap', 'ScrollTrigger'],
     '100px'
@@ -334,22 +351,35 @@
       "type": "url",
       "id": "link_url",
       "label": "Enlace — URL (deja vacío para ir a Acerca de Nosotros)"
+    },
+    {
+      "type": "image_picker",
+      "id": "center_image",
+      "label": "Imagen central"
+    },
+    {
+      "type": "text",
+      "id": "center_image_fallback",
+      "default": "SeleccionExpertaDelux.png",
+      "label": "Imagen central de respaldo (archivo en assets/)"
     }
   ],
   "blocks": [
     {
       "type": "why_card",
-      "name": "Tarjeta",
+      "name": "Razón",
       "settings": [
         {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Imagen"
-        },
-        {
-          "type": "text",
-          "id": "fallback_filename",
-          "label": "Imagen de respaldo (archivo en assets/)"
+          "type": "select",
+          "id": "icon",
+          "label": "Ícono",
+          "options": [
+            { "value": "star", "label": "Estrella" },
+            { "value": "shield", "label": "Escudo" },
+            { "value": "refresh", "label": "Actualizar / Devolución" },
+            { "value": "heart", "label": "Corazón" }
+          ],
+          "default": "star"
         },
         {
           "type": "text",
@@ -373,7 +403,7 @@
         {
           "type": "why_card",
           "settings": {
-            "fallback_filename": "SeleccionExpertaDelux.png",
+            "icon": "star",
             "title": "Selección experta",
             "description": "Elegimos cada producto por su calidad, innovación y resultados comprobados."
           }
@@ -381,7 +411,7 @@
         {
           "type": "why_card",
           "settings": {
-            "fallback_filename": "CompraSeguraDelux.png",
+            "icon": "shield",
             "title": "Confianza garantizada",
             "description": "Compra segura, datos protegidos y pagos con los más altos estándares."
           }
@@ -389,7 +419,7 @@
         {
           "type": "why_card",
           "settings": {
-            "fallback_filename": "DevolucionesDelux.png",
+            "icon": "refresh",
             "title": "Devoluciones fáciles",
             "description": "14 días para cambiar de opinión, sin formularios interminables, sin complicaciones."
           }

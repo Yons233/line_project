@@ -41,9 +41,9 @@
     "why-line": {
       "type": "what-line-home",
       "blocks": {
-        "card-1": { "type": "why_card", "settings": { "fallback_filename": "SeleccionExpertaDelux.png", "title": "Selección experta",    "description": "Elegimos cada producto por su calidad, innovación y resultados comprobados." } },
-        "card-2": { "type": "why_card", "settings": { "fallback_filename": "CompraSeguraDelux.png",     "title": "Confianza garantizada", "description": "Compra segura, datos protegidos y pagos con los más altos estándares." } },
-        "card-3": { "type": "why_card", "settings": { "fallback_filename": "DevolucionesDelux.png",     "title": "Devoluciones fáciles",  "description": "14 días para cambiar de opinión, sin formularios interminables, sin complicaciones." } }
+        "card-1": { "type": "why_card", "settings": { "icon": "star",    "title": "Selección experta",    "description": "Elegimos cada producto por su calidad, innovación y resultados comprobados." } },
+        "card-2": { "type": "why_card", "settings": { "icon": "shield",  "title": "Confianza garantizada", "description": "Compra segura, datos protegidos y pagos con los más altos estándares." } },
+        "card-3": { "type": "why_card", "settings": { "icon": "refresh", "title": "Devoluciones fáciles",  "description": "14 días para cambiar de opinión, sin formularios interminables, sin complicaciones." } }
       },
       "block_order": ["card-1","card-2","card-3"],
       "settings": {
@@ -52,7 +52,8 @@
         "title_highlight": "confianza.",
         "body_1": "En LINE creemos que pequeños cambios pueden transformar tu día a día.",
         "body_2": "Por eso seleccionamos cuidadosamente productos innovadores que realmente marcan la diferencia en tu descanso, recuperación y bienestar general.",
-        "link_label": "Conocer más sobre nosotros"
+        "link_label": "Conocer más sobre nosotros",
+        "center_image_fallback": "SeleccionExpertaDelux.png"
       }
     },
     "how-it-works": {
