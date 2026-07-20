@@ -77,7 +77,7 @@ Line Commercial/          ← raíz del tema (este directorio)
     en.default.json       ← Strings en inglés
   sections/
     header.liquid         ← Nav global fixed, efecto transparente→pastel en scroll
-    hero-line.liquid      ← Hero: imagen + partículas 3D + título + CTA + confianza
+    hero-home.liquid      ← Hero: imagen + partículas 3D + título + CTA + confianza
     categorias.liquid     ← Grid de 6 categorías con entrada GSAP ScrollTrigger
     footer.liquid         ← Footer global
   snippets/

@@ -1,0 +1,700 @@
+{% stylesheet %}
+.line-faqsupport {
+  padding-top: var(--space-10);
+  padding-bottom: var(--space-16);
+  background: var(--white);
+}
+
+.line-faqsupport__inner {
+  max-width: 1760px;
+  margin: 0 auto;
+  padding-inline: var(--container-pad);
+}
+
+/* Rejilla real de 2 columnas: un único contenedor padre para ambas
+   tarjetas, así el ancho (1fr/1fr) queda garantizado por el navegador. La
+   altura NO usa align-items:stretch a propósito: eso se recalcularía cada
+   vez que el acordeón del FAQ abre/cierra una pregunta, estirando también
+   el bloque de soporte de forma fea. En su lugar, el alto inicial se iguala
+   una sola vez por JS (ver script abajo) y no vuelve a tocarse por
+   interacciones. */
+.line-faqsupport__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.line-faqsupport__col {
+  min-width: 0;
+}
+
+/* ── Columna izquierda: FAQ ──
+   Profundidad real en vez de un borde+sombra plano: sombras en varias
+   capas (contacto cercano + ambiental lejana) más un borde de luz sutil
+   arriba, y una ligera inclinación 3D con perspectiva al pasar el cursor —
+   la tarjeta se percibe como si "flotara" sobre la página. */
+.line-faqsupport__col:first-child {
+  perspective: 1400px;
+}
+.line-faq__card {
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
+  padding: var(--space-6) var(--space-8);
+  border-radius: 32px;
+  background: var(--white);
+  border: 1px solid rgba(255,255,255,0.9);
+  box-shadow:
+    0 1px 2px rgba(42,36,30,0.05),
+    0 2px 6px rgba(42,36,30,0.05),
+    0 16px 32px rgba(42,36,30,0.08),
+    0 32px 64px rgba(42,36,30,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+  transform-style: preserve-3d;
+  transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo);
+  overflow: hidden;
+}
+.line-faq__card:hover {
+  transform: rotateX(1.5deg) rotateY(-1.5deg) translateY(-4px);
+  box-shadow:
+    0 1px 2px rgba(42,36,30,0.05),
+    0 4px 10px rgba(42,36,30,0.06),
+    0 24px 48px rgba(42,36,30,0.11),
+    0 48px 90px rgba(42,36,30,0.09),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+}
+@media (prefers-reduced-motion: reduce) {
+  .line-faq__card { transition: none; }
+  .line-faq__card:hover { transform: none; }
+}
+@media (max-width: 900px) {
+  .line-faq__card:hover { transform: none; }
+}
+
+.line-faq__header {
+  text-align: left;
+  margin-bottom: var(--space-4);
+}
+.line-faq__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--champagne-1);
+}
+.line-faq__eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 2px;
+  background: var(--gradient-champagne);
+  border-radius: var(--radius-full);
+}
+.line-faq__title {
+  margin-top: var(--space-3);
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(var(--text-2xl), 3vw, var(--text-3xl));
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+/* Acordeón compacto en 2 columnas: dos listas independientes (no un grid
+   con filas compartidas) para que al abrir una pregunta en una columna
+   NO empuje ni deje huecos en la otra columna — cada una crece sola. */
+.line-faq__cols {
+  display: flex;
+  gap: var(--space-8);
+}
+.line-faq__list {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+.line-faq__item {
+  border-bottom: 1px solid rgba(42,36,30,0.08);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.line-faq__item.is-open {
+  background: rgba(231,211,179,0.14);
+  border-color: rgba(189,151,99,0.4);
+}
+
+.line-faq__question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-2);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-base);
+  color: var(--ink);
+  transition: color 0.3s ease;
+}
+.line-faq__question:hover { color: var(--champagne-1); }
+.line-faq__question:focus-visible {
+  outline: 2px solid var(--champagne-1);
+  outline-offset: -2px;
+}
+
+/* Esfera de vidrio champán: mismo material que las burbujas de categorías
+   y del Hero — une visualmente esta sección con el resto del sitio en vez
+   de un simple círculo con borde. */
+.line-faq__icon {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 26%, #ffffff 0%, rgba(255,255,255,0.9) 45%, rgba(231,211,179,0.4) 85%);
+  border: 1px solid rgba(255,255,255,0.85);
+  box-shadow: 0 3px 8px rgba(42,36,30,0.10), inset -1px -2px 3px rgba(189,151,99,0.16);
+  color: var(--champagne-1);
+  transition: transform 0.4s var(--ease-out-expo), background 0.4s ease, box-shadow 0.4s ease, color 0.3s ease;
+}
+.line-faq__icon svg {
+  width: 11px;
+  height: 11px;
+  stroke-width: 1.75;
+}
+.line-faq__item.is-open .line-faq__icon {
+  transform: rotate(45deg);
+  background: linear-gradient(135deg, var(--champagne-2) 0%, var(--champagne-1) 100%);
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(189,151,99,0.35);
+  color: var(--white);
+}
+
+.line-faq__answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s var(--ease-out-expo);
+}
+.line-faq__item.is-open .line-faq__answer {
+  grid-template-rows: 1fr;
+}
+.line-faq__answer-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+.line-faq__answer-content {
+  padding: var(--space-2) var(--space-4) var(--space-6);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  color: rgba(42,36,30,0.66);
+  text-align: justify;
+}
+.line-faq__answer-content a {
+  color: var(--champagne-1);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.line-faq__footer {
+  margin-top: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.line-faq__footer-text {
+  margin-bottom: var(--space-3);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line-faq__answer, .line-faq__icon, .line-faq__item { transition: none; }
+}
+
+/* ── Columna derecha: Soporte con imagen de fondo ──
+   Tarjeta baja y ancha (apaisada) en vez del banner alto original: misma
+   imagen/contenido de siempre, solo con menos altura. */
+.line-support__card {
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
+  min-height: 320px;
+  border-radius: 32px;
+  overflow: hidden;
+  display: flex;
+  isolation: isolate;
+}
+
+.line-support__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right center;
+}
+
+.line-support__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-left: 8%;
+  width: min(380px, 58%);
+  padding: var(--space-10) var(--space-8) var(--space-8) 0;
+}
+
+.line-support__title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(var(--text-3xl), 3.4vw, var(--text-4xl));
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.line-support__subtitle {
+  margin-top: var(--space-6);
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+/* Botón gris medio oscuro: mismo brillo deslizante + elevación al hover
+   que antes, solo cambia la paleta de color. */
+.line-support__button {
+  position: relative;
+  overflow: hidden;
+  margin-top: var(--space-8);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-10);
+  font-size: var(--text-base);
+  color: var(--white);
+  background: linear-gradient(135deg, #5c5952 0%, #45423c 100%);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 0 10px 26px rgba(42,36,30,0.28), inset 0 1px 0 rgba(255,255,255,0.12);
+  transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo);
+}
+.line-support__button::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+  transform: skewX(-20deg);
+  transition: left 0.65s var(--ease-out-expo);
+  pointer-events: none;
+}
+.line-support__button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 34px rgba(42,36,30,0.36), inset 0 1px 0 rgba(255,255,255,0.16);
+}
+.line-support__button:hover::before { left: 120%; }
+.line-support__button-label {
+  position: relative;
+  z-index: 1;
+}
+.line-support__button svg {
+  position: relative;
+  z-index: 1;
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s var(--ease-out-expo);
+}
+.line-support__button:hover svg { transform: translateX(4px); }
+@media (prefers-reduced-motion: reduce) {
+  .line-support__button, .line-support__button::before, .line-support__button svg { transition: none; }
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .line-faqsupport__grid { grid-template-columns: 1fr; gap: var(--space-8); }
+  .line-support__content { width: min(320px, 62%); }
+}
+@media (max-width: 560px) {
+  .line-faq__list { grid-template-rows: none; grid-auto-flow: row; }
+}
+@media (max-width: 640px) {
+  .line-faq__card { padding: var(--space-6); border-radius: 24px; }
+  .line-support__card { min-height: 280px; border-radius: 24px; }
+  .line-support__bg { background-position: right center; }
+  .line-support__content {
+    width: 100%;
+    margin-left: 0;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: var(--space-6);
+  }
+}
+{% endstylesheet %}
+
+<section
+  class="line-faqsupport"
+  id="line-faqsupport-{{ section.id }}"
+  aria-labelledby="faqsupport-title-{{ section.id }}"
+>
+  <div class="line-faqsupport__inner">
+    <div class="line-faqsupport__grid">
+
+      <div class="line-faqsupport__col">
+        <div class="line-faq__card">
+
+          <div class="line-faq__header">
+            {%- if section.settings.eyebrow != blank -%}
+              <p class="line-faq__eyebrow">{{ section.settings.eyebrow }}</p>
+            {%- endif -%}
+            {%- if section.settings.title != blank -%}
+              <h2 class="line-faq__title" id="faqsupport-title-{{ section.id }}">{{ section.settings.title }}</h2>
+            {%- endif -%}
+          </div>
+
+          {%- assign faq_blocks = section.blocks | where: 'type', 'faq_item' -%}
+          {%- if faq_blocks.size > 0 -%}
+            {%- assign faq_half = faq_blocks.size | plus: 1 | divided_by: 2 -%}
+            {%- assign faq_col1 = faq_blocks | slice: 0, faq_half -%}
+            {%- assign faq_col2 = faq_blocks | slice: faq_half, faq_blocks.size -%}
+            <div class="line-faq__cols">
+              {%- for col in (1..2) -%}
+                {%- assign col_blocks = faq_col1 -%}
+                {%- if col == 2 -%}{%- assign col_blocks = faq_col2 -%}{%- endif -%}
+                <div class="line-faq__list">
+                  {%- for block in col_blocks -%}
+                    <div class="line-faq__item" {{ block.shopify_attributes }}>
+                      <button
+                        type="button"
+                        class="line-faq__question"
+                        aria-expanded="false"
+                        aria-controls="faq-answer-{{ block.id }}"
+                        id="faq-question-{{ block.id }}"
+                      >
+                        <span>{{ block.settings.question }}</span>
+                        <span class="line-faq__icon" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+                            <path d="M12 5v14M5 12h14"/>
+                          </svg>
+                        </span>
+                      </button>
+                      <div
+                        class="line-faq__answer"
+                        id="faq-answer-{{ block.id }}"
+                        role="region"
+                        aria-labelledby="faq-question-{{ block.id }}"
+                      >
+                        <div class="line-faq__answer-inner">
+                          <p class="line-faq__answer-content">{{ block.settings.answer | newline_to_br }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  {%- endfor -%}
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.footer_text != blank or section.settings.footer_button_label != blank -%}
+            <div class="line-faq__footer">
+              {%- if section.settings.footer_text != blank -%}
+                <p class="line-faq__footer-text">{{ section.settings.footer_text }}</p>
+              {%- endif -%}
+              {%- if section.settings.footer_button_label != blank -%}
+                <a href="{{ section.settings.footer_button_url | default: '/pages/preguntas-frecuentes' }}" class="btn btn--secondary">
+                  {{ section.settings.footer_button_label }}
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+        </div>
+      </div>
+
+      <div class="line-faqsupport__col">
+        <div class="line-support__card">
+          <div class="line-support__bg" style="background-image: url({{ 'SoporteHome.png' | asset_url }});" role="img" aria-label="{{ section.settings.support_title }}"></div>
+          <div class="line-support__content">
+            {%- if section.settings.support_title != blank -%}
+              <h2 class="line-support__title">{{ section.settings.support_title }}</h2>
+            {%- endif -%}
+            {%- if section.settings.support_subtitle != blank -%}
+              <p class="line-support__subtitle">{{ section.settings.support_subtitle }}</p>
+            {%- endif -%}
+            {%- if section.settings.support_button_label != blank -%}
+              <a href="{{ section.settings.support_button_url | default: '/pages/contacto' }}" class="btn line-support__button">
+                <span class="line-support__button-label">{{ section.settings.support_button_label }}</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6"/>
+                </svg>
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var section = document.getElementById('line-faqsupport-{{ section.id }}');
+  if (!section) return;
+
+  /* Iguala la altura del bloque de soporte a la del FAQ una sola vez
+     (estado cerrado del acordeón), en carga y al cambiar el tamaño de
+     ventana — nunca cuando el usuario abre/cierra una pregunta, para que
+     el bloque de soporte no "salte" ni se estire de forma fea durante esa
+     interacción. */
+  function syncHeight() {
+    var faqCard = section.querySelector('.line-faq__card');
+    var supportCard = section.querySelector('.line-support__card');
+    if (!faqCard || !supportCard) return;
+    if (window.innerWidth <= 900) {
+      supportCard.style.height = '';
+      return;
+    }
+    supportCard.style.height = faqCard.offsetHeight + 'px';
+  }
+  syncHeight();
+  window.addEventListener('load', syncHeight);
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(syncHeight, 150);
+  });
+
+  var items = section.querySelectorAll('.line-faq__item');
+  items.forEach(function (item) {
+    var btn = item.querySelector('.line-faq__question');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var wasOpen = item.classList.contains('is-open');
+      items.forEach(function (other) {
+        other.classList.remove('is-open');
+        var otherBtn = other.querySelector('.line-faq__question');
+        if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+      });
+      if (!wasOpen) {
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  if (!window.LINE) return;
+  window.LINE.registerAnim(
+    section,
+    function (el) {
+      if (!window.gsap) return;
+      var gsap = window.gsap;
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced) return;
+
+      var faqHeader = el.querySelector('.line-faq__header');
+      var faqRows = el.querySelectorAll('.line-faq__item');
+      var faqFooter = el.querySelector('.line-faq__footer');
+      var supportContent = el.querySelector('.line-support__content');
+      var supportChildren = supportContent ? supportContent.children : [];
+
+      var tweenBase = { opacity: 0, y: 22, duration: 0.7, ease: 'power3.out', clearProps: 'opacity,transform' };
+      var tweenRows = { opacity: 0, y: 18, duration: 0.5, stagger: 0.07, ease: 'power3.out', clearProps: 'opacity,transform' };
+      var tweenSupport = { opacity: 0, y: 22, duration: 0.7, stagger: 0.1, ease: 'power3.out', clearProps: 'opacity,transform' };
+
+      if (window.ScrollTrigger) {
+        gsap.registerPlugin(window.ScrollTrigger);
+        var st = { trigger: el, start: 'top 78%', once: true };
+        tweenBase.scrollTrigger = st;
+        tweenRows.scrollTrigger = st;
+        tweenSupport.scrollTrigger = st;
+      }
+
+      if (faqHeader) gsap.from(faqHeader, tweenBase);
+      if (faqRows.length) gsap.from(faqRows, tweenRows);
+      if (faqFooter) gsap.from(faqFooter, Object.assign({}, tweenBase, { delay: 0.3 }));
+      if (supportChildren.length) gsap.from(supportChildren, tweenSupport);
+    },
+    ['gsap', 'ScrollTrigger'],
+    '100px'
+  );
+})();
+</script>
+
+{% schema %}
+{
+  "name": "FAQ + Soporte",
+  "tag": "section",
+  "class": "section-faq-support-home",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Preguntas frecuentes (columna izquierda)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "default": "Preguntas frecuentes",
+      "label": "Etiqueta"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título (deja vacío para no mostrar título)"
+    },
+    {
+      "type": "text",
+      "id": "footer_text",
+      "label": "Texto de pie"
+    },
+    {
+      "type": "text",
+      "id": "footer_button_label",
+      "default": "Amplía la información aquí",
+      "label": "Texto del botón de pie"
+    },
+    {
+      "type": "url",
+      "id": "footer_button_url",
+      "label": "Enlace del botón de pie"
+    },
+    {
+      "type": "header",
+      "content": "Soporte (columna derecha)"
+    },
+    {
+      "type": "text",
+      "id": "support_title",
+      "default": "¿No encontraste lo que buscabas?",
+      "label": "Título"
+    },
+    {
+      "type": "textarea",
+      "id": "support_subtitle",
+      "default": "Nuestro equipo estará encantado de ayudarte.",
+      "label": "Subtítulo"
+    },
+    {
+      "type": "text",
+      "id": "support_button_label",
+      "default": "Contactar soporte",
+      "label": "Texto del botón"
+    },
+    {
+      "type": "url",
+      "id": "support_button_url",
+      "label": "Enlace (deja vacío para ir a Contáctanos)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "Pregunta",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "default": "¿Pregunta?",
+          "label": "Pregunta"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "default": "Respuesta.",
+          "label": "Respuesta"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ + Soporte",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "¿Qué es LINE?",
+            "answer": "LINE es una marca especializada en seleccionar soluciones innovadoras para el bienestar diario. Nuestro objetivo es ayudarte a descansar mejor, aliviar tensiones y sentirte bien mediante productos cuidadosamente elegidos por su calidad, funcionalidad y diseño."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "¿Qué tipo de productos venden?",
+            "answer": "En LINE encontrarás una selección de productos relacionados con bienestar, recuperación, cuidado personal, descanso, postura, relajación, fitness ligero y alivio muscular. Cada producto es evaluado antes de formar parte de nuestra colección."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "¿Los productos tienen garantía?",
+            "answer": "Sí. Trabajamos únicamente con productos que cumplen nuestros estándares de calidad. Si un artículo presenta un defecto de fabricación o llega dañado, nuestro equipo te ayudará a resolver la situación de forma rápida y sencilla."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "¿Cuánto tarda el envío?",
+            "answer": "El tiempo de entrega depende del destino y del producto adquirido. En la mayoría de los casos, los pedidos se entregan en un plazo estimado de 3 a 7 días hábiles. Una vez que su pedido haya sido enviado, recibirá un correo electrónico con la información de seguimiento para que pueda consultar su estado."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "¿Cómo puedo rastrear mi pedido?",
+            "answer": "Una vez que su pedido sea procesado y enviado, recibirá un correo electrónico con su número de seguimiento e instrucciones para rastrear el envío. Si no ha recibido esta información después del tiempo de procesamiento indicado, comuníquese con nuestro equipo de atención al cliente a través de supports@linecommercial.com."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "¿Puedo devolver un producto?",
+            "answer": "Sí. Si no está completamente satisfecho con su compra, puede solicitar una devolución de acuerdo con nuestra Política de Reembolsos y Devoluciones. Le recomendamos revisar dicha política para comprender los requisitos, plazos y condiciones aplicables."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "¿Necesito crear una cuenta para comprar?",
+            "answer": "No. Puedes realizar tu compra como invitado si lo prefieres. Sin embargo, crear una cuenta gratuita te permitirá realizar una gestión más sencilla de tus pedidos, guardar tus productos favoritos y acceder a beneficios exclusivos cuando estén disponibles."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "¿Qué métodos de pago aceptan?",
+            "answer": "Aceptamos los principales métodos de pago para ofrecer una experiencia de compra segura y cómoda, entre los que se incluyen:\n\nVisa\nTarjeta MasterCard\nTarjeta American Express\nPayPal\nOtros métodos de pago disponibles al finalizar la compra.\n\nTodos los pagos se procesan a través de plataformas seguras con tecnología de cifrado para proteger su información."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "¿Cómo contacto con soporte?",
+            "answer": "Nuestro equipo de atención al cliente está disponible para ayudarle.\n\nCorreo electrónico: supports@linecommercial.com\nDe lunes a viernes: de 9:00 a 17:00 (hora del este).\nSábado: 9:00 a.m. – 2:00 p.m. ET\n\nNos esforzamos por responder a todas las consultas en un plazo de 24 a 48 horas hábiles."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

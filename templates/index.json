@@ -1,7 +1,7 @@
 {
   "sections": {
     "hero": {
-      "type": "hero-line",
+      "type": "hero-home",
       "blocks": {
         "trust-1": { "type": "trust_item",   "settings": { "icon": "truck",  "text": "Envío a todo el país",    "subtitle": "Recíbelo donde estés" } },
         "trust-2": { "type": "trust_item",   "settings": { "icon": "lock",   "text": "Pago seguro",             "subtitle": "Tus datos protegidos" } },
@@ -98,11 +98,12 @@
       "block_order": ["philo-1","philo-2","philo-3"],
       "settings": {
         "title": "Nuestra filosofía",
-        "subtitle": "No seguimos tendencias. Las seleccionamos."
+        "subtitle_prefix": "No seguimos tendencias.",
+        "subtitle_highlight": "Las seleccionamos."
       }
     },
-    "faq-cta": {
-      "type": "faq-cta-home",
+    "faq-support": {
+      "type": "faq-support-home",
       "blocks": {
         "faq-1": { "type": "faq_item", "settings": { "question": "¿Qué es LINE?", "answer": "LINE es una marca especializada en seleccionar soluciones innovadoras para el bienestar diario. Nuestro objetivo es ayudarte a descansar mejor, aliviar tensiones y sentirte bien mediante productos cuidadosamente elegidos por su calidad, funcionalidad y diseño." } },
         "faq-2": { "type": "faq_item", "settings": { "question": "¿Qué tipo de productos venden?", "answer": "En LINE encontrarás una selección de productos relacionados con bienestar, recuperación, cuidado personal, descanso, postura, relajación, fitness ligero y alivio muscular. Cada producto es evaluado antes de formar parte de nuestra colección." } },
@@ -118,11 +119,11 @@
       "settings": {
         "eyebrow": "Preguntas frecuentes",
         "title": "",
-        "footer_text": "¿No encontraste lo que buscabas?",
+        "footer_text": "",
         "footer_button_label": "Amplía la información aquí",
-        "cta_title": "Empieza a vivir mejor.",
-        "cta_subtitle": "Únete a LINE y descubre una nueva forma de comprar soluciones para tu bienestar.",
-        "cta_button_label": "Descubrir ya"
+        "support_title": "¿No encontraste lo que buscabas?",
+        "support_subtitle": "Nuestro equipo estará encantado de ayudarte.",
+        "support_button_label": "Contactar soporte"
       }
     }
   },
@@ -133,6 +134,6 @@
     "how-it-works",
     "more-advantage",
     "our-philosophy",
-    "faq-cta"
+    "faq-support"
   ]
 }
