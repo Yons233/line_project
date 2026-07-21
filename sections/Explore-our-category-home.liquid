@@ -1,0 +1,311 @@
+{% stylesheet %}
+.line-cathome {
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-24);
+  background: var(--white);
+}
+
+.line-cathome__inner {
+  max-width: 1560px;
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+/* ── Encabezado ── */
+.line-cathome__header {
+  margin-bottom: var(--space-10);
+  text-align: center;
+}
+.line-cathome__title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(var(--text-2xl), 3vw, var(--text-3xl));
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.line-cathome__subtitle {
+  margin-top: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--ink-soft);
+}
+
+/* ── Fila de iconos: una sola línea en desktop, scroll con snap en móvil ── */
+.line-cathome__grid {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  list-style: none;
+}
+
+.line-cathome__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* Esfera de vidrio cálido: mismo material que las burbujas del video del Hero.
+   Es el elemento "firma" de esta sección — une visualmente el video con esta lista estática. */
+.line-cathome__bubble {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(58px, 5.5vw, 76px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 26%, #ffffff 0%, rgba(255,255,255,0.88) 42%, rgba(231,211,179,0.32) 78%, rgba(189,151,99,0.20) 100%);
+  border: 1px solid rgba(255,255,255,0.9);
+  box-shadow: 0 10px 24px rgba(42,36,30,0.12), 0 2px 6px rgba(42,36,30,0.05), inset -3px -4px 8px rgba(189,151,99,0.14);
+  transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo);
+}
+/* Brillo especular, igual al de la esfera central del Hero */
+.line-cathome__bubble::before {
+  content: '';
+  position: absolute;
+  top: 12%;
+  left: 18%;
+  width: 36%;
+  height: 26%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.95), transparent 75%);
+  filter: blur(0.5px);
+  pointer-events: none;
+}
+/* Aura dorada que aparece en hover, como el aro de luz del video */
+.line-cathome__bubble::after {
+  content: '';
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  border: 1px solid rgba(189,151,99,0.45);
+  opacity: 0;
+  transform: scale(0.88);
+  transition: opacity 0.4s ease, transform 0.4s var(--ease-out-expo);
+  pointer-events: none;
+}
+.line-cathome__item:hover .line-cathome__bubble {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 34px rgba(42,36,30,0.16), 0 4px 10px rgba(42,36,30,0.06), inset -3px -4px 8px rgba(189,151,99,0.18);
+}
+.line-cathome__item:hover .line-cathome__bubble::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.line-cathome__icon {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  color: var(--champagne-1);
+}
+.line-cathome__icon svg { width: 32px; height: 32px; }
+
+.line-cathome__label {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+.line-cathome__item:hover .line-cathome__label { color: var(--champagne-1); }
+
+/* ── CTA ── */
+.line-cathome__footer {
+  margin-top: var(--space-10);
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line-cathome__item { transition: none; }
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .line-cathome__grid {
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: var(--space-2);
+    scrollbar-width: none;
+  }
+  .line-cathome__grid::-webkit-scrollbar { display: none; }
+  .line-cathome__item {
+    scroll-snap-align: start;
+    width: 100px;
+  }
+}
+{% endstylesheet %}
+
+<section
+  class="line-cathome"
+  id="line-cathome-{{ section.id }}"
+  aria-labelledby="cathome-title-{{ section.id }}"
+>
+  <div class="line-cathome__inner">
+
+    <div class="line-cathome__header">
+      {%- if section.settings.title != blank -%}
+        <h2 class="line-cathome__title" id="cathome-title-{{ section.id }}">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <p class="line-cathome__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- assign icon_blocks = section.blocks | where: 'type', 'category_icon' -%}
+    {%- if icon_blocks.size > 0 -%}
+      <ul class="line-cathome__grid" aria-label="{{ 'sections.category_home.list_label' | t }}">
+        {%- for block in icon_blocks -%}
+          <li class="line-cathome__item" {{ block.shopify_attributes }}>
+            <span class="line-cathome__bubble">
+              <span class="line-cathome__icon">{%- render 'icon-category', icon: block.settings.icon -%}</span>
+            </span>
+            {%- if block.settings.label != blank -%}
+              <span class="line-cathome__label">{{ block.settings.label }}</span>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if section.settings.view_all_label != blank -%}
+      <div class="line-cathome__footer">
+        <a href="{{ section.settings.view_all_url | default: routes.collections_url }}" class="btn btn--secondary">
+          {{ section.settings.view_all_label }}
+        </a>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<script>
+(function () {
+  if (!window.LINE) return;
+
+  var grid = document.querySelector('#line-cathome-{{ section.id }} .line-cathome__grid');
+  if (!grid) return;
+
+  window.LINE.registerAnim(
+    grid,
+    function (el) {
+      if (!window.gsap) return;
+      var gsap = window.gsap;
+      var items = el.querySelectorAll('.line-cathome__item');
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced) return;
+
+      /* gsap.from() parte de "invisible" y anima hacia el estado normal del CSS
+         (que ya es visible por defecto): si este script no llegara a correr,
+         los iconos igual se ven, la animación es solo una mejora. */
+      var tweenVars = {
+        opacity: 0,
+        y: 18,
+        duration: 0.6,
+        stagger: 0.06,
+        ease: 'power3.out',
+        clearProps: 'opacity,transform',
+      };
+
+      if (window.ScrollTrigger) {
+        gsap.registerPlugin(window.ScrollTrigger);
+        tweenVars.scrollTrigger = { trigger: el, start: 'top 85%', once: true };
+      }
+
+      gsap.from(items, tweenVars);
+    },
+    ['gsap', 'ScrollTrigger'],
+    '100px'
+  );
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Categorías Home",
+  "tag": "section",
+  "class": "section-category-home",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Explora nuestras categorías",
+      "label": "Título"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "default": "Soluciones para cada área de tu bienestar",
+      "label": "Subtítulo"
+    },
+    {
+      "type": "header",
+      "content": "Botón inferior"
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "default": "Ver todas las categorías",
+      "label": "Texto del botón"
+    },
+    {
+      "type": "url",
+      "id": "view_all_url",
+      "label": "Enlace (deja vacío para ir a todas las colecciones)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category_icon",
+      "name": "Icono de categoría",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icono",
+          "default": "facial",
+          "options": [
+            { "value": "facial",          "label": "Facial" },
+            { "value": "fitness-ligero",  "label": "Fitness ligero" },
+            { "value": "postura",         "label": "Postura" },
+            { "value": "skincare",        "label": "Skincare" },
+            { "value": "relajacion",      "label": "Relajación" },
+            { "value": "sueno",           "label": "Sueño" },
+            { "value": "anti-estres",     "label": "Anti estrés" },
+            { "value": "dolor-muscular",  "label": "Dolor muscular" },
+            { "value": "belleza",         "label": "Belleza" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "default": "Facial",
+          "label": "Etiqueta"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Categorías Home",
+      "blocks": [
+        { "type": "category_icon", "settings": { "icon": "facial",         "label": "Facial" } },
+        { "type": "category_icon", "settings": { "icon": "fitness-ligero", "label": "Fitness ligero" } },
+        { "type": "category_icon", "settings": { "icon": "postura",        "label": "Postura" } },
+        { "type": "category_icon", "settings": { "icon": "skincare",       "label": "Skincare" } },
+        { "type": "category_icon", "settings": { "icon": "relajacion",     "label": "Relajación" } },
+        { "type": "category_icon", "settings": { "icon": "sueno",          "label": "Sueño" } },
+        { "type": "category_icon", "settings": { "icon": "anti-estres",    "label": "Anti estrés" } },
+        { "type": "category_icon", "settings": { "icon": "dolor-muscular", "label": "Dolor muscular" } },
+        { "type": "category_icon", "settings": { "icon": "belleza",        "label": "Belleza" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

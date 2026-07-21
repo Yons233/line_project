@@ -1,0 +1,220 @@
+{% stylesheet %}
+.line-cta-banner {
+  position: relative;
+  width: 100%;
+  min-height: 320px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.line-cta-banner__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left center;
+}
+.line-cta-banner__inner {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  min-height: 320px;
+  max-width: 1760px;
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+  display: flex;
+  align-items: center;
+}
+.line-cta-banner__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 420px;
+  padding-block: var(--space-10);
+}
+.line-cta-banner__title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(var(--text-3xl), 3.4vw, var(--text-4xl));
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.35), 0 4px 18px rgba(0,0,0,0.25);
+}
+.line-cta-banner__subtitle {
+  margin-top: var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: rgba(255,255,255,0.92);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.35), 0 2px 12px rgba(0,0,0,0.25);
+}
+.line-cta-banner__button {
+  position: relative;
+  overflow: hidden;
+  margin-top: var(--space-6);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--text-base);
+  color: var(--white);
+  background: linear-gradient(135deg, #2a241e 0%, #14100c 100%);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 0 10px 26px rgba(20,16,12,0.28), inset 0 1px 0 rgba(255,255,255,0.12);
+  transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo);
+}
+.line-cta-banner__button::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+  transform: skewX(-20deg);
+  transition: left 0.65s var(--ease-out-expo);
+  pointer-events: none;
+}
+.line-cta-banner__button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 34px rgba(20,16,12,0.36), inset 0 1px 0 rgba(255,255,255,0.16);
+}
+.line-cta-banner__button:hover::before { left: 120%; }
+.line-cta-banner__button-label {
+  position: relative;
+  z-index: 1;
+}
+.line-cta-banner__button svg {
+  position: relative;
+  z-index: 1;
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s var(--ease-out-expo);
+}
+.line-cta-banner__button:hover svg { transform: translateX(4px); }
+@media (prefers-reduced-motion: reduce) {
+  .line-cta-banner__button, .line-cta-banner__button::before, .line-cta-banner__button svg { transition: none; }
+}
+
+@media (max-width: 700px) {
+  .line-cta-banner { min-height: 420px; }
+  .line-cta-banner__inner { min-height: 420px; align-items: flex-end; }
+  .line-cta-banner__content { max-width: 100%; padding-block: var(--space-8) var(--space-10); }
+  .line-cta-banner__bg { background-position: 65% center; }
+}
+{% endstylesheet %}
+
+<section
+  class="line-cta-banner"
+  id="line-cta-banner-{{ section.id }}"
+  aria-labelledby="cta-banner-title-{{ section.id }}"
+>
+  {%- if section.settings.background != blank -%}
+    {%- assign cta_bg_url = section.settings.background | image_url: width: 1920 -%}
+  {%- else -%}
+    {%- assign cta_bg_url = section.settings.background_fallback | default: 'Cta.png' | asset_url -%}
+  {%- endif -%}
+  <div
+    class="line-cta-banner__bg"
+    style="background-image: url({{ cta_bg_url }});"
+    role="img"
+    aria-label="{{ section.settings.title }}"
+  ></div>
+  <div class="line-cta-banner__inner">
+    <div class="line-cta-banner__content">
+      {%- if section.settings.title != blank -%}
+        <h2 class="line-cta-banner__title" id="cta-banner-title-{{ section.id }}">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <p class="line-cta-banner__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_url | default: routes.all_products_collection_url }}" class="btn line-cta-banner__button">
+          <span class="line-cta-banner__button-label">{{ section.settings.button_label }}</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var section = document.getElementById('line-cta-banner-{{ section.id }}');
+  if (!section || !window.LINE) return;
+  window.LINE.registerAnim(
+    section,
+    function (el) {
+      if (!window.gsap) return;
+      var gsap = window.gsap;
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced) return;
+
+      var children = el.querySelector('.line-cta-banner__content') ? el.querySelector('.line-cta-banner__content').children : [];
+      var tween = { opacity: 0, y: 22, duration: 0.7, stagger: 0.1, ease: 'power3.out', clearProps: 'opacity,transform' };
+
+      if (window.ScrollTrigger) {
+        gsap.registerPlugin(window.ScrollTrigger);
+        tween.scrollTrigger = { trigger: el, start: 'top 80%', once: true };
+      }
+
+      if (children.length) gsap.from(children, tween);
+    },
+    ['gsap', 'ScrollTrigger'],
+    '100px'
+  );
+})();
+</script>
+
+{% schema %}
+{
+  "name": "CTA",
+  "tag": "section",
+  "class": "section-cta-home",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background",
+      "label": "Imagen de fondo"
+    },
+    {
+      "type": "text",
+      "id": "background_fallback",
+      "default": "Cta.png",
+      "label": "Imagen de fondo de respaldo (archivo en assets/)"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Empieza a vivir mejor.",
+      "label": "Título"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "default": "Únete a LINE y descubre una nueva forma de comprar soluciones para tu bienestar.",
+      "label": "Subtítulo"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "Descubre ya",
+      "label": "Texto del botón"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Enlace (deja vacío para ir a todos los productos)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "CTA"
+    }
+  ]
+}
+{% endschema %}

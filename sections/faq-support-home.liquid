@@ -259,7 +259,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  margin-left: 8%;
+  margin-left: var(--space-8);
   width: min(380px, 58%);
   padding: var(--space-10) var(--space-8) var(--space-8) 0;
 }
@@ -267,7 +267,7 @@
 .line-support__title {
   font-family: var(--font-serif);
   font-weight: 500;
-  font-size: clamp(var(--text-3xl), 3.4vw, var(--text-4xl));
+  font-size: clamp(var(--text-2xl), 2.6vw, var(--text-3xl));
   line-height: 1.15;
   letter-spacing: -0.01em;
   color: var(--ink);
@@ -288,8 +288,8 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-4) var(--space-10);
-  font-size: var(--text-base);
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-sm);
   color: var(--white);
   background: linear-gradient(135deg, #5c5952 0%, #45423c 100%);
   border: 1px solid rgba(255,255,255,0.18);
@@ -321,8 +321,8 @@
 .line-support__button svg {
   position: relative;
   z-index: 1;
-  width: 18px;
-  height: 18px;
+  width: 15px;
+  height: 15px;
   transition: transform 0.3s var(--ease-out-expo);
 }
 .line-support__button:hover svg { transform: translateX(4px); }
