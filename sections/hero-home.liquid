@@ -231,7 +231,7 @@
       });
 
       var source = document.createElement('source');
-      source.src  = {{ 'OficialHero.mp4' | asset_url | json }};
+      source.src  = {{ 'VideoHero.mp4' | asset_url | json }};
       source.type = 'video/mp4';
       video.appendChild(source);
       video.load();
@@ -403,7 +403,7 @@
     {
       "type": "textarea",
       "id": "subtitle",
-      "default": "Una selección de productos de bienestar pensados para verse bien, sentirse mejor y vivir con más comodidad.",
+      "default": "Descubrimos y seleccionamos soluciones innovadoras que hacen más cómodo y equilibrado tu día a día.",
       "label": "Subtítulo"
     },
     {
@@ -440,7 +440,7 @@
       "type": "checkbox",
       "id": "show_bg_video",
       "default": true,
-      "label": "Activar video de fondo (OficialHero.mp4, solo desktop)",
+      "label": "Activar video de fondo (VideoHero.mp4, solo desktop)",
       "info": "En móvil y con 'reducir movimiento' activado queda solo el color base del hero."
     }
   ],
