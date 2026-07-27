@@ -284,7 +284,7 @@
                     <li><a href="#" class="line-footer__col-link">Devoluciones</a></li>
                     <li><a href="#" class="line-footer__col-link">Rastrear mi pedido</a></li>
                   {%- when 'Empresa' -%}
-                    <li><a href="/pages/por-que-line" class="line-footer__col-link">¿Por qué LINE?</a></li>
+                    <li><a href="/#why-line-section" class="line-footer__col-link">¿Por qué LINE?</a></li>
                     <li><a href="/pages/acerca-de" class="line-footer__col-link">Sobre Nosotros</a></li>
                     <li><a href="#" class="line-footer__col-link">Tu experiencia en LINE</a></li>
                   {%- when 'Legal' -%}
@@ -294,7 +294,7 @@
                     <li><a href="{{ shop.policies.terms_of_service.url | default: '#' }}" class="line-footer__col-link">Condiciones de servicio</a></li>
                   {%- when 'Ayuda' -%}
                     <li><a href="/pages/contacto" class="line-footer__col-link">Contáctanos</a></li>
-                    <li><a href="/pages/faq" class="line-footer__col-link">Preguntas frecuentes</a></li>
+                    <li><a href="/#faq-section" class="line-footer__col-link">Preguntas frecuentes</a></li>
                     <li><a href="{{ shop.policies.refund_policy.url | default: '#' }}" class="line-footer__col-link">Devoluciones/Reembolso</a></li>
                 {%- endcase -%}
               </ul>

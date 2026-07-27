@@ -1,4 +1,7 @@
 {% stylesheet %}
+.line-faqsupport__anchor {
+  scroll-margin-top: var(--header-h);
+}
 .line-faqsupport {
   padding-top: var(--space-10);
   padding-bottom: var(--space-16);
@@ -352,6 +355,7 @@
 }
 {% endstylesheet %}
 
+<span id="faq-section" class="line-faqsupport__anchor visually-hidden" aria-hidden="true"></span>
 <section
   class="line-faqsupport"
   id="line-faqsupport-{{ section.id }}"

@@ -97,6 +97,54 @@
   <!-- line-anim.js: cargador lazy de animaciones (defer, no bloquea) -->
   <script src="{{ 'line-anim.js' | asset_url }}" defer></script>
 
+  <!-- Limpia el #ancla de la URL una vez que la sección enlazada (desde el
+       menú o el footer) ya salió de vista, para que la barra de direcciones
+       no se quede pegada a un enlace que el usuario ya no está viendo. -->
+  <script>
+  (function () {
+    if (!('IntersectionObserver' in window)) return;
+    var observer = null;
+
+    function clearHash() {
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    }
+
+    function watchHashTarget() {
+      if (observer) {
+        observer.disconnect();
+        observer = null;
+      }
+      var id = window.location.hash ? window.location.hash.slice(1) : '';
+      if (!id) return;
+      var el = document.getElementById(id);
+      if (!el) return;
+      /* El ancla es un span invisible de 1x1px justo antes de la sección:
+         observamos la sección real (su hermano siguiente en el DOM) para
+         medir visibilidad de forma confiable, no el punto diminuto. */
+      var target = el.nextElementSibling || el;
+
+      var hasBeenVisible = false;
+      observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            hasBeenVisible = true;
+          } else if (hasBeenVisible) {
+            clearHash();
+            observer.disconnect();
+            observer = null;
+          }
+        });
+      });
+      observer.observe(target);
+    }
+
+    window.addEventListener('load', watchHashTarget);
+    window.addEventListener('hashchange', watchHashTarget);
+  })();
+  </script>
+
   <!-- Accesibilidad: skip-to-content -->
   <a href="#main-content" class="skip-to-content visually-hidden">
     {{ 'accessibility.skip_to_content' | t }}
