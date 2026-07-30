@@ -29,6 +29,12 @@
   box-shadow: 0 1px 0 rgba(42,36,30,0.08);
   transition: none;
 }
+.line-header--white-top {
+  background: rgba(255,255,255,1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 rgba(42,36,30,0.06);
+}
 .line-header__inner {
   display: flex;
   align-items: center;
@@ -406,8 +412,15 @@
 }
 {% endstylesheet %}
 
+{%- comment -%} has_hero: el header flota (fixed) sobre la sección sin reservar espacio — solo el home lo necesita, ya que su hero ocupa toda la pantalla debajo del nav. {%- endcomment -%}
 {%- assign has_hero = false -%}
 {%- if template.name == 'index' -%}{%- assign has_hero = true -%}{%- endif -%}
+
+{%- comment -%} is_legal_notice: solo activa la transición blanco→pastel al hacer scroll (igual que el home), sin quitar el espaciador ni superponer el header sobre el hero. {%- endcomment -%}
+{%- assign is_legal_notice = false -%}
+{%- if template.name == 'page' and template.suffix == 'legal-notice' -%}
+  {%- assign is_legal_notice = true -%}
+{%- endif -%}
 
 {%- comment -%} Categorías del menú desplegable: icono|etiqueta|handle-de-colección {%- endcomment -%}
 {%- assign line_categories = 'facial|Facial|facial,fitness-ligero|Fitness ligero|fitness-ligero,postura|Postura|postura,skincare|Skincare|skincare,relajacion|Relajación|relajacion,sueno|Sueño|sueno,anti-estres|Anti estrés|anti-estres,dolor-muscular|Dolor muscular|dolor-muscular,belleza|Belleza|belleza' -%}
@@ -422,7 +435,7 @@
 </svg>
 
 <header
-  class="line-header{% unless has_hero %} line-header--solid{% endunless %}"
+  class="line-header{% if has_hero or is_legal_notice %}{% else %} line-header--solid{% endif %}{% if is_legal_notice %} line-header--white-top{% endif %}"
   id="line-header"
   role="banner"
 >

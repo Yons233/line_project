@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "legal-notice": {
+      "type": "Legal-Notice",
+      "blocks": {
+        "item-1":  { "type": "legal_item", "settings": { "icon": "briefcase",     "title": "Company Information", "body": "Line Commercial is a company dedicated to e-commerce through the sale of products over the internet.\n\nFor any inquiries related to our services, orders, or policies, you may contact us at:\n\nCustomer support email: supports@linecommercial.com" } },
+        "item-2":  { "type": "legal_item", "settings": { "icon": "monitor",       "title": "Purpose of the Website", "body": "This website is intended to provide information about our products and allow their purchase through a secure e-commerce platform.\n\nAll published information is for informational and commercial purposes." } },
+        "item-3":  { "type": "legal_item", "settings": { "icon": "file-check",    "title": "Conditions of Use", "body": "By using this website, the user agrees to: (1) Provide truthful and up-to-date information during the purchase process. (2) Use the website only for lawful purposes. (3) Not engage in activities that may affect the security, operation, or availability of the website. (4) Not use the site's content for fraudulent or illegal activities. Line Commercial reserves the right to suspend or restrict access to any user who fails to comply with these conditions." } },
+        "item-4":  { "type": "legal_item", "settings": { "icon": "award",         "title": "Intellectual Property", "body": "All content available on this website — including, but not limited to, texts, images, logos, graphics, designs, icons, photographs, videos, and other visual elements — is the property of Line Commercial or is used under the corresponding licenses.\n\nReproduction, distribution, modification, or use without prior written authorization is strictly prohibited." } },
+        "item-5":  { "type": "legal_item", "settings": { "icon": "package",       "title": "Products and Availability", "body": "We constantly work to keep product information up to date. However, availability, features, prices, and specifications may change without prior notice.\n\nProduct images are for illustrative purposes and may present slight differences from the product received due to manufacturing processes, lighting, or screen settings." } },
+        "item-6":  { "type": "legal_item", "settings": { "icon": "shield",        "title": "Limitation of Liability", "body": "Line Commercial makes all reasonable efforts to keep the information on the site accurate and up to date. However, we do not guarantee that the website will remain available without interruption or that it will be free of technical errors, temporary outages, or failures caused by third parties.\n\nWe will not be liable for delays arising from transport companies, customs processes, natural phenomena, unforeseen circumstances, or any situation beyond our reasonable control." } },
+        "item-7":  { "type": "legal_item", "settings": { "icon": "external-link", "title": "Links to Third-Party Websites", "body": "Our website may contain links to platforms or services managed by third parties. Line Commercial does not control the content, availability, or privacy policies of such sites and assumes no responsibility for them." } },
+        "item-8":  { "type": "legal_item", "settings": { "icon": "lock",          "title": "Personal Data Protection", "body": "The processing of our customers' personal information is carried out in accordance with our Privacy Policy. By using this website, you agree to the processing of your data as described in that policy." } },
+        "item-9":  { "type": "legal_item", "settings": { "icon": "edit",          "title": "Amendments to the Legal Notice", "body": "Line Commercial may update or modify this Legal Notice at any time to adapt it to legal, operational, or commercial changes. Modifications will be published on this page and will take effect from their publication date." } },
+        "item-10": { "type": "legal_item", "settings": { "icon": "scale",         "title": "Applicable Law", "body": "This Legal Notice shall be governed and interpreted in accordance with the laws of the Plurinational State of Bolivia, without prejudice to the rights that may correspond to consumers under the applicable legislation in their place of residence." } },
+        "item-11": { "type": "legal_item", "settings": { "icon": "headset",       "title": "Contact", "body": "If you have questions related to this Legal Notice or the operation of our website, please contact our customer support team. We are committed to responding to inquiries as quickly as possible within our business hours." } }
+      },
+      "block_order": ["item-1","item-2","item-3","item-4","item-5","item-6","item-7","item-8","item-9","item-10","item-11"]
+    }
+  },
+  "order": [
+    "legal-notice"
+  ]
+}
