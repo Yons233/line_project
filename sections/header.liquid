@@ -416,9 +416,12 @@
 {%- assign has_hero = false -%}
 {%- if template.name == 'index' -%}{%- assign has_hero = true -%}{%- endif -%}
 
-{%- comment -%} is_legal_notice: solo activa la transición blanco→pastel al hacer scroll (igual que el home), sin quitar el espaciador ni superponer el header sobre el hero. {%- endcomment -%}
+{%- comment -%} is_legal_notice: solo activa la transición blanco→pastel al hacer scroll (igual que el home), sin quitar el espaciador ni superponer el header sobre el hero. Aplica también a Privacy Policy, que comparte el mismo patrón de hero. {%- endcomment -%}
 {%- assign is_legal_notice = false -%}
 {%- if template.name == 'page' and template.suffix == 'legal-notice' -%}
+  {%- assign is_legal_notice = true -%}
+{%- endif -%}
+{%- if template.name == 'page' and template.suffix == 'privacy-policy' -%}
   {%- assign is_legal_notice = true -%}
 {%- endif -%}
 
