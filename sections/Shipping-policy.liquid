@@ -1,0 +1,632 @@
+{% stylesheet %}
+/* ── Hero ── */
+.line-shipping-hero {
+  position: relative;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+.line-shipping-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.line-shipping-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 75% center;
+}
+.line-shipping-hero__text {
+  position: relative;
+  z-index: 1;
+  max-width: 460px;
+  padding-left: var(--container-pad);
+  padding-block: var(--space-16);
+}
+.line-shipping-hero__eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--champagne-1);
+}
+.line-shipping-hero__title {
+  margin-top: var(--space-3);
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(var(--text-3xl), 3.6vw, var(--text-4xl));
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.line-shipping-hero__title-highlight {
+  background: var(--gradient-champagne);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.line-shipping-hero__subtitle {
+  margin-top: var(--space-4);
+  max-width: 440px;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: var(--ink-soft);
+  text-align: justify;
+}
+.line-shipping-hero__updated {
+  margin-top: var(--space-8);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: rgba(42,36,30,0.75);
+}
+.line-shipping-hero__updated svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+/* ── Cuerpo: TOC + contenido de la política ── */
+.line-shipping-body {
+  padding-block: var(--space-10) var(--space-16);
+  background: var(--white);
+}
+.line-shipping-body__inner {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: var(--space-16);
+  align-items: start;
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-left: var(--space-4);
+  padding-right: var(--container-pad);
+}
+
+.line-shipping-toc {
+  position: sticky;
+  top: calc(var(--header-h) + var(--space-6));
+  background: rgba(var(--pastel-nav-rgb), 0.32);
+  border-radius: 24px;
+  padding: var(--space-8) var(--space-6) var(--space-6);
+}
+.line-shipping-toc__label {
+  padding-left: calc(var(--space-4) + 2px);
+  margin-bottom: var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--champagne-1);
+}
+.line-shipping-toc__list {
+  margin-top: var(--space-4);
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+.line-shipping-toc__link {
+  position: relative;
+  display: block;
+  padding: var(--space-2) 0 var(--space-2) var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--ink-soft);
+  transition: color var(--duration-fast);
+}
+.line-shipping-toc__link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  background: transparent;
+  transition: background var(--duration-fast);
+}
+.line-shipping-toc__link:hover { color: var(--ink); }
+.line-shipping-toc__link.is-active {
+  color: var(--champagne-1);
+  font-weight: 600;
+}
+.line-shipping-toc__link.is-active::before {
+  background: var(--champagne-1);
+}
+
+.line-shipping-list {
+  display: flex;
+  flex-direction: column;
+}
+.line-shipping-item {
+  padding-block: var(--space-8);
+  border-bottom: 1px solid rgba(42,36,30,0.10);
+  scroll-margin-top: calc(var(--header-h) + var(--space-4));
+}
+.line-shipping-item:first-child { padding-top: 0; }
+.line-shipping-item:last-child { border-bottom: none; padding-bottom: 0; }
+.line-shipping-item__eyebrow {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--champagne-1);
+}
+.line-shipping-item__title {
+  margin-top: var(--space-3);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-lg);
+  color: var(--ink);
+}
+.line-shipping-item__body {
+  margin-top: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  color: var(--ink-soft);
+  text-align: justify;
+}
+.line-shipping-item__body p + p { margin-top: var(--space-2); }
+.line-shipping-item__body-exception {
+  padding: var(--space-4) var(--space-5);
+  background: rgba(var(--pastel-nav-rgb), 0.45);
+  border-radius: 14px;
+  text-align: left;
+}
+
+/* ── Fondo blanco de la página, solo en Shipping Policy ── */
+body.template-page-shipping-policy {
+  background-color: #ffffff;
+}
+
+/* ── CTA de cierre ── */
+.line-shipping-cta {
+  margin-inline: auto;
+  max-width: 1560px;
+  padding-inline: var(--container-pad);
+  padding-block: var(--space-6) var(--space-8);
+}
+.line-shipping-cta__card {
+  position: relative;
+  height: 140px;
+  border-radius: 28px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background: var(--cream-0);
+  isolation: isolate;
+}
+.line-shipping-cta__bg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 32%;
+  z-index: 0;
+}
+.line-shipping-cta__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 100% center;
+  -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12%);
+  mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12%);
+}
+.line-shipping-cta__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+  width: 100%;
+  padding: var(--space-6) var(--space-8);
+  padding-right: 34%;
+}
+.line-shipping-cta__text { max-width: 480px; }
+.line-shipping-cta__title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(var(--text-xl), 1.8vw, var(--text-2xl));
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.line-shipping-cta__subtitle {
+  margin-top: var(--space-1);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.line-shipping-cta__button {
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--white);
+  background: #3a3a3a;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.22);
+  transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo);
+}
+.line-shipping-cta__button::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+  transform: skewX(-20deg);
+  transition: left 0.65s var(--ease-out-expo);
+  pointer-events: none;
+}
+.line-shipping-cta__button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 34px rgba(42,36,30,0.36), inset 0 1px 0 rgba(255,255,255,0.16);
+}
+.line-shipping-cta__button:hover::before { left: 120%; }
+.line-shipping-cta__button-label { position: relative; z-index: 1; }
+.line-shipping-cta__button svg {
+  position: relative;
+  z-index: 1;
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s var(--ease-out-expo);
+}
+.line-shipping-cta__button:hover svg { transform: translateX(4px); }
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  .line-shipping-hero { min-height: 360px; }
+  .line-shipping-hero__text { max-width: 100%; padding-right: var(--container-pad); }
+}
+@media (max-width: 1000px) {
+  .line-shipping-body__inner { grid-template-columns: 1fr; gap: var(--space-10); }
+  .line-shipping-toc { position: static; }
+  .line-shipping-toc__list { flex-direction: row; flex-wrap: wrap; gap: var(--space-2); }
+  .line-shipping-toc__link { padding: var(--space-2) var(--space-3); }
+  .line-shipping-toc__link::before { display: none; }
+}
+@media (max-width: 640px) {
+  .line-shipping-cta__card { flex-direction: column; align-items: stretch; height: auto; }
+  .line-shipping-cta__bg { position: relative; width: 100%; height: 160px; }
+  .line-shipping-cta__content {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--space-6);
+    padding-right: var(--space-6);
+  }
+  .line-shipping-cta__text { max-width: 100%; }
+  .line-shipping-cta__subtitle { white-space: normal; }
+  .line-shipping-cta__button { margin-top: var(--space-4); }
+}
+{% endstylesheet %}
+
+<section class="line-shipping-hero" id="line-shipping-hero-{{ section.id }}">
+    <div class="line-shipping-hero__text">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="line-shipping-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h1 class="line-shipping-hero__title">
+        {{ section.settings.title_prefix }}
+        {%- if section.settings.title_highlight != blank -%}
+          <span class="line-shipping-hero__title-highlight">{{ section.settings.title_highlight }}</span>
+        {%- endif -%}
+      </h1>
+      {%- if section.settings.subtitle != blank -%}
+        <p class="line-shipping-hero__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+      {%- if section.settings.last_updated != blank -%}
+        <p class="line-shipping-hero__updated">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+          </svg>
+          <span>{{ section.settings.last_updated }}</span>
+        </p>
+      {%- endif -%}
+    </div>
+    <div class="line-shipping-hero__media">
+      {%- if section.settings.hero_image != blank -%}
+        {{
+          section.settings.hero_image
+          | image_url: width: 1200
+          | image_tag:
+            loading: 'eager',
+            alt: section.settings.title_prefix,
+            widths: '600,900,1200'
+        }}
+      {%- else -%}
+        <img
+          src="{{ section.settings.hero_image_fallback | default: 'AvisoLegal.png' | asset_url }}"
+          alt="{{ section.settings.title_prefix }}"
+          loading="eager"
+          width="3868"
+          height="1059"
+        >
+      {%- endif -%}
+    </div>
+</section>
+
+<section class="line-shipping-body" id="line-shipping-body-{{ section.id }}" aria-label="{{ section.settings.toc_label }}">
+  <div class="line-shipping-body__inner">
+
+    {%- assign shipping_blocks = section.blocks | where: 'type', 'shipping_item' -%}
+    {%- if shipping_blocks.size > 0 -%}
+      <div class="line-shipping-toc">
+        <nav aria-label="{{ section.settings.toc_label }}">
+          {%- if section.settings.toc_label != blank -%}
+            <p class="line-shipping-toc__label">{{ section.settings.toc_label }}</p>
+          {%- endif -%}
+          <ul class="line-shipping-toc__list" role="list">
+            {%- for block in shipping_blocks -%}
+              {%- assign item_number = forloop.index | prepend: '00' | slice: -2, 2 -%}
+              <li>
+                <a href="#shipping-item-{{ block.id }}" class="line-shipping-toc__link" data-shipping-toc-link data-target="shipping-item-{{ block.id }}">
+                  {{ item_number }} {{ block.settings.title }}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      </div>
+
+      <div class="line-shipping-list">
+        {%- for block in shipping_blocks -%}
+          {%- assign item_number = forloop.index | prepend: '00' | slice: -2, 2 -%}
+          <div class="line-shipping-item" id="shipping-item-{{ block.id }}" {{ block.shopify_attributes }}>
+            <p class="line-shipping-item__eyebrow">Section {{ item_number }}</p>
+            {%- if block.settings.title != blank -%}
+              <h2 class="line-shipping-item__title">{{ block.settings.title }}</h2>
+            {%- endif -%}
+            {%- if block.settings.body != blank -%}
+              <div class="line-shipping-item__body">
+                {%- assign body_paragraphs = block.settings.body | split: "
+
+" -%}
+                {%- for paragraph in body_paragraphs -%}
+                  {%- assign paragraph_trimmed = paragraph | strip -%}
+                  {%- if paragraph_trimmed != blank -%}
+                    {%- if paragraph_trimmed contains '<strong>Exception:</strong>' -%}
+                      <p class="line-shipping-item__body-exception">{{ paragraph_trimmed | newline_to_br }}</p>
+                    {%- else -%}
+                      <p>{{ paragraph_trimmed | newline_to_br }}</p>
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<div class="line-shipping-cta">
+  <div class="line-shipping-cta__card">
+    <div class="line-shipping-cta__bg">
+      <img
+        src="{{ section.settings.contact_bg_fallback | default: 'AvisoLegalContact.png' | asset_url }}"
+        alt="{{ section.settings.contact_title }}"
+        loading="lazy"
+        width="7680"
+        height="776"
+      >
+    </div>
+    <div class="line-shipping-cta__content">
+      <div class="line-shipping-cta__text">
+        {%- if section.settings.contact_title != blank -%}
+          <h2 class="line-shipping-cta__title">{{ section.settings.contact_title }}</h2>
+        {%- endif -%}
+        {%- if section.settings.contact_subtitle != blank -%}
+          <p class="line-shipping-cta__subtitle">{{ section.settings.contact_subtitle }}</p>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.contact_button_label != blank -%}
+        <a href="{{ section.settings.contact_button_url | default: '/pages/contacto' }}" class="btn line-shipping-cta__button">
+          <span class="line-shipping-cta__button-label">{{ section.settings.contact_button_label }}</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var links = document.querySelectorAll('[data-shipping-toc-link]');
+  if (!links.length || !('IntersectionObserver' in window)) return;
+
+  var items = [];
+  links.forEach(function (link) {
+    var target = document.getElementById(link.getAttribute('data-target'));
+    if (target) items.push({ link: link, target: target });
+  });
+  if (!items.length) return;
+
+  function setActive(id) {
+    items.forEach(function (item) {
+      item.link.classList.toggle('is-active', item.target.id === id);
+    });
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) setActive(entry.target.id);
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  items.forEach(function (item) { observer.observe(item.target); });
+  setActive(items[0].target.id);
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Shipping Policy",
+  "tag": "section",
+  "class": "section-shipping-policy",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "default": "Fast, Secure",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "text",
+      "id": "title_prefix",
+      "default": "Shipping Policy",
+      "label": "Title — text"
+    },
+    {
+      "type": "text",
+      "id": "title_highlight",
+      "label": "Title — highlighted word"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "default": "In this section, we detail LINE’s delivery times, rates, and logistics conditions. We are committed to providing complete transparency so you can track the status of your shipment at every stage—from order confirmation to safe delivery at your doorstep.",
+      "label": "Subtitle"
+    },
+    {
+      "type": "text",
+      "id": "last_updated",
+      "default": "Last updated: June 2026",
+      "label": "Last updated text"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
+    {
+      "type": "text",
+      "id": "hero_image_fallback",
+      "default": "AvisoLegal.png",
+      "label": "Hero image fallback (file in assets/)"
+    },
+    {
+      "type": "header",
+      "content": "Table of contents"
+    },
+    {
+      "type": "text",
+      "id": "toc_label",
+      "default": "In this page",
+      "label": "Sidebar label"
+    },
+    {
+      "type": "header",
+      "content": "Closing CTA"
+    },
+    {
+      "type": "text",
+      "id": "contact_title",
+      "default": "We're here for you.",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "contact_subtitle",
+      "default": "If you have any questions, our team will be happy to help.",
+      "label": "Subtitle"
+    },
+    {
+      "type": "text",
+      "id": "contact_button_label",
+      "default": "Contact support",
+      "label": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "contact_button_url",
+      "label": "Button link (leave empty to go to Contact)"
+    },
+    {
+      "type": "text",
+      "id": "contact_bg_fallback",
+      "default": "AvisoLegalContact.png",
+      "label": "Background image fallback (file in assets/)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "shipping_item",
+      "name": "Shipping section",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "package",
+          "options": [
+            { "value": "briefcase",     "label": "Briefcase" },
+            { "value": "monitor",       "label": "Monitor" },
+            { "value": "file-check",    "label": "File check" },
+            { "value": "award",         "label": "Award" },
+            { "value": "package",       "label": "Package" },
+            { "value": "shield",        "label": "Shield" },
+            { "value": "external-link", "label": "External link" },
+            { "value": "lock",          "label": "Lock" },
+            { "value": "edit",          "label": "Edit" },
+            { "value": "scale",         "label": "Scale" },
+            { "value": "headset",       "label": "Headset" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Section title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "default": "Section content.",
+          "label": "Body"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shipping Policy",
+      "blocks": [
+        { "type": "shipping_item", "settings": { "icon": "file-check",    "title": "Introduction", "body": "At Line Commercial, our goal is to offer you the best shipping options, no matter where you are. We work daily with global distribution centers to ensure you receive your products as efficiently as possible." } },
+        { "type": "shipping_item", "settings": { "icon": "package",       "title": "Order Processing and Shipping Time", "body": "<strong>Processing time.</strong> Once payment is confirmed, you will receive an order confirmation email immediately after your purchase. You will then receive a shipping confirmation email with your tracking number once your order has been processed. Orders take 1 to 2 business days to process.\n\n<strong>Exception:</strong> During high-demand seasons (Black Friday, Cyber Monday, Christmas, New Year) processing times may be extended by 1 or 2 additional business days.\n\n<strong>Estimated delivery time.</strong> Once your order has been processed and dispatched by our supplier, the estimated delivery time is 3 to 7 business days, depending on the destination and local postal service capacity.\n\n<strong>Exception:</strong> Timelines may be affected by external factors beyond our control, such as customs holds, public holidays, extreme weather conditions, or high-demand seasons (such as Black Friday or Christmas)." } },
+        { "type": "shipping_item", "settings": { "icon": "monitor",       "title": "Order Tracking", "body": "Once your package is handed over to the carrier, you will receive an email with your tracking number and a link to track your package in real time. You can track your package through our website or the global tracking platforms we will provide.\n\nTracking information may take 24 to 48 hours to update after the shipping confirmation is sent. If you do not receive a tracking number within 5 business days of your order confirmation, please contact us at supports@linecommercial.com and we will investigate immediately." } },
+        { "type": "shipping_item", "settings": { "icon": "briefcase",     "title": "Split Shipments", "body": "If your order contains multiple items managed by different suppliers, they may arrive in separate packages and at different times. You will receive individual tracking numbers for each shipment.\n\nThis is completely normal and does not indicate any issue with your order. No additional shipping charges will apply for split shipments." } },
+        { "type": "shipping_item", "settings": { "icon": "award",         "title": "Shipping Rates and Costs", "body": "We offer free standard shipping on all products." } },
+        { "type": "shipping_item", "settings": { "icon": "shield",        "title": "Lost, Stolen, or Damaged Packages", "body": "Line Commercial is not responsible for packages that are lost or stolen after delivery confirmation by the carrier. If tracking shows your package was delivered but you have not received it, we recommend checking with neighbors, building management, or your local post office before contacting us.\n\nIf your order arrives damaged, please contact us within 14 days of delivery at supports@linecommercial.com, providing your order number and clear photographs of the damaged item and packaging. We will work with our supplier to issue a replacement or refund as appropriate.\n\nFor packages confirmed as lost by the carrier (not delivered), please notify us within the days following the estimated delivery date so we can file a claim with the carrier on your behalf." } },
+        { "type": "shipping_item", "settings": { "icon": "edit",          "title": "Incorrect Shipping Address", "body": "It is the customer's responsibility to ensure the shipping address is entered correctly and completely. If you notice an error, please write to us immediately at supports@linecommercial.com.\n\nIf the package has already been processed or shipped, we will not be able to modify the address. Line Commercial is not responsible for undelivered orders due to incorrect or incomplete addresses, or the recipient's absence at the time of delivery." } },
+        { "type": "shipping_item", "settings": { "icon": "external-link", "title": "Relationship with Our Returns Policy", "body": "If you need to make a return or exchange (applicable only within the first 14 days after purchase for eligible items), please refer to our full Returns Policy section for details on product conditions." } },
+        { "type": "shipping_item", "settings": { "icon": "headset",       "title": "Contact Information", "body": "For any inquiries, assistance, concerns, or claims related to shipping, please contact our customer support team at supports@linecommercial.com." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
