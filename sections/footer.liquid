@@ -80,6 +80,52 @@
   transition: color var(--duration-fast);
 }
 .line-footer__col-link:hover { color: var(--ink); }
+.line-footer__col-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: var(--text-sm);
+  color: rgba(42,36,30,0.65);
+  cursor: pointer;
+  text-align: left;
+  transition: color var(--duration-fast);
+}
+.line-footer__col-toggle:hover { color: var(--ink); }
+.line-footer__col-toggle svg {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+  transition: transform var(--duration-base) var(--ease-out-expo);
+}
+.line-footer__col-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+.line-footer__col-submenu {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-base) var(--ease-out-expo);
+}
+.line-footer__col-toggle[aria-expanded="true"] + .line-footer__col-submenu { grid-template-rows: 1fr; }
+.line-footer__col-submenu-inner { overflow: hidden; }
+.line-footer__col-submenu-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
+  padding-left: var(--space-4);
+}
+.line-footer__col-sublink {
+  display: block;
+  white-space: nowrap;
+  font-size: var(--text-xs);
+  color: rgba(42,36,30,0.5);
+  transition: color var(--duration-fast);
+}
+.line-footer__col-sublink:hover { color: var(--ink); }
 
 /* Bloque de pago seguro */
 .line-footer__trust {
@@ -288,10 +334,23 @@
                     <li><a href="/pages/acerca-de" class="line-footer__col-link">Sobre Nosotros</a></li>
                     <li><a href="#" class="line-footer__col-link">Tu experiencia en LINE</a></li>
                   {%- when 'Legal' -%}
-                    <li><a href="#" class="line-footer__col-link">Aviso legal</a></li>
-                    <li><a href="{{ shop.policies.privacy_policy.url | default: '#' }}" class="line-footer__col-link">Privacidad</a></li>
-                    <li><a href="{{ shop.policies.refund_policy.url | default: '#' }}" class="line-footer__col-link">Políticas</a></li>
-                    <li><a href="{{ shop.policies.terms_of_service.url | default: '#' }}" class="line-footer__col-link">Condiciones de servicio</a></li>
+                    <li><a href="/pages/legal-notice" class="line-footer__col-link">Aviso legal</a></li>
+                    <li><a href="/pages/privacy-policy" class="line-footer__col-link">Privacidad</a></li>
+                    <li>
+                      <button type="button" class="line-footer__col-toggle" aria-expanded="false" data-footer-toggle>
+                        <span>Políticas</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                      </button>
+                      <div class="line-footer__col-submenu">
+                        <div class="line-footer__col-submenu-inner">
+                          <ul class="line-footer__col-submenu-list" role="list">
+                            <li><a href="/pages/shipping-policy" class="line-footer__col-sublink">Envío</a></li>
+                            <li><a href="/pages/return-refund-policy" class="line-footer__col-sublink">Devoluciones o reembolsos</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </li>
+                    <li><a href="/pages/terms-of-service" class="line-footer__col-link">Condiciones de servicio</a></li>
                   {%- when 'Ayuda' -%}
                     <li><a href="/pages/contacto" class="line-footer__col-link">Contáctanos</a></li>
                     <li><a href="/#faq-section" class="line-footer__col-link">Preguntas frecuentes</a></li>
@@ -353,6 +412,17 @@
 
   </div>
 </footer>
+
+{% javascript %}
+(function () {
+  document.querySelectorAll('[data-footer-toggle]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+  });
+})();
+{% endjavascript %}
 
 {% schema %}
 {
