@@ -60,14 +60,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Hanken+Grotesk:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Hanken+Grotesk:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700&display=swap"
     media="print"
     onload="this.media='all'"
   >
   <noscript>
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Hanken+Grotesk:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Hanken+Grotesk:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700&display=swap"
     >
   </noscript>
   {% # theme-check-enable RemoteAsset %}
@@ -84,7 +84,7 @@
   {{ content_for_header }}
 </head>
 
-<body class="{% if template == 'index' %}template-index{% endif %}{% if template.name == 'page' and template.suffix == 'legal-notice' %} template-page-legal-notice{% endif %}{% if template.name == 'page' and template.suffix == 'privacy-policy' %} template-page-privacy-policy{% endif %}{% if template.name == 'page' and template.suffix == 'shipping-policy' %} template-page-shipping-policy{% endif %}{% if template.name == 'page' and template.suffix == 'return-refund-policy' %} template-page-return-refund-policy{% endif %}{% if template.name == 'page' and template.suffix == 'terms-of-service' %} template-page-terms-of-service{% endif %}">
+<body class="{% if template == 'index' %}template-index{% endif %}{% if template.name == 'page' and template.suffix == 'legal-notice' %} template-page-legal-notice{% endif %}{% if template.name == 'page' and template.suffix == 'privacy-policy' %} template-page-privacy-policy{% endif %}{% if template.name == 'page' and template.suffix == 'shipping-policy' %} template-page-shipping-policy{% endif %}{% if template.name == 'page' and template.suffix == 'return-refund-policy' %} template-page-return-refund-policy{% endif %}{% if template.name == 'page' and template.suffix == 'terms-of-service' %} template-page-terms-of-service{% endif %}{% if template.name == 'page' and template.suffix == 'contact-us' %} template-page-contact-us{% endif %}">
 
   {%- section 'header' -%}
 

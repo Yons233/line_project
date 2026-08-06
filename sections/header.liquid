@@ -412,9 +412,12 @@
 }
 {% endstylesheet %}
 
-{%- comment -%} has_hero: el header flota (fixed) sobre la sección sin reservar espacio — solo el home lo necesita, ya que su hero ocupa toda la pantalla debajo del nav. {%- endcomment -%}
+{%- comment -%} has_hero: el header flota (fixed) sobre la sección sin reservar espacio, transparente hasta hacer scroll. Lo necesita el home y Contact Us, cuyo hero ocupa toda la pantalla debajo del nav. {%- endcomment -%}
 {%- assign has_hero = false -%}
 {%- if template.name == 'index' -%}{%- assign has_hero = true -%}{%- endif -%}
+{%- if template.name == 'page' and template.suffix == 'contact-us' -%}
+  {%- assign has_hero = true -%}
+{%- endif -%}
 
 {%- comment -%} is_legal_notice: solo activa la transición blanco→pastel al hacer scroll (igual que el home), sin quitar el espaciador ni superponer el header sobre el hero. Aplica también a Privacy Policy, Shipping Policy, Return & Refund Policy y Terms of Service, que comparten el mismo patrón de hero. {%- endcomment -%}
 {%- assign is_legal_notice = false -%}

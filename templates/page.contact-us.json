@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "contact-us": {
+      "type": "ContactUs",
+      "blocks": {
+        "feature-1": { "type": "feature_card",   "settings": { "icon": "headset", "title": "Customer Support", "description": "We're here to help you with orders, products and more." } },
+        "feature-2": { "type": "feature_card",   "settings": { "icon": "package", "title": "Order Assistance", "description": "Questions about your order? We've got you covered." } },
+        "feature-3": { "type": "feature_card",   "settings": { "icon": "refresh", "title": "Returns & Refunds", "description": "We'll guide you through the process." } },
+        "feature-4": { "type": "feature_card",   "settings": { "icon": "message", "title": "General Inquiries", "description": "Any other question? Don't hesitate to reach out." } },
+        "item-1": { "type": "contactus_item", "settings": { "icon": "headset",       "title": "Customer Support", "body": "Our customer support team is available to answer questions about your orders, products, and account. Reach us at supports@linecommercial.com and we will respond as quickly as possible within our business hours." } },
+        "item-2": { "type": "contactus_item", "settings": { "icon": "monitor",       "title": "Support Hours", "body": "Our support team is available Monday through Friday, from 9:00 AM to 6:00 PM. Messages received outside these hours will be answered on the next business day." } },
+        "item-3": { "type": "contactus_item", "settings": { "icon": "package",       "title": "Order and Shipping Inquiries", "body": "For questions about an existing order, tracking information, or shipping times, please have your order number ready and contact us at supports@linecommercial.com." } },
+        "item-4": { "type": "contactus_item", "settings": { "icon": "shield",        "title": "Returns and Refunds Assistance", "body": "If you need to start a return, exchange, or refund, please review our Return & Refund Policy or contact our support team directly for assistance." } },
+        "item-5": { "type": "contactus_item", "settings": { "icon": "briefcase",     "title": "Wholesale and Business Inquiries", "body": "Interested in partnering with LINE or purchasing in bulk? Send us the details of your business and we will get back to you with more information." } },
+        "item-6": { "type": "contactus_item", "settings": { "icon": "external-link", "title": "Press and Media", "body": "For press inquiries, media kits, or collaboration proposals, please reach out to our team and include the details of your request." } },
+        "item-7": { "type": "contactus_item", "settings": { "icon": "edit",          "title": "Careers", "body": "We are always open to meeting talented people. If you are interested in joining our team, feel free to send us your information and area of interest." } },
+        "item-8": { "type": "contactus_item", "settings": { "icon": "file-check",    "title": "Social Media", "body": "Follow us and reach out through our social media channels for quick updates, promotions, and another way to get in touch with our team." } },
+        "item-9": { "type": "contactus_item", "settings": { "icon": "scale",         "title": "Response Times", "body": "We aim to respond to all inquiries within 24 to 48 business hours. During high-demand periods, response times may be slightly longer." } }
+      },
+      "block_order": ["feature-1","feature-2","feature-3","feature-4","item-1","item-2","item-3","item-4","item-5","item-6","item-7","item-8","item-9"]
+    }
+  },
+  "order": [
+    "contact-us"
+  ]
+}
