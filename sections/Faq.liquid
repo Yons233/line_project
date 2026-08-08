@@ -1,0 +1,890 @@
+{% stylesheet %}
+/* ── Hero ── */
+.line-faq-hero {
+  position: relative;
+  min-height: 680px;
+  display: flex;
+  align-items: center;
+  overflow: visible;
+  background-color: #f0ece9;
+  background-size: cover;
+  background-position: right center;
+  background-repeat: no-repeat;
+}
+.line-faq-hero::after {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 140px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 70%, #ffffff 100%);
+  pointer-events: none;
+}
+.line-faq-hero__text {
+  position: relative;
+  z-index: 1;
+  max-width: 420px;
+  padding-left: var(--container-pad);
+  padding-right: var(--space-8);
+  padding-top: calc(var(--header-h) + var(--space-10));
+  padding-bottom: var(--space-20);
+}
+.line-faq-hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--champagne-1);
+}
+.line-faq-hero__eyebrow svg { width: 14px; height: 14px; flex-shrink: 0; }
+.line-faq-hero__title {
+  margin-top: var(--space-3);
+  font-family: var(--font-serif);
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: clamp(var(--text-3xl), 3.6vw, var(--text-4xl));
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.line-faq-hero__title-highlight {
+  background: var(--gradient-champagne);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.line-faq-hero__subtitle {
+  margin-top: var(--space-4);
+  max-width: 440px;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: var(--ink-soft);
+  text-align: justify;
+}
+.line-faq-hero__badge {
+  margin-top: var(--space-6);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.line-faq-hero__badge-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(42,36,30,0.10);
+  color: var(--champagne-1);
+}
+.line-faq-hero__badge-icon svg { width: 22px; height: 22px; }
+.line-faq-hero__badge-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.line-faq-hero__badge-title {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink);
+}
+.line-faq-hero__badge-subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--ink-soft);
+}
+
+/* ── Fondo blanco de la página, solo en FAQ ── */
+body.template-page-faq {
+  background-color: #ffffff;
+}
+
+/* ── Navegador de preguntas frecuentes ── */
+.line-faq-browser {
+  padding-block: var(--space-16) var(--space-16);
+  background: var(--white);
+}
+.line-faq-browser__inner {
+  display: grid;
+  grid-template-columns: 260px 1fr 300px;
+  gap: var(--space-6);
+  align-items: start;
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+/* Nav de categorías */
+.line-faq-browser__nav {
+  position: sticky;
+  top: calc(var(--header-h) + var(--space-6));
+  background: var(--white);
+  border: 1px solid rgba(42,36,30,0.14);
+  border-radius: 20px;
+  padding: var(--space-4);
+}
+.line-faq-browser__nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.line-faq-browser__nav-link {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: 14px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--ink-soft);
+  transition: background var(--duration-fast), color var(--duration-fast), box-shadow var(--duration-fast);
+}
+.line-faq-browser__nav-icon { display: flex; flex-shrink: 0; color: var(--ink-soft); }
+.line-faq-browser__nav-icon svg { width: 18px; height: 18px; }
+.line-faq-browser__nav-label { flex: 1; text-align: left; }
+.line-faq-browser__nav-chevron { flex-shrink: 0; width: 15px; height: 15px; color: var(--ink-soft); }
+.line-faq-browser__nav-link.is-active {
+  background: var(--cream-0);
+  color: var(--ink);
+  box-shadow: 0 4px 14px rgba(42,36,30,0.08);
+}
+.line-faq-browser__nav-link.is-active .line-faq-browser__nav-icon,
+.line-faq-browser__nav-link.is-active .line-faq-browser__nav-chevron { color: var(--ink); }
+.line-faq-browser__nav-help {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  margin-top: var(--space-4);
+  min-height: 340px;
+  background: var(--cream-0);
+  border-radius: 16px;
+}
+.line-faq-browser__nav-help-content {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-6) var(--space-6) 0;
+}
+.line-faq-browser__nav-help-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-base);
+  line-height: 1.3;
+  color: var(--ink);
+}
+.line-faq-browser__nav-help-subtitle {
+  margin-top: var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.line-faq-browser__nav-help-button {
+  margin-top: var(--space-6);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-6);
+  background: #1a1a1a;
+  color: var(--white);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  transition: transform var(--duration-fast);
+}
+.line-faq-browser__nav-help-button svg { width: 15px; height: 15px; }
+.line-faq-browser__nav-help-button:hover { transform: translateY(-2px); }
+.line-faq-browser__nav-help-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 62%;
+  z-index: 0;
+}
+.line-faq-browser__nav-help-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 30%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 30%);
+}
+
+/* Panel central */
+.line-faq-browser__panel {
+  display: none;
+  background: var(--white);
+  border: 1px solid rgba(42,36,30,0.08);
+  border-radius: 20px;
+  padding: var(--space-8);
+}
+.line-faq-browser__panel.is-active { display: block; }
+.line-faq-browser__panel-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(var(--text-xl), 2.2vw, var(--text-2xl));
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.line-faq-browser__panel-subtitle {
+  margin-top: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.line-faq-browser__accordion {
+  margin-top: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.line-faq-browser__item {
+  border: 1px solid rgba(42,36,30,0.10);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: background var(--duration-fast), border-color var(--duration-fast);
+}
+.line-faq-browser__item.is-open {
+  background: rgba(var(--pastel-nav-rgb), 0.4);
+  border-color: rgba(var(--pastel-nav-rgb), 0.7);
+}
+.line-faq-browser__question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  text-align: left;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: var(--ink);
+}
+.line-faq-browser__toggle-icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+}
+.line-faq-browser__toggle-line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--champagne-1);
+  border-radius: var(--radius-full);
+}
+.line-faq-browser__toggle-line--h { width: 14px; height: 2px; }
+.line-faq-browser__toggle-line--v { width: 2px; height: 14px; }
+.line-faq-browser__item.is-open .line-faq-browser__toggle-line--v { display: none; }
+.line-faq-browser__answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-base) var(--ease-out-expo);
+}
+.line-faq-browser__item.is-open .line-faq-browser__answer { grid-template-rows: 1fr; }
+.line-faq-browser__answer-inner { overflow: hidden; }
+.line-faq-browser__answer p {
+  margin: 0 var(--space-6) var(--space-4);
+  padding-left: var(--space-4);
+  border-left: 3px solid var(--champagne-1);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  color: var(--ink-soft);
+  text-align: justify;
+}
+.line-faq-browser__answer p + p { margin-top: calc(-1 * var(--space-3)); padding-top: var(--space-1); }
+
+/* Sidebar: Popular questions */
+.line-faq-browser__side {
+  background: rgba(var(--pastel-nav-rgb), 0.35);
+  border-radius: 20px;
+  padding: var(--space-6);
+}
+.line-faq-browser__popular-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.line-faq-browser__popular-icon {
+  display: flex;
+  flex-shrink: 0;
+  color: var(--champagne-1);
+}
+.line-faq-browser__popular-icon svg { width: 16px; height: 16px; }
+.line-faq-browser__popular-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-base);
+  color: var(--ink);
+}
+.line-faq-browser__popular-subtitle {
+  margin-top: var(--space-1);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--ink-soft);
+}
+.line-faq-browser__popular-list {
+  margin-top: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.line-faq-browser__popular-item {
+  background: var(--white);
+  border: 1px solid rgba(42,36,30,0.08);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.line-faq-browser__popular-question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  text-align: left;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--ink);
+}
+.line-faq-browser__popular-toggle {
+  position: relative;
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+}
+.line-faq-browser__popular-toggle span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--champagne-1);
+  border-radius: var(--radius-full);
+}
+.line-faq-browser__popular-toggle-h { width: 14px; height: 2px; }
+.line-faq-browser__popular-toggle-v { width: 2px; height: 14px; }
+.line-faq-browser__popular-item.is-open .line-faq-browser__popular-toggle-v { display: none; }
+.line-faq-browser__popular-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-base) var(--ease-out-expo);
+}
+.line-faq-browser__popular-item.is-open .line-faq-browser__popular-answer { grid-template-rows: 1fr; }
+.line-faq-browser__popular-answer-inner { overflow: hidden; }
+.line-faq-browser__popular-answer p {
+  padding: 0 var(--space-4) var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--ink-soft);
+  text-align: justify;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1000px) {
+  .line-faq-browser__inner { grid-template-columns: 1fr; }
+  .line-faq-browser__nav { position: static; }
+  .line-faq-browser__nav-list { flex-direction: row; flex-wrap: wrap; }
+  .line-faq-browser__nav-link { width: auto; }
+  .line-faq-browser__nav-label { text-align: left; }
+}
+@media (max-width: 700px) {
+  .line-faq-hero {
+    min-height: 0;
+    padding-bottom: var(--space-10);
+    background-position: 70% center;
+  }
+  .line-faq-hero__text {
+    max-width: 100%;
+    padding-right: var(--container-pad);
+    padding-top: calc(var(--header-h) + var(--space-8));
+    padding-bottom: var(--space-16);
+  }
+}
+{% endstylesheet %}
+
+{%- if section.settings.hero_image != blank -%}
+  {%- assign faq_hero_bg = section.settings.hero_image | image_url: width: 1920 -%}
+{%- else -%}
+  {%- assign faq_hero_bg = section.settings.hero_image_fallback | default: 'FaqPreguntas.png' | asset_url -%}
+{%- endif -%}
+
+<section class="line-faq-hero" id="line-faq-hero-{{ section.id }}" style="background-image: url('{{ faq_hero_bg }}');">
+    <div class="line-faq-hero__text">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="line-faq-hero__eyebrow">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2.5 14.9 9l7.1.6-5.4 4.6 1.7 6.9L12 17.4 5.7 21.1l1.7-6.9L2 9.6 9.1 9 12 2.5z"/>
+          </svg>
+          {{ section.settings.eyebrow }}
+        </p>
+      {%- endif -%}
+      <h1 class="line-faq-hero__title">
+        {{ section.settings.title_prefix }}
+        {%- if section.settings.title_highlight != blank -%}
+          <span class="line-faq-hero__title-highlight">{{ section.settings.title_highlight }}</span>
+        {%- endif -%}
+      </h1>
+      {%- if section.settings.subtitle != blank -%}
+        <p class="line-faq-hero__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+      {%- if section.settings.badge_title != blank -%}
+        <div class="line-faq-hero__badge">
+          <span class="line-faq-hero__badge-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>
+            </svg>
+          </span>
+          <span class="line-faq-hero__badge-text">
+            <span class="line-faq-hero__badge-title">{{ section.settings.badge_title }}</span>
+            {%- if section.settings.badge_subtitle != blank -%}
+              <span class="line-faq-hero__badge-subtitle">{{ section.settings.badge_subtitle }}</span>
+            {%- endif -%}
+          </span>
+        </div>
+      {%- endif -%}
+    </div>
+</section>
+
+<section class="line-faq-browser" id="line-faq-browser-{{ section.id }}">
+  <div class="line-faq-browser__inner">
+
+    {%- assign category_nav_blocks = section.blocks | where: 'type', 'faq_category' -%}
+    {%- assign faq_item_blocks = section.blocks | where: 'type', 'faq_item' -%}
+
+    <nav class="line-faq-browser__nav" aria-label="FAQ categories">
+      <ul class="line-faq-browser__nav-list" role="list">
+        {%- for cat in category_nav_blocks -%}
+          <li>
+            <button
+              type="button"
+              class="line-faq-browser__nav-link{% if forloop.first %} is-active{% endif %}"
+              data-faq-cat-trigger
+              data-cat="{{ cat.settings.key }}"
+            >
+              <span class="line-faq-browser__nav-icon" aria-hidden="true">
+                {%- case cat.settings.icon -%}
+                  {%- when 'truck' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+                    </svg>
+                  {%- when 'bag' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+                    </svg>
+                  {%- when 'refresh' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/>
+                    </svg>
+                  {%- when 'headset' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M3 12a9 9 0 0 1 18 0"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+                    </svg>
+                {%- endcase -%}
+              </span>
+              <span class="line-faq-browser__nav-label">{{ cat.settings.label }}</span>
+              <svg class="line-faq-browser__nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m9 18 6-6-6-6"/>
+              </svg>
+            </button>
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      {%- if section.settings.nav_help_title != blank -%}
+        <div class="line-faq-browser__nav-help">
+          <div class="line-faq-browser__nav-help-content">
+            <h4 class="line-faq-browser__nav-help-title">{{ section.settings.nav_help_title }}</h4>
+            {%- if section.settings.nav_help_subtitle != blank -%}
+              <p class="line-faq-browser__nav-help-subtitle">{{ section.settings.nav_help_subtitle }}</p>
+            {%- endif -%}
+            {%- if section.settings.nav_help_button_label != blank -%}
+              <a href="{{ section.settings.nav_help_button_url | default: '/pages/contact-us' }}" class="line-faq-browser__nav-help-button">
+                <span>{{ section.settings.nav_help_button_label }}</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6"/>
+                </svg>
+              </a>
+            {%- endif -%}
+          </div>
+          <div class="line-faq-browser__nav-help-bg">
+            <img
+              src="{{ 'FaqContactSupport.png' | asset_url }}"
+              alt="{{ section.settings.nav_help_title }}"
+              loading="lazy"
+              width="1952"
+              height="2146"
+            >
+          </div>
+        </div>
+      {%- endif -%}
+    </nav>
+
+    <div class="line-faq-browser__panels">
+      {%- for cat in category_nav_blocks -%}
+        <div class="line-faq-browser__panel{% if forloop.first %} is-active{% endif %}" data-faq-panel="{{ cat.settings.key }}" {{ cat.shopify_attributes }}>
+          {%- if cat.settings.label != blank -%}
+            <h2 class="line-faq-browser__panel-title">{{ cat.settings.label }}</h2>
+          {%- endif -%}
+          {%- if cat.settings.subtitle != blank -%}
+            <p class="line-faq-browser__panel-subtitle">{{ cat.settings.subtitle }}</p>
+          {%- endif -%}
+          <div class="line-faq-browser__accordion">
+            {%- assign item_index = 0 -%}
+            {%- for item in faq_item_blocks -%}
+              {%- if item.settings.category == cat.settings.key -%}
+                {%- assign item_index = item_index | plus: 1 -%}
+                <div class="line-faq-browser__item{% if item_index == 1 %} is-open{% endif %}" id="faq-item-{{ item.id }}" {{ item.shopify_attributes }}>
+                  <button
+                    type="button"
+                    class="line-faq-browser__question"
+                    aria-expanded="{% if item_index == 1 %}true{% else %}false{% endif %}"
+                    aria-controls="faq-answer-{{ item.id }}"
+                    data-faq-toggle
+                  >
+                    <span>{{ item.settings.question }}</span>
+                    <span class="line-faq-browser__toggle-icon" aria-hidden="true">
+                      <span class="line-faq-browser__toggle-line line-faq-browser__toggle-line--v"></span>
+                      <span class="line-faq-browser__toggle-line line-faq-browser__toggle-line--h"></span>
+                    </span>
+                  </button>
+                  <div class="line-faq-browser__answer" id="faq-answer-{{ item.id }}">
+                    <div class="line-faq-browser__answer-inner">
+                      {%- assign answer_paragraphs = item.settings.answer | split: "
+
+" -%}
+                      {%- for paragraph in answer_paragraphs -%}
+                        {%- assign paragraph_trimmed = paragraph | strip -%}
+                        {%- if paragraph_trimmed != blank -%}
+                          <p>{{ paragraph_trimmed | newline_to_br }}</p>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <aside class="line-faq-browser__side">
+      <div class="line-faq-browser__popular-heading">
+        <span class="line-faq-browser__popular-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2 13.8 8.6 20 12l-6.2 3.4L12 22l-1.8-6.6L4 12l6.2-3.4L12 2z"/>
+          </svg>
+        </span>
+        {%- if section.settings.popular_title != blank -%}
+          <h3 class="line-faq-browser__popular-title">{{ section.settings.popular_title }}</h3>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.popular_subtitle != blank -%}
+        <p class="line-faq-browser__popular-subtitle">{{ section.settings.popular_subtitle }}</p>
+      {%- endif -%}
+
+      {%- assign popular_blocks = section.blocks | where: 'type', 'popular_question' -%}
+      {%- if popular_blocks.size > 0 -%}
+        <div class="line-faq-browser__popular-list">
+          {%- for block in popular_blocks -%}
+            <div class="line-faq-browser__popular-item" id="popular-item-{{ block.id }}" {{ block.shopify_attributes }}>
+              <button
+                type="button"
+                class="line-faq-browser__popular-question"
+                aria-expanded="false"
+                aria-controls="popular-answer-{{ block.id }}"
+                data-faq-toggle
+              >
+                <span>{{ block.settings.question }}</span>
+                <span class="line-faq-browser__popular-toggle" aria-hidden="true">
+                  <span class="line-faq-browser__popular-toggle-v"></span>
+                  <span class="line-faq-browser__popular-toggle-h"></span>
+                </span>
+              </button>
+              <div class="line-faq-browser__popular-answer" id="popular-answer-{{ block.id }}">
+                <div class="line-faq-browser__popular-answer-inner">
+                  <p>{{ block.settings.answer }}</p>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </aside>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  var toggles = document.querySelectorAll('[data-faq-toggle]');
+  toggles.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var item = btn.closest('.line-faq-browser__item, .line-faq-browser__popular-item');
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      item.classList.toggle('is-open', !open);
+    });
+  });
+
+  var catTriggers = document.querySelectorAll('[data-faq-cat-trigger]');
+  var panels = document.querySelectorAll('[data-faq-panel]');
+  catTriggers.forEach(function (trigger) {
+    trigger.addEventListener('click', function () {
+      var cat = trigger.getAttribute('data-cat');
+      catTriggers.forEach(function (t) { t.classList.toggle('is-active', t === trigger); });
+      panels.forEach(function (panel) {
+        panel.classList.toggle('is-active', panel.getAttribute('data-faq-panel') === cat);
+      });
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "tag": "section",
+  "class": "section-faq",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "default": "FAQ",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "text",
+      "id": "title_prefix",
+      "default": "Frequently Asked",
+      "label": "Title — text"
+    },
+    {
+      "type": "text",
+      "id": "title_highlight",
+      "default": "Questions",
+      "label": "Title — highlighted word"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "default": "Explore our help topics to find the answer you're looking for.",
+      "label": "Subtitle"
+    },
+    {
+      "type": "text",
+      "id": "badge_title",
+      "default": "Quick answers",
+      "label": "Badge — title"
+    },
+    {
+      "type": "text",
+      "id": "badge_subtitle",
+      "default": "Save time",
+      "label": "Badge — subtitle"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
+    {
+      "type": "text",
+      "id": "hero_image_fallback",
+      "default": "FaqPreguntas.png",
+      "label": "Hero image fallback (file in assets/)"
+    },
+    {
+      "type": "header",
+      "content": "Nav — still need help card"
+    },
+    {
+      "type": "text",
+      "id": "nav_help_title",
+      "default": "Still need help?",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "nav_help_subtitle",
+      "default": "Our support team is here for you.",
+      "label": "Subtitle"
+    },
+    {
+      "type": "text",
+      "id": "nav_help_button_label",
+      "default": "Contact us",
+      "label": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "nav_help_button_url",
+      "label": "Button link (leave empty to go to Contact Us)"
+    },
+    {
+      "type": "header",
+      "content": "Sidebar — Popular questions"
+    },
+    {
+      "type": "text",
+      "id": "popular_title",
+      "default": "Popular questions",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "popular_subtitle",
+      "default": "The most common questions we get",
+      "label": "Subtitle"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "select",
+          "id": "key",
+          "label": "Key",
+          "default": "shipping",
+          "options": [
+            { "value": "shipping", "label": "Shipping & Tracking" },
+            { "value": "orders",   "label": "Orders" },
+            { "value": "payments", "label": "Payments & Returns" },
+            { "value": "support",  "label": "Customer Support" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "truck",
+          "options": [
+            { "value": "truck",   "label": "Truck" },
+            { "value": "bag",     "label": "Bag" },
+            { "value": "refresh", "label": "Refresh" },
+            { "value": "headset", "label": "Headset" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "default": "Category",
+          "label": "Label"
+        },
+        {
+          "type": "textarea",
+          "id": "subtitle",
+          "default": "Category description.",
+          "label": "Subtitle"
+        }
+      ]
+    },
+    {
+      "type": "faq_item",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "select",
+          "id": "category",
+          "label": "Category",
+          "default": "shipping",
+          "options": [
+            { "value": "shipping", "label": "Shipping & Tracking" },
+            { "value": "orders",   "label": "Orders" },
+            { "value": "payments", "label": "Payments & Returns" },
+            { "value": "support",  "label": "Customer Support" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "question",
+          "default": "Question",
+          "label": "Question"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "default": "Answer.",
+          "label": "Answer"
+        }
+      ]
+    },
+    {
+      "type": "popular_question",
+      "name": "Popular question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "default": "Question",
+          "label": "Question"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "default": "Answer.",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        { "type": "faq_category", "settings": { "key": "shipping", "icon": "truck",   "label": "Shipping & Tracking", "subtitle": "Everything you need to know about shipping and tracking your order." } },
+        { "type": "faq_category", "settings": { "key": "orders",   "icon": "bag",     "label": "Orders",              "subtitle": "Modifying, cancelling and troubleshooting your orders." } },
+        { "type": "faq_category", "settings": { "key": "payments", "icon": "refresh", "label": "Payments & Returns",  "subtitle": "Payment methods, returns and refund questions." } },
+        { "type": "faq_category", "settings": { "key": "support",  "icon": "headset", "label": "Customer Support",   "subtitle": "How to reach our team and what to expect." } },
+
+        { "type": "popular_question", "settings": { "question": "What is LINE?", "answer": "LINE is a brand specializing in curating innovative solutions for daily well-being. Our goal is to help you rest better, relieve tension, and feel great through products carefully chosen for their quality, functionality, and design." } },
+        { "type": "popular_question", "settings": { "question": "What type of products do you sell?", "answer": "At LINE, you will find a selection of products related to wellness, recovery, personal care, rest, posture, relaxation, light fitness, and muscle relief. Every product is evaluated before becoming part of our collection." } },
+        { "type": "popular_question", "settings": { "question": "Do the products have a warranty?", "answer": "Yes. We work exclusively with products that meet our quality standards. If an item has a manufacturing defect or arrives damaged, our team will help you resolve the issue quickly and easily." } },
+        { "type": "popular_question", "settings": { "question": "Do I need to create an account to buy?", "answer": "No. You can make your purchase as a guest if you prefer. However, creating a free account will allow you to easily manage your orders, save your favorite products, and access exclusive benefits when available." } },
+
+        { "type": "faq_item", "settings": { "category": "shipping", "question": "How long does shipping take?", "answer": "Delivery time depends on the destination and the product purchased. In most cases, orders are delivered within an estimated 3 to 7 business days. Once your order has been shipped, you will receive an email with tracking information so you can monitor its progress." } },
+        { "type": "faq_item", "settings": { "category": "shipping", "question": "How can I track my order?", "answer": "Once your order is processed and shipped, you will receive an email with your tracking number and instructions to track the shipment. If you have not received this information after the indicated processing time, please contact our customer support team at supports@linecommercial.com." } },
+        { "type": "faq_item", "settings": { "category": "shipping", "question": "When will I receive my tracking number?", "answer": "Your tracking number is sent by email once the order has been processed and dispatched. This typically occurs within 1 to 3 business days after confirming your purchase, although during high-demand periods processing may take a little longer." } },
+        { "type": "faq_item", "settings": { "category": "shipping", "question": "Where is my order?", "answer": "Once you complete your purchase, you will receive a confirmation email with your order details and a tracking number. You can use that number in the Track Order section of our website to follow your shipment in real time.\n\nDuring the early stages it is normal for the status to show messages such as \"Order registered\" or \"Awaiting carrier\" — this means your order has been confirmed and the supplier is preparing the package for pickup.\n\nOnce the carrier receives the package, the status will update to \"In transit\" or similar. In some cases, the first tracking updates may take 24 to 72 hours to appear, depending on processing times and the assigned carrier.\n\nIf after that period you still cannot see information about your order, please contact us at supports@linecommercial.com." } },
+        { "type": "faq_item", "settings": { "category": "shipping", "question": "Which countries do you ship to?", "answer": "We currently ship primarily within the United States. Depending on the product and supplier availability, some items may be shipped to other countries. If you have questions about a specific destination, please contact us before placing your order." } },
+
+        { "type": "faq_item", "settings": { "category": "orders", "question": "Can I modify or cancel my order?", "answer": "If your order has not yet been processed for shipment, modifications or cancellations may be possible. We recommend contacting us as soon as possible at supports@linecommercial.com. Once the order has been shipped, we cannot guarantee changes or cancellations." } },
+        { "type": "faq_item", "settings": { "category": "orders", "question": "What should I do if I entered an incorrect shipping address?", "answer": "If you notice that you entered an incorrect or incomplete address, please contact us as soon as possible at supports@linecommercial.com. If your order has not yet been processed or shipped, we will do our best to update the delivery address at no additional cost.\n\nOnce the order has been processed or dispatched, we cannot guarantee address changes. Line Commercial will not be responsible for delays, losses, or failed deliveries caused by incorrect shipping information provided at the time of purchase." } },
+        { "type": "faq_item", "settings": { "category": "orders", "question": "What should I do if my order arrives damaged?", "answer": "We apologize for any inconvenience. If your order arrives damaged or has an issue, please contact us within 14 days of delivery by emailing supports@linecommercial.com. Please include:\n\n- Your order number.\n- Clear photographs of the product.\n- Photographs of the packaging.\n- A brief description of the problem.\n\nOur team will review your case and offer a solution as soon as possible." } },
+
+        { "type": "faq_item", "settings": { "category": "payments", "question": "What payment methods do you accept?", "answer": "We accept the main payment methods to offer a secure and convenient shopping experience, including:\n\n- Visa\n- Mastercard\n- American Express\n- PayPal\n- Other payment methods available at checkout.\n\nAll payments are processed through secure platforms with encryption technology to protect your information." } },
+        { "type": "faq_item", "settings": { "category": "payments", "question": "Can I return a product?", "answer": "Yes. If you are not completely satisfied with your purchase, you may request a return in accordance with our Refund and Returns Policy. We recommend reviewing that policy to understand the applicable requirements, deadlines, and conditions." } },
+
+        { "type": "faq_item", "settings": { "category": "support", "question": "How can I contact customer support?", "answer": "Our customer support team is available to help you.\n\nEmail: supports@linecommercial.com\nMonday – Friday: 9:00 a.m. – 5:00 p.m. ET\nSaturday: 9:00 a.m. – 2:00 p.m. ET\n\nWe strive to respond to all inquiries within 24 to 48 business hours." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
